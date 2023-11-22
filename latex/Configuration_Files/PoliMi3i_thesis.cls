@@ -86,16 +86,17 @@
 \RequirePackage{xkeyval} % Handling keyword options.
 
 % Define keys for title pages
-\newif\if@cosupervisorexist\@cosupervisorexistfalse
+
+\define@key[OIST]{title}{Deliverable}{\def\Deliverable{#1}}
 \define@key[OIST]{title}{title}{\def\thesistitle{#1}}
-\define@key[OIST]{title}{course}{\def\course{#1}}
-\define@key[OIST]{title}{name}{\def\name{#1}}
-\define@key[OIST]{title}{ID}{\def\ID{#1}}
-\define@key[OIST]{title}{advisor}{\def\advisor{#1}}
-\define@key[OIST]{title}{coadvisor}{\def\coadvisor{#1}\@cosupervisorexisttrue}
-\define@key[OIST]{title}{academicyear}{\def\academicyear{#1}}
-\define@key[OIST]{title}{tutor}{\def\tutor{#1}}
-\define@key[OIST]{title}{phdcycle}{\def\phdcycle{#1}}
+\define@key[OIST]{title}{Authors}{\def\Authors{#1}}
+\define@key[OIST]{title}{Version}{\def\Version{#1}}
+\define@key[OIST]{title}{Date}{\def\Date{#1}}
+\define@key[OIST]{title}{Copyright}{\def\Copyright{#1}}
+\define@key[OIST]{title}{Download page}{\def\downloadpage{#1}}
+%\define@key[OIST]{title}{Coadvisor}{\def\Coadvisor{#1}\@cosupervisorexisttrue}
+%\define@key[OIST]{title}{tutor}{\def\tutor{#1}}
+%\define@key[OIST]{title}{phdcycle}{\def\phdcycle{#1}}
 %\define@key[OIST]{title}{cycle}{\def\cycle}
 %\define@key[OIST]{title}{chair}{\def\chair{#1}}
 
