@@ -16,7 +16,11 @@ CKB's automated evaluation system ensures an impartial assessment of student sub
 
 \subsection{Goals}
 \label{ss:goals}%
+The CKB platform aims to provide a collaborative environment for students to practice and refine their software development skills. The platform enables educators to orchestrate challenges within tournaments, fostering healthy competition and cultivating an environment for skill enhancement. The platform enables educators to define battle parameters, set deadlines, and configure scoring criteria, fostering a tailored and effective learning experience.
 
+The platform will be used by two types of users: Educators (ED) and Students (ST). The ED will be able to create competitions and battles within competitions. The ST will be able to create teams and join battles as a team or individually. The platform will provide a dashboard for code submission and automated evaluation of the code submitted. The platform will also provide a ranking of the competition and battles.
+
+Below there is the table of goals that the platform will achieve:
 \begin{table}[H]
   \begin{tabular}{|l|l|}
     \hline
@@ -60,7 +64,6 @@ CKB's automated evaluation system ensures an impartial assessment of student sub
 \section{Scope}
 \label{s:Scope}%
 
-
 \subsection{World phenomena}
 \label{ss:world_phenomena}%
 
@@ -68,7 +71,7 @@ CKB's automated evaluation system ensures an impartial assessment of student sub
   \begin{tabular}{|l|l|}
 
     \hline
-    \textbf{\#} & \textbf{World phenomena}      \\
+    \textbf{ID} & \textbf{Definitions}      \\
     \hline
     WP1 & ED wants to create a competitions \\
     \hline
@@ -81,13 +84,99 @@ CKB's automated evaluation system ensures an impartial assessment of student sub
     WP5 & ST set up GitHub actions    \\
     \hline
   \end{tabular}
-  \caption{World phenomena table}
+  \caption{List of the world phenomena}
   \label{tab:worldPhenomena}
+\end{table}
+
+\subsection{Shared phenomena}
+\label{ss:shared_phenomena}%
+
+\begin{table}[H]
+  \begin{tabular}{|l|l|}
+
+    \hline
+    \textbf{ID} & \textbf{Definitions}      \\
+    \hline
+    SP1 & ST creates an account on the platform \\
+    \hline
+    SP2 & ED creates an account in the platform \\
+    \hline
+    SP3 & ST logs in to the platform \\
+    \hline
+    SP4 & ED logs in to the platform  \\
+    \hline
+    SP5 & ST registers for the competitions before the deadline   \\
+    \hline
+    SP6 & ED creates a badge with certain rules   \\
+    \hline
+    SP7 & ED manually evaluates the code submitted by students   \\
+    \hline
+    SP8 & ED creates a competition   \\
+    \hline
+    SP9 & ED creates a battle within a competition   \\
+    \hline
+    SP10 & ED closes a competition   \\
+    \hline
+    SP11 & ST pushes new commit(s) into their GitHub repository before the deadline   \\
+    \hline
+    SP12 & ST invites other STs to participate in a battle as a team   \\
+    \hline
+    SP13 & ST subscribes as a single/team for an incoming battle before the deadline   \\
+    \hline
+    SP14 & CKB sends a notification that a competition is available to ST   \\
+    \hline
+    SP15 & CKB sends a notification that a battle is created inside a competition to ST   \\
+    \hline
+    SP16 & CKB sends a notification that a competition has ended to ST   \\
+    \hline
+    SP17 & CKB sends a notification that a battle has ended to ST   \\
+    \hline
+    SP18 & CKB sends links to the GitHub repository to all the ST subscribed   \\
+    \hline
+    SP19 & CKB updates scores for each ST   \\
+    \hline
+    SP20 & CKB gives badge to ST   \\
+    \hline
+    
+  \end{tabular}
+  \caption{List of the shared phenomena}
+  \label{tab:sharedPhenomena}
 \end{table}
 
 
 \section{Definitions, Acronyms, Abbreviations}
 \label{s:Definitions_Acronyms_Abbreviations}%
+
+\begin{table}[H]
+  \begin{tabular}{|l|l|}
+
+    \hline
+    \textbf{Acronyms} & \textbf{Definitions}      \\
+    \hline
+    ST & Student \\
+    \hline
+    ED & Educator \\
+    \hline
+    CKB & CodaKataBattle \\
+    \hline
+    RASD & Requirements Analysis and Specification Document     \\
+    \hline
+    SAT & Static Analyzer Tool    \\
+    \hline
+    WPX & World Phenomena X    \\
+    \hline
+    SPX & Shared Phenomena X    \\
+    \hline
+    GX & Goal Number X    \\
+    \hline
+    DX & Domain Assumption X    \\
+    \hline
+    UCX & Use Case X    \\
+    \hline
+  \end{tabular}
+  \caption{List of the world phenomena}
+  \label{tab:definitions}
+\end{table}
 
 \section{Revision history}
 \label{s:Revision_history}%
