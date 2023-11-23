@@ -87,13 +87,17 @@
 
 % Define keys for title pages
 
-\define@key[OIST]{title}{Deliverable}{\def\Deliverable{#1}}
+\newif\if@cosupervisorexist\@cosupervisorexistfalse
 \define@key[OIST]{title}{title}{\def\thesistitle{#1}}
-\define@key[OIST]{title}{Authors}{\def\Authors{#1}}
-\define@key[OIST]{title}{Version}{\def\Version{#1}}
-\define@key[OIST]{title}{Date}{\def\Date{#1}}
-\define@key[OIST]{title}{Copyright}{\def\Copyright{#1}}
-\define@key[OIST]{title}{Download page}{\def\downloadpage{#1}}
+\define@key[OIST]{title}{name1}{\def\nameA{#1}}
+\define@key[OIST]{title}{name2}{\def\nameB{#1}}
+\define@key[OIST]{title}{name3}{\def\nameC{#1}}
+\define@key[OIST]{title}{academicyear}{\def\academicyear{#1}}
+\define@key[OIST]{title}{deliverable}{\def\Deliverable{#1}}
+\define@key[OIST]{title}{version}{\def\Version{#1}}
+\define@key[OIST]{title}{date}{\def\Date{#1}}
+\define@key[OIST]{title}{copyright}{\def\Copyright{#1}}
+\define@key[OIST]{title}{download page}{\def\downloadpage{#1}}
 %\define@key[OIST]{title}{Coadvisor}{\def\Coadvisor{#1}\@cosupervisorexisttrue}
 %\define@key[OIST]{title}{tutor}{\def\tutor{#1}}
 %\define@key[OIST]{title}{phdcycle}{\def\phdcycle{#1}}
@@ -123,26 +127,26 @@
 			\vspace{1.5cm}
 			%{\color{bluepoli} \bfseries \large{\textsc{Tesi di Laurea Magistrale in\\ \course}}\par}
 			%\vspace{1.5 cm}
-			{\color{black} \begin{flushright} \Large {Doctoral Dissertation of:\\} \textbf{\name}\end{flushright}}
+			{\color{black} \Large {Author(s):} \bfseries{\nameA}} \\ \\
+            \vspace{0.51cm}
+            {\color{black} \hspace{6.3em} \Large \bfseries{\nameB}} \\
+            \vspace{0.51cm}
+            {\color{black} \hspace{6.3em} \Large \bfseries{\nameC}} \\
 			\end{minipage}
 			\\
 			\vspace*{\fill}
 			\\
 			\begin{minipage}{0.85\textwidth}
-			\large{
-			Advisor: {\advisor}
-			\\
-            Co-advisors: {\coadvisor}
-            \\
-			Tutor: {\tutor}
-            \\
-            {\phdcycle}
-            %Cycle: {\cycle}
-            %\\
-            %The Chair of the Doctoral Program:{\chair}
-            %%\\
-			%{\cycle}
-			}
+				\normalsize{
+						Academic Year: {\academicyear}
+				} \\
+				\normalsize{
+						{\Copyright}
+				}
+				\\
+				\normalsize{
+						Download Page: {\downloadpage}
+				}
 			\end{minipage}
 	\end{titlepage}
 }
