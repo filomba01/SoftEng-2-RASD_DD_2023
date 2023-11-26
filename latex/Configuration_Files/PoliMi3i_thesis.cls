@@ -136,7 +136,7 @@
 			\\
 			\vspace*{\fill}
 			\\
-			\begin{minipage}{0.85\textwidth}
+			\begin{minipage}{1\textwidth}
 				\normalsize{
 						Academic Year: {\academicyear}
 				} \\
@@ -145,7 +145,7 @@
 				}
 				\\
 				\normalsize{
-						Download Page: {\downloadpage}
+						Download Page: {\url{\downloadpage}}
 				}
 			\end{minipage}
 	\end{titlepage}
