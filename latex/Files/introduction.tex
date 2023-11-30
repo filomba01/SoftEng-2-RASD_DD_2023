@@ -7,7 +7,7 @@ The CodeKata is a learning method that takes inspiration from the Kata technique
 
 CodeKataBattle delineates an innovative platform geared towards enhancing students' software development skills through collaborative learning using CodeKata’s fundamentals. Facilitated by educators, CKB provides a dynamic environment where students engage in code kata battles, refining their programming proficiency and embracing best practices such as the test-driven development approach.
 
-Similar to recent initiatives addressing global challenges, CKB empowers educators to orchestrate challenges within tournaments, fostering healthy competition and cultivating an environment for skill enhancement. The platform enables educators to define battle parameters, set deadlines, and configure scoring criteria, fostering a tailored and effective learning experience.
+Similar to recent initiatives addressing global challenges, CKB empowers educators to orchestrate challenges within competition, fostering healthy competition and cultivating an environment for skill enhancement. The platform enables educators to define battle parameters, set deadlines, and configure scoring criteria, fostering a tailored and effective learning experience.
 
 At its core, a code kata battle presents students with programming challenges within specific language frameworks, coupled with exhaustive test cases. Teams collaboratively tackle these exercises, adhering to a test-first methodology and submitting solutions to the platform upon battle completion.
 
@@ -16,43 +16,46 @@ CKB's automated evaluation system ensures an impartial assessment of student sub
 
 \subsection{Goals}
 \label{ss:goals}%
-The CKB platform aims to provide a collaborative environment for students to practice and refine their software development skills. The platform enables educators to orchestrate challenges within tournaments, fostering healthy competition and cultivating an environment for skill enhancement. The platform enables educators to define battle parameters, set deadlines, and configure scoring criteria, fostering a tailored and effective learning experience.
+The CKB platform aims to provide a collaborative environment for students to practice and refine their software development skills. The platform enables educators to orchestrate challenges within competitions, fostering healthy competition and cultivating an environment for skill enhancement. The platform enables educators to define battle parameters, set deadlines, and configure scoring criteria, fostering a tailored and effective learning experience.
 
 The platform will be used by two types of users: Educators (ED) and Students (ST). The ED will be able to create competitions and battles within competitions. The ST will be able to create teams and join battles as a team or individually. The platform will provide a dashboard for code submission and automated evaluation of the code submitted. The platform will also provide a ranking of the competition and battles.
 
 Below there is the table of goals that the platform will achieve:
 \begin{table}[H]
   \begin{tabular}{|l|l|}
+
+
+
+
+
+
+
+
+
+
     \hline
     \textbf{\#} & \textbf{Goal}      \\
     \hline
-    G1 & Enable ED to Create New Competitions \\
+    G1 & Enable ED to MANAGE Competitions \\
     \hline
-    G2 & Enable ED to Create Code Battles within Competitions \\
+    G2 & Enable ED to manage Code Battles within Competitions \\
     \hline
-    G3 & Enable ST to Create Teams by Inviting Other STs \\
+    G3 & Enable ST to participate in a Competition \\
     \hline
-    G4 & Enable ST to Join Teams for Which They Have Been Invited    \\
+    G4 & Enable ST to be part of a team within a battle \\
     \hline
-    G5 & Allow STs to Join Battles as a Team    \\
+    G5 & Send Notifications to STs   \\
     \hline
-    G6 & Allow STs to Join Battles Individually    \\
+    G6 & Automatically Create GitHub Repositories for Every Battle in a Competition    \\
     \hline
-    G7 & Send Notifications to STs about New Competitions and Closing of Competitions    \\
+    G7 & Synchronize the Submission of Each Candidate with Their GitHub Repository   \\
     \hline
-    G8 & Automatically Create GitHub Repositories for Every Battle in a Competition    \\
+    G8 & CKB Provides an evaluation of the code submitted    \\
     \hline
-    G9 & Synchronize the Submission of Each Candidate with Their GitHub Repository    \\
+    G9 & Allow users to View Rankings in both battles and competitions   \\
     \hline
-    G10 & Provide a Dashboard for Code Submission    \\
-    \hline
-    G11 & CBK Provides an automated evaluation of the code submitted  \\
-    \hline
-    G12 & Assign Points to STs Based on Code Evaluation \\
-    \hline
-    G13 & Allow STs and ED to View Rankings of Competition \\
-    \hline
-    G14 & Allow STs to View Rankings of battles only in competition for which are subscribed \\
+    G10 & Allow to assign badges to the students    \\
+
     \hline
 
   \end{tabular}
@@ -151,11 +154,28 @@ Below there is the table of goals that the platform will achieve:
 \section{Definitions, Acronyms, Abbreviations}
 \label{s:Definitions_Acronyms_Abbreviations}%
 
+\subsection{Definitions}
+\label{ss:Definitions}
+
 \begin{table}[H]
   \begin{tabular}{|l|l|}
 
     \hline
-    \textbf{Acronyms} & \textbf{Definitions}      \\
+    User & anyone interacting with the system, it can be both a Student or an Educator    \\
+    \hline
+    Manage & create, supervise and edit a certain element of the application. \\
+    \hline
+  \end{tabular}
+  \caption{List of }
+  \label{tab:definitions}
+\end{table}
+
+\subsection{Acronyms}
+\label{ss:Acronyms}
+
+\begin{table}[H]
+  \begin{tabular}{|l|l|}
+
     \hline
     ST & Student \\
     \hline
@@ -167,6 +187,21 @@ Below there is the table of goals that the platform will achieve:
     \hline
     SAT & Static Analyzer Tool    \\
     \hline
+    T & Team    \\
+    \hline
+  \end{tabular}
+  \caption{List of Acronyms}
+  \label{tab:acronyms}
+\end{table}
+
+\subsection{Abbreviations}
+\label{ss:Abbreviations}
+
+
+\begin{table}[H]
+  \begin{tabular}{|l|l|}
+
+    \hline
     WPX & World Phenomena X    \\
     \hline
     SPX & Shared Phenomena X    \\
@@ -177,10 +212,13 @@ Below there is the table of goals that the platform will achieve:
     \hline
     UCX & Use Case X    \\
     \hline
+
   \end{tabular}
-  \caption{List of the world phenomena}
-  \label{tab:definitions}
+  \caption{List of abbreviations}
+  \label{tab:abbreviations}
 \end{table}
+
+
 
 \section{Revision history}
 \label{s:Revision_history}%
