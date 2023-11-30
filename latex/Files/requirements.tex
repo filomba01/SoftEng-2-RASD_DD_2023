@@ -5,15 +5,26 @@
 \subsection{User Interfaces}
 \label{ss:User_interfaces}%
 
+The CKB user interface will be a web page that will be accessed through a web browser. The web page will be designed to be simple and easy to use with the support for multiple screen sizes and devices.
+
 \subsection{Hardware Interfaces}
 \label{ss:Hardware_interfaces}%
+
+The platform requires a computer with a web browser and an internet connection to access the CKB web page. 
 
 \subsection{Software Interfaces}
 \label{ss:Software_interfaces}%
 
+CKB will be using some external interfaces in order to provide the service. The external interfaces are listed below:
+\begin{itemize}
+  \item \textbf{Github API:} CKB will use Github as source control system for the projects. The Github API will be used to create the repositories for each team in the battle and share it with the team members. Morover, the Github API will be used to access the repositories and get the last version of the code for each team. 
+  \item \textbf{Static Analysis API:} CKB will use a static analysis tool to analyze the code of each team after every new commit and will use the result of the analysis to assign points to each team.
+\end{itemize}
+
 \subsection{Communication Interfaces}
 \label{ss:Communication_interfaces}%
 
+All the communication between CKB, the external interfaces and the user will be done using HTTPS protocol.
 
 \section{Functional Requirements}
 \label{s:Functional_requirements}%
