@@ -17,8 +17,10 @@ The platform requires a computer with a web browser and an internet connection t
 
 CKB will be using some external interfaces in order to provide the service. The external interfaces are listed below:
 \begin{itemize}
-  \item \textbf{Github API:} CKB will use Github as source control system for the projects. The Github API will be used to create the repositories for each team in the battle and share it with the team members. Morover, the Github API will be used to access the repositories and get the last version of the code for each team. 
-  \item \textbf{Static Analysis API:} CKB will use a static analysis tool to analyze the code of each team after every new commit and will use the result of the analysis to assign points to each team.
+  \item \textbf{Github API:} CKB will use Github as source control system for the projects. The Github API will be used to create the repositories for each team in the battle and share it with the team members.
+  \item \textbf{Static Analyzer API:} CKB will use a static analysis tool to analyze the code of each team after every new commit and will use the result of the analysis to assign points to each team. The purpose of this interface is to give the possibility to the system to configure the analyzer as the educator needs, in terms of test cases, languages supported and other parameters.
+  \item \textbf{Results API: } The \textit{SA\_Server} will use this API to send the results of the analysis to the main server.
+  \item \textbf{Github Actions: } Github Actions will notify the system when a participant has pushed a new commit to its repository. The \textit{SA\_Server} will be listening to this notifications and will trigger the analysis of the source code.
 \end{itemize}
 
 \subsection{Communication Interfaces}
