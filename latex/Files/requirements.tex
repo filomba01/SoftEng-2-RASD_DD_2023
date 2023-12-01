@@ -31,6 +31,151 @@ All the communication between CKB, the external interfaces and the user will be 
 \section{Functional Requirements}
 \label{s:Functional_requirements}%
 
+\subsection{Use Cases}
+\label{ss:Use_cases}%
+
+\subsubsection*{UC1: Unregistered ST creates an account}
+\begin{center}
+  \begin{longtable}{l|p{0.75\linewidth}}
+    \hline
+    Actor & Unregistered ST \\
+    \hline
+    Entry conditions & The ST isn’t already registered in the \verb|CKB| platform and he clicks on the sign-up button \\
+    \hline
+    Event Flow & 1.\ CKB asks the ST to insert the personal information (i.e. name, surname, nickname, e-mail and password) \\
+    & 2.\ The ST fills out the form with the requested informations and accepts the “Terms \& Conditions” and “Privacy Policy” \\
+    & 3.\ CKB validate the inserted information \\
+    & 4.\ CKB sends an account activation link to the email inserted by the ST \\
+    & 5.\ ST clicks on the link received in the email \\
+    & 6.\ CKB confirms the account creation  \\
+    \hline
+    Exit condition & The ST account is created \\
+    \hline
+    Exceptions & 3.1 CKB isn’t able to validate the information inserted (i.e. duplicate email, duplicate username and wrong email address \\
+    & 5.1 The link is expired \\ \\
+    & In all the cases the ST is notified with an error message\\
+    \hline
+    \caption{ST signs up case.}
+    \label{tab: ST_signs_up}
+  \end{longtable}
+\end{center}
+
+\subsubsection*{UC2: Unregistered ED creates an account}
+\begin{center}
+  \begin{longtable}{l|p{0.75\linewidth}}
+    \hline
+    Actor & Unregistered ED \\
+    \hline
+    Entry conditions & The ED isn’t already registered in the \verb|CKB| platform and he clicks on the sign-up button \\
+    \hline
+    Event Flow & 1.\ CKB asks the ED to insert the personal information (i.e. name, surname, nickname, e-mail and password) \\
+    & 2.\ The ED fills out the form with the requested informations and accepts the “Terms \& Conditions” and “Privacy Policy” \\
+    & 3.\ CKB validate the inserted information \\
+    & 4.\ CKB asks the ED to insert the information about the institution (i.e. name, address, city, country, website) \\
+    & 5.\ The ED fills out the form with the requested informations \\
+    & 6.\ CKB validate the information about the institute \\
+    & 7.\ CKB sends an account activation link to the email inserted by the ED \\
+    & 8.\ ED clicks on the link received in the email \\
+    & 9.\ CKB confirms the account creation  \\
+    \hline
+    Exit condition & The ED account is created \\
+    \hline
+    Exceptions & 3.1 CKB isn’t able to validate the information inserted (i.e. duplicate email, duplicate username and wrong email address \\
+    & 6.1 CKB isn’t able to validate the information about the institute \\
+    & 8.1 The link is expired \\ \\
+    & In all the cases the ST is notified with an error message\\
+    \hline
+    \caption{ED signs up case.}
+    \label{tab: ED_signs_up}
+  \end{longtable}
+\end{center}
+
+\subsubsection*{UC3: ED creates a new competition}
+\begin{center}
+  \begin{longtable}{l|p{0.75\linewidth}}
+    \hline
+    Actor & Registered ED \\
+    \hline
+    Entry conditions & The ED is already registered and logged in  \\
+    & The ED clicks on the “Create Competition” button \\
+    \hline
+    Event Flow & 1.\ CKB asks for a name for the competition \\
+    & 2.\ The ED inserts the name \\
+    & 3.\ CKB checks if the name is available \\
+    & 4.\ CKB asks for the information of the competition (i.e. description, start date, end date, programming languages allowed) \\
+    & 5.\ CKB validates the information \\
+    & 6.\ CKB creates the competition \\
+    \hline
+    Exit condition & The competition is correctly created \\
+    \hline
+    Exceptions & 3.1 The name is already used by another competition \\
+    & 5.1 CKB isn’t able to validate the information \\
+    & 6.1 CKB isn’t able to create the competition \\ \\
+    & In the first case the ED is notified with an error message and the flow restarts from the step 1 \\
+    & In the other cases the ED is notified with an error message \\
+    \hline
+    \caption{ED creates a competiton.}
+    \label{tab: ED_create_competition}
+  \end{longtable}
+\end{center}
+
+\subsubsection*{UC4: ST joins a competition}
+\begin{center}
+  \begin{longtable}{l|p{0.75\linewidth}}
+    \hline
+    Actor & Registered ST \\
+    \hline
+    Entry conditions & The ST is already registered and logged in  \\
+    \hline
+    Event Flow & 1.\ CKB shows the list of the available competitions \\
+    & 2.\ The ST selects the competition \\
+    & 3.\ CKB shows the information about the competition \\
+    & 4.\ The ST clicks on the “Join” button \\
+    & 5.\ ST can now see the competition in the “My Competitions” section \\
+    \hline
+    Exit condition & The ST has joined the competition \\
+    \hline
+    Exceptions & 2.1 There are no competitions available \\ \\
+    & In this case the ST is notified with an error message \\
+    \hline
+    \caption{ST joins a competition.}
+    \label{tab: ST_join_competition}
+  \end{longtable}
+\end{center}
+
+\subsubsection*{UC5: ED creates a new battle inside a competition}
+\begin{center}
+  \begin{longtable}{l|p{0.75\linewidth}}
+    \hline
+    Actor & Registered ED \\
+    \hline
+    Entry conditions & The ED is already registered and logged in  \\
+    & The ED is the creator or a collaborator of the competition \\
+    & The ED is in the competition page \\
+    & The ED clicks on the “Create Battle” button \\
+    \hline
+    Event Flow & 1.\ CKB asks for a name for the battle \\
+    & 2.\ CKB asks for the information of the battle (i.e. description, start date, end date, programming languages allowed, number of teams, number of members per team) \\
+    & 3.\ ED inserts the information \\
+    & 4.\ CKB asks for the configuration of the static analyzer \\
+    & 5.\ CKB asks to upload the test cases and the solution \\
+    & 6.\ ED uploads the files and insert all the information requested \\
+    & 7.\ CKB validates the information \\
+    & 8.\ CKB creates the battle \\
+    \hline
+    Exit condition & The battle is created correctly \\
+    \hline
+    Exceptions & 6.1 The upload of the files fails \\
+    & 7.1 CKB isn’t able to validate the information \\
+    & 8.1 CKB isn’t able to create the battle \\ \\
+    & In all the cases the ED is notified with an error message \\
+    \hline
+    \caption{ED creates a battle inside a competition.}
+    \label{tab: ED_create_battle}
+  \end{longtable}
+\end{center}
+
+
 \section{Performance Requirements}
 \label{s:Performance_requirements}%
 
