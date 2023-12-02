@@ -28,19 +28,10 @@ CKB will be using some external interfaces in order to provide the service. The 
 
 All the communication between CKB, the external interfaces and the user will be done using HTTPS protocol.
 
-\section{Functional Requirements}
-\label{s:Functional_requirements}%
-
-\subsection{User Interfaces}
-\label{ss:User_interfaces}%
-
-\subsection{Hardware Interfaces}
-\label{ss:Hardware_interfaces}%
-
 \subsection{List of Requirements}
 \label{ss:List_of_Requirements}%
-
-\begin{longtable}{|p{3cm}|p{10cm}|}
+\begin{center}
+  \begin{longtable}{|p{3cm}|p{0.8\linewidth}|}
         \hline
         \textbf{Requirement} & \textbf{Description} \\
         \hline
@@ -147,10 +138,11 @@ All the communication between CKB, the external interfaces and the user will be 
         R51 & CKB shall have the environments for all the programming language it supports \\
         \hline
 
-\end{longtable}
+  \end{longtable}
+\end{center}
 
 
-\subsection{Mapping}
+\subsection{Mapping on Goals}
 \label{ss:Mapping_requirements}%
 
 \begin{table}[H]
@@ -244,7 +236,32 @@ All the communication between CKB, the external interfaces and the user will be 
   \end{longtable}
 \end{center}
 
-\subsubsection*{UC3: ED creates a new competition}
+\subsubsection*{UC3: ST or ED logs in}
+\begin{center}
+  \begin{longtable}{l|p{0.75\linewidth}}
+    \hline
+    Actor & Registered ST \\
+    & Registered ED \\
+    \hline
+    Entry conditions & The ED isn already registered in the \verb|CKB| platform \\
+    \hline
+    Event Flow & 1.\ The user clicks on the login button \\
+    & 2.\ CKB asks for the username and the password \\
+    & 3.\ The user inserts the username and the password \\
+    & 4.\ CKB validates the information \\
+    & 5.\ CKB redirects the user to the home page \\
+    \hline
+    Exit condition & The user is logged in \\
+    \hline
+    Exceptions & 4.1 The username or the password are wrong \\ \\
+    & In this case the user is notified with an error message \\
+    \hline
+    \caption{ST or ED logs in.}
+    \label{tab: ST_or_ED_logs_in}
+  \end{longtable}
+\end{center}
+
+\subsubsection*{UC4: ED creates a new competition}
 \begin{center}
   \begin{longtable}{l|p{0.75\linewidth}}
     \hline
@@ -273,7 +290,7 @@ All the communication between CKB, the external interfaces and the user will be 
   \end{longtable}
 \end{center}
 
-\subsubsection*{UC4: ST joins a competition}
+\subsubsection*{UC5: ST joins a competition}
 \begin{center}
   \begin{longtable}{l|p{0.75\linewidth}}
     \hline
@@ -297,7 +314,7 @@ All the communication between CKB, the external interfaces and the user will be 
   \end{longtable}
 \end{center}
 
-\subsubsection*{UC5: ED creates a new battle inside a competition}
+\subsubsection*{UC6: ED creates a new battle inside a competition}
 \begin{center}
   \begin{longtable}{l|p{0.75\linewidth}}
     \hline
@@ -326,6 +343,151 @@ All the communication between CKB, the external interfaces and the user will be 
     \hline
     \caption{ED creates a battle inside a competition.}
     \label{tab: ED_create_battle}
+  \end{longtable}
+\end{center}
+
+\subsubsection*{UC7: ED invites other EDs to a competition}
+\begin{center}
+  \begin{longtable}{l|p{0.75\linewidth}}
+    \hline
+    Actor & Registered ED \\
+    \hline
+    Entry conditions & The ED is already registered and logged in  \\
+    & The ED is the creator or a collaborator of the competition \\
+    & The ED is in the competition page \\
+    \hline
+    Event Flow & 1.\ ED clicks on the "Settings" button inside the competition\\
+    & 2.\ ED scrolls down to the "Collaborators" section \\
+    & 3.\ ED clicks on the "Invite" button \\
+    & 4.\ CKB asks for the email or the username of the ED to invite \\
+    & 5.\ ED inserts the email or the username \\
+    & 6.\ CKB validates the information \\
+    & 7.\ CKB sends an invitation email to the ED \\
+    & 8.\ The invited ED clicks on the link received in the email \\
+    & 9.\ CKB confirms the invitation  \\
+    \hline
+    Exit condition & The invited ED is a collaborator of the competition \\
+    \hline
+    Exceptions & 6.1 The email or the username is not valid \\
+    & 7.1 CKB isn’t able to send the email \\
+    & 8.1 The link is expired \\ \\
+    & In all the cases the ED is notified with an error message \\
+    \hline
+    \caption{ED invites other EDs to a competition.}
+    \label{tab: ED_invite_ED}
+  \end{longtable}
+\end{center}
+
+\subsubsection*{UC8: ED creates a new badge inside a competition}
+\begin{center}
+  \begin{longtable}{l|p{0.75\linewidth}}
+    \hline
+    Actor & Registered ED \\
+    \hline
+    Entry conditions & The ED is already registered and logged in  \\
+    & The ED is the creator or a collaborator of the competition \\
+    & The ED is in the competition page \\
+    \hline
+    Event Flow & 1.\ ED clicks on the "Settings" button inside the competition\\
+    & 2.\ ED scrolls down to the "Badges" section \\
+    & 3.\ ED clicks on the "Create new Badge" button \\
+    & 4.\ CKB asks for the information (i.e. name, description) of the badge \\
+    & 5.\ ED inserts the information \\
+    & 6.\ CKB asks for the rules of the badge \\
+    & 7.\ ED inserts the rules \\
+    & 8.\ CKB validates the information \\
+    & 9.\ CKB creates the badge \\
+    \hline
+    Exit condition &  The badge is added to the competition \\
+    \hline
+    Exceptions & 8.1 CKB isn’t able to validate the information \\
+    & 9.1 CKB isn’t able to create the badge \\ \\
+    & In all the cases the ED is notified with an error message \\
+    \hline
+    \caption{ED creates a badge inside a competition.}
+    \label{tab: ED_create_badge}
+  \end{longtable}
+\end{center}
+
+\subsubsection*{UC9: ST receives notification from CKB}
+\begin{center}
+  \begin{longtable}{l|p{0.75\linewidth}}
+    \hline
+    Actor & Registered ST \\
+    \hline
+    Entry conditions & The ST is already registered  \\
+    & A competition is created \\
+    & A battle inside a competiton in which the ST is enrolled is created \\
+    & A battle in which the ST has partecipated has ended \\
+    & The rank of a competition in which the ST has partecipated is available \\
+    \hline
+    Event Flow & 1.\ CKB sends a notification via email to the ST \\
+    & 2.\ The ST clicks on the link received in the email \\
+    & 3.\ CKB shows the information about the notification \\
+    \hline
+    Exit condition &  The ST received the notification \\
+    \hline
+    Exceptions & 2.1 The link is expired \\ \\
+    & In this case the ST is notified with an error message \\
+    \hline
+    \caption{ST receives notification from CKB.}
+    \label{tab: ST_receive_notification}
+  \end{longtable}
+\end{center}
+
+\subsubsection*{UC10: ST visualizes the ranking of their T}
+\begin{center}
+  \begin{longtable}{l|p{0.75\linewidth}}
+    \hline
+    Actor & Registered ST \\
+    \hline
+    Entry conditions & The ST is already registered and logged in \\
+    & The ST is enrolled in a competition \\
+    & The ST is enrolled in a battle \\
+    & The ST is in the competition page \\
+    \hline
+    Event Flow & 1.\ CKB shows the list of the battles in which the ST is enrolled \\
+    & 2.\ The ST selects the battle \\
+    & 3.\ The ST goes to the “Ranking” section \\
+    & 4.\ CKB shows the ranking of the battle \\
+    \hline
+    Exit condition &  The ST visualize the ranking of their team \\
+    \hline
+    Exceptions & 2.1 There are no battles available \\ \\
+    & In this case the ST visualizes a message that there are no battles available \\
+    \hline
+    \caption{ST visualizes the ranking of their T.}
+    \label{tab: ST_visualize_ranking}
+  \end{longtable}
+\end{center}
+
+\subsubsection*{UC11: ED manually evaluates the code}
+\begin{center}
+  \begin{longtable}{l|p{0.75\linewidth}}
+    \hline
+    Actor & Registered ED \\
+    \hline
+    Entry conditions & The ED is already registered  \\
+    & The ED is the creator or a collaborator of the competition \\
+    & The ED is in the battle page \\
+    \hline
+    Event Flow & 1.\ ED clicks on a T name \\
+    & 2.\ CKB shows the information about the T \\
+    & 3.\ ED clicks on the “Evaluate” button \\
+    & 4.\ CKB shows the information about the last code submission \\
+    & 5.\ ED navigates through the code \\
+    & 6.\ ED assigns a score to the code \\
+    & 7.\ CKB saves the score \\
+    \hline
+    Exit condition &  The score is saved \\
+    \hline
+    Exceptions & 4.1 The T didn't submit any code \\
+    & 7.1 CKB isn’t able to save the score \\ \\
+    & In the first case the ED visualize a message that there are no code submissions \\
+    & In the other case the ED is notified with an error message \\
+    \hline
+    \caption{ED manually evaluates the code.}
+    \label{tab: ED_evaluate_code}
   \end{longtable}
 \end{center}
 
