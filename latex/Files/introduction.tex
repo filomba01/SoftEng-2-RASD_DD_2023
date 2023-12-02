@@ -22,38 +22,34 @@ The CKB platform aims to provide a collaborative environment for students to pra
 The platform will be used by two types of users: Educators (ED) and Students (ST). The ED will be able to create competitions and battles within competitions. The ST will be able to create teams and join battles as a team or individually. The platform will provide a dashboard for code submission and automated evaluation of the code submitted. The platform will also provide a ranking of the competition and battles.
 
 Below there is the table of goals that the platform will achieve:
-\begin{table}[H]
-  \begin{tabular}{|l|l|}
-    \hline
-    \textbf{\#} & \textbf{Goal}      \\
-    \hline
-    G1 & Enable ED to MANAGE Competitions \\
-    \hline
-    G2 & Enable ED to manage Code Battles within Competitions \\
-    \hline
-    G3 & Enable ST to participate in a Competition \\
-    \hline
-    G4 & Enable ST to be part of a team within a battle \\
-    \hline
-    G5 & Send Notifications to STs   \\
-    \hline
-    G6 & Automatically Create GitHub Repositories for Every Battle in a Competition    \\
-    \hline
-    G7 & Synchronize the Submission of Each Candidate with Their GitHub Repository   \\
-    \hline
-    G8 & CKB Provides an evaluation of the code submitted    \\
-    \hline
-    G9 & Allow users to View Rankings in both battles and competitions   \\
-    \hline
-    G10 & Allow to assign badges to the students    \\
-
-    \hline
-
-
-  \end{tabular}
+\begin{longtable}{|l|l|}
+  \hline
+  \textbf{\#} & \textbf{Goal}      \\
+  \hline
+  G1 & Enable ED to MANAGE Competitions \\
+  \hline
+  G2 & Enable ED to manage Code Battles within Competitions \\
+  \hline
+  G3 & Enable ST to participate in a Competition \\
+  \hline
+  G4 & Enable ST to be part of a team within a battle \\
+  \hline
+  G5 & Send Notifications to STs   \\
+  \hline
+  G6 & Automatically Create GitHub Repositories for Every Battle in a Competition    \\
+  \hline
+  G7 & Synchronize the Submission of Each Candidate with Their GitHub Repository   \\
+  \hline
+  G8 & CKB Provides an evaluation of the code submitted    \\
+  \hline
+  G9 & Allow users to View Rankings in both battles and competitions   \\
+  \hline
+  G10 & Allow to assign badges to the students    \\
+  \hline
   \caption{List of goals}
   \label{tab:goals}
-\end{table}
+\end{longtable}
+
 \pagebreak
 \section{Scope}
 \label{s:Scope}%
@@ -86,61 +82,59 @@ Below there is the table of goals that the platform will achieve:
 \subsection{Shared phenomena}
 \label{ss:shared_phenomena}%
 
-\begin{table}[H]
-  \begin{tabular}{|l|l|}
+\begin{longtable}{|l|l|}
 
-    \hline
-    \textbf{ID} & \textbf{Definitions}      \\
-    \hline
-    SP1 & ST creates an account on the platform \\
-    \hline
-    SP2 & ED creates an account in the platform \\
-    \hline
-    SP3 & ST logs in to the platform \\
-    \hline
-    SP4 & ED logs in to the platform  \\
-    \hline
-    SP5 & ST registers for the competitions before the deadline   \\
-    \hline
-    SP6 & ED creates a badge with certain rules   \\
-    \hline
-    SP7 & ED manually evaluates the code submitted by students   \\
-    \hline
-    SP8 & ED creates a competition   \\
-    \hline
-    SP9 & ED creates a battle within a competition   \\
-    \hline
-    SP10 & ED closes a competition   \\
-    \hline
-    SP11 & ST pushes new commit(s) into their GitHub repository before the deadline   \\
-    \hline
-    SP12 & ST invites other STs to participate in a battle as a team   \\
-    \hline
-    SP13 & ST subscribes as a single/team for an incoming battle before the deadline   \\
-    \hline
-    SP14 & CKB sends a notification that a competition is available to ST   \\
-    \hline
-    SP15 & CKB sends a notification that a battle is created inside a competition to ST   \\
-    \hline
-    SP16 & CKB sends a notification that a competition has ended to ST   \\
-    \hline
-    SP17 & CKB sends a notification that a battle has ended to ST   \\
-    \hline
-    SP18 & CKB sends links to the GitHub repository to all the ST subscribed   \\
-    \hline
-    SP19 & CKB updates scores for each ST   \\
-    \hline
-    SP20 & CKB gives badge to ST   \\
-    \hline
-    SP21 & CKB updates the ranking of the competition   \\
-    \hline
-    SP22 & CKB updates the ranking of the battle   \\
-    \hline
-    
-  \end{tabular}
+  \hline
+  \textbf{ID} & \textbf{Definitions}      \\
+  \hline
+  SP1 & ST creates an account on the platform \\
+  \hline
+  SP2 & ED creates an account in the platform \\
+  \hline
+  SP3 & ST logs in to the platform \\
+  \hline
+  SP4 & ED logs in to the platform  \\
+  \hline
+  SP5 & ST registers for the competitions before the deadline   \\
+  \hline
+  SP6 & ED creates a badge with certain rules   \\
+  \hline
+  SP7 & ED manually evaluates the code submitted by students   \\
+  \hline
+  SP8 & ED creates a competition   \\
+  \hline
+  SP9 & ED creates a battle within a competition   \\
+  \hline
+  SP10 & ED closes a competition   \\
+  \hline
+  SP11 & ST pushes new commit(s) into their GitHub repository before the deadline   \\
+  \hline
+  SP12 & ST invites other STs to participate in a battle as a team   \\
+  \hline
+  SP13 & ST subscribes as a single/team for an incoming battle before the deadline   \\
+  \hline
+  SP14 & CKB sends a notification that a competition is available to ST   \\
+  \hline
+  SP15 & CKB sends a notification that a battle is created inside a competition to ST   \\
+  \hline
+  SP16 & CKB sends a notification that a competition has ended to ST   \\
+  \hline
+  SP17 & CKB sends a notification that a battle has ended to ST   \\
+  \hline
+  SP18 & CKB sends links to the GitHub repository to all the ST subscribed   \\
+  \hline
+  SP19 & CKB updates scores for each ST   \\
+  \hline
+  SP20 & CKB gives badge to ST   \\
+  \hline
+  SP21 & CKB updates the ranking of the competition   \\
+  \hline
+  SP22 & CKB updates the ranking of the battle   \\
+  \hline
+  
   \caption{List of the shared phenomena}
   \label{tab:sharedPhenomena}
-\end{table}
+\end{longtable}
 
 
 \section{Definitions, Acronyms, Abbreviations}
@@ -153,9 +147,9 @@ Below there is the table of goals that the platform will achieve:
   \begin{tabular}{|l|l|}
 
     \hline
-    User & anyone interacting with the system, it can be both a Student or an Educator    \\
+    User & Anyone interacting with the system, it can be both a Student or an Educator    \\
     \hline
-    Manage & create, supervise and edit a certain element of the application. \\
+    Manage & Create, supervise and edit a certain element of the application. \\
     \hline
   \end{tabular}
   \caption{List of definitions}
