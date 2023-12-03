@@ -204,6 +204,14 @@ All the communication between CKB, the external interfaces and the user will be 
     \caption{ST signs up case.}
     \label{tab: ST_signs_up}
   \end{longtable}
+
+  \begin{figure} [H]
+    \begin{center}
+        \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Images/UseCaseDiagrams/UC1.png}
+        \caption{UC1 sequence diagram.}
+        \label{fig: UC1_sequence_diagram}
+    \end{center}
+  \end{figure}
 \end{center}
 
 \subsubsection*{UC2: Unregistered ED creates an account}
@@ -234,6 +242,14 @@ All the communication between CKB, the external interfaces and the user will be 
     \caption{ED signs up case.}
     \label{tab: ED_signs_up}
   \end{longtable}
+
+  \begin{figure} [H]
+    \begin{center}
+        \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Images/UseCaseDiagrams/UC2.png}
+        \caption{UC2 sequence diagram.}
+        \label{fig: UC2_sequence_diagram}
+    \end{center}
+  \end{figure}
 \end{center}
 
 \subsubsection*{UC3: ST or ED logs in}
@@ -259,6 +275,14 @@ All the communication between CKB, the external interfaces and the user will be 
     \caption{ST or ED logs in.}
     \label{tab: ST_or_ED_logs_in}
   \end{longtable}
+
+  \begin{figure} [H]
+    \begin{center}
+        \includegraphics[width=0.65\textwidth,height=\textheight,keepaspectratio]{Images/UseCaseDiagrams/UC3.png}
+        \caption{UC3 sequence diagram.}
+        \label{fig: UC3_sequence_diagram}
+    \end{center}
+  \end{figure}
 \end{center}
 
 \subsubsection*{UC4: ED creates a new competition}
@@ -280,14 +304,21 @@ All the communication between CKB, the external interfaces and the user will be 
     Exit condition & The competition is correctly created \\
     \hline
     Exceptions & 3.1 The name is already used by another competition \\
-    & 5.1 CKB isn’t able to validate the information \\
-    & 6.1 CKB isn’t able to create the competition \\ \\
+    & 5.1 CKB isn’t able to validate the information \\ \\
     & In the first case the ED is notified with an error message and the flow restarts from the step 1 \\
-    & In the other cases the ED is notified with an error message \\
+    & In the other case the ED is notified with an error message \\
     \hline
     \caption{ED creates a competiton.}
     \label{tab: ED_create_competition}
   \end{longtable}
+
+  \begin{figure} [H]
+    \begin{center}
+        \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Images/UseCaseDiagrams/UC4.png}
+        \caption{UC4 sequence diagram.}
+        \label{fig: UC4_sequence_diagram}
+    \end{center}
+  \end{figure}
 \end{center}
 
 \subsubsection*{UC5: ST joins a competition}
@@ -302,16 +333,25 @@ All the communication between CKB, the external interfaces and the user will be 
     & 2.\ The ST selects the competition \\
     & 3.\ CKB shows the information about the competition \\
     & 4.\ The ST clicks on the “Join” button \\
-    & 5.\ ST can now see the competition in the “My Competitions” section \\
+    & 5.\ CKB adds the ST to the competition \\
+    & 6.\ ST can now see the competition in the “My Competitions” section \\
     \hline
     Exit condition & The ST has joined the competition \\
     \hline
     Exceptions & 2.1 There are no competitions available \\ \\
-    & In this case the ST is notified with an error message \\
+    & In this case the ST visualizes a message that there are no competition available \\ \\
     \hline
     \caption{ST joins a competition.}
     \label{tab: ST_join_competition}
   \end{longtable}
+
+  \begin{figure} [H]
+    \begin{center}
+        \includegraphics[width=0.65\textwidth,height=\textheight,keepaspectratio]{Images/UseCaseDiagrams/UC5.png}
+        \caption{UC5 sequence diagram.}
+        \label{fig: UC5_sequence_diagram}
+    \end{center}
+  \end{figure}
 \end{center}
 
 \subsubsection*{UC6: ED creates a new battle inside a competition}
@@ -326,24 +366,32 @@ All the communication between CKB, the external interfaces and the user will be 
     & The ED clicks on the “Create Battle” button \\
     \hline
     Event Flow & 1.\ CKB asks for a name for the battle \\
-    & 2.\ CKB asks for the information of the battle (i.e. description, start date, end date, programming languages allowed, number of teams, number of members per team) \\
-    & 3.\ ED inserts the information \\
-    & 4.\ CKB asks for the configuration of the static analyzer \\
-    & 5.\ CKB asks to upload the test cases and the solution \\
-    & 6.\ ED uploads the files and insert all the information requested \\
-    & 7.\ CKB validates the information \\
-    & 8.\ CKB creates the battle \\
+    & 2.\ CKB checks if the name is not already used for another battle inside the competition \\
+    & 3.\ CKB asks for the information of the battle (i.e. description, start date, end date, programming languages allowed, number of teams, number of members per team) \\
+    & 4.\ ED inserts the information \\
+    & 5.\ CKB asks for the configuration of the static analyzer \\
+    & 6.\ CKB asks to upload the test cases and the solution \\
+    & 7.\ ED uploads the files and insert all the information requested \\
+    & 8.\ CKB validates the information \\
+    & 9.\ CKB creates the battle \\
     \hline
     Exit condition & The battle is created correctly \\
     \hline
     Exceptions & 6.1 The upload of the files fails \\
-    & 7.1 CKB isn’t able to validate the information \\
-    & 8.1 CKB isn’t able to create the battle \\ \\
+    & 7.1 CKB isn’t able to validate the information \\ \\
     & In all the cases the ED is notified with an error message \\
     \hline
     \caption{ED creates a battle inside a competition.}
     \label{tab: ED_create_battle}
   \end{longtable}
+
+  \begin{figure} [H]
+    \begin{center}
+        \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Images/UseCaseDiagrams/UC6.png}
+        \caption{UC6 sequence diagram.}
+        \label{fig: UC6_sequence_diagram}
+    \end{center}
+  \end{figure}
 \end{center}
 
 \subsubsection*{UC7: ED invites other EDs to a competition}
@@ -369,13 +417,20 @@ All the communication between CKB, the external interfaces and the user will be 
     Exit condition & The invited ED is a collaborator of the competition \\
     \hline
     Exceptions & 6.1 The email or the username is not valid \\
-    & 7.1 CKB isn’t able to send the email \\
     & 8.1 The link is expired \\ \\
     & In all the cases the ED is notified with an error message \\
     \hline
     \caption{ED invites other EDs to a competition.}
     \label{tab: ED_invite_ED}
   \end{longtable}
+
+  \begin{figure} [H]
+    \begin{center}
+        \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Images/UseCaseDiagrams/UC7.png}
+        \caption{UC7 sequence diagram.}
+        \label{fig: UC7_sequence_diagram}
+    \end{center}
+  \end{figure}
 \end{center}
 
 \subsubsection*{UC8: ED creates a new badge inside a competition}
@@ -400,13 +455,20 @@ All the communication between CKB, the external interfaces and the user will be 
     \hline
     Exit condition &  The badge is added to the competition \\
     \hline
-    Exceptions & 8.1 CKB isn’t able to validate the information \\
-    & 9.1 CKB isn’t able to create the badge \\ \\
-    & In all the cases the ED is notified with an error message \\
+    Exceptions & 8.1 CKB isn’t able to validate the information \\ \\
+    & The ED is notified with an error message \\
     \hline
     \caption{ED creates a badge inside a competition.}
     \label{tab: ED_create_badge}
   \end{longtable}
+
+  \begin{figure} [H]
+    \begin{center}
+        \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Images/UseCaseDiagrams/UC8.png}
+        \caption{UC8 sequence diagram.}
+        \label{fig: UC8_sequence_diagram}
+    \end{center}
+  \end{figure}
 \end{center}
 
 \subsubsection*{UC9: ST receives notification from CKB}
@@ -427,12 +489,20 @@ All the communication between CKB, the external interfaces and the user will be 
     \hline
     Exit condition &  The ST received the notification \\
     \hline
-    Exceptions & 2.1 The link is expired \\ \\
+    Exceptions & 2.1 The link is wrong \\ \\
     & In this case the ST is notified with an error message \\
     \hline
     \caption{ST receives notification from CKB.}
     \label{tab: ST_receive_notification}
   \end{longtable}
+
+  \begin{figure} [H]
+    \begin{center}
+        \includegraphics[width=0.65\textwidth,height=\textheight,keepaspectratio]{Images/UseCaseDiagrams/UC9.png}
+        \caption{UC9 sequence diagram.}
+        \label{fig: UC9_sequence_diagram}
+    \end{center}
+  \end{figure}
 \end{center}
 
 \subsubsection*{UC10: ST visualizes the ranking of their T}
@@ -459,7 +529,17 @@ All the communication between CKB, the external interfaces and the user will be 
     \caption{ST visualizes the ranking of their T.}
     \label{tab: ST_visualize_ranking}
   \end{longtable}
+
+  \begin{figure} [H]
+    \begin{center}
+        \includegraphics[width=0.5\textwidth,height=\textheight,keepaspectratio]{Images/UseCaseDiagrams/UC10.png}
+        \caption{UC10 sequence diagram.}
+        \label{fig: UC10_sequence_diagram}
+    \end{center}
+  \end{figure}
 \end{center}
+
+\newpage
 
 \subsubsection*{UC11: ED manually evaluates the code}
 \begin{center}
@@ -489,6 +569,14 @@ All the communication between CKB, the external interfaces and the user will be 
     \caption{ED manually evaluates the code.}
     \label{tab: ED_evaluate_code}
   \end{longtable}
+
+  \begin{figure} [H]
+    \begin{center}
+        \includegraphics[width=0.65\textwidth,height=\textheight,keepaspectratio]{Images/UseCaseDiagrams/UC11.png}
+        \caption{UC11 sequence diagram.}
+        \label{fig: UC11_sequence_diagram}
+    \end{center}
+  \end{figure}
 \end{center}
 
 
