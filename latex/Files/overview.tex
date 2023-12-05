@@ -4,8 +4,10 @@
 \subsection{Class Diagram}
 \label{ss:class_diagram}%
 Here we provide the class diagram of our system and a brief description on some of the key aspects. The very first thing to explain is its logical split of the \textit{Static Analyzer} from the rest of the system, the reason for this is that we wanted to have a system that could be more \textit{flexible} than usual. The two logical parts can be implemented in the same tier or can also be split physically in terms of devices. What does not change is that when the STs set up github actions on their repository, the server that will be called when a commit is pushed is the \textbf{\textit{SA\_Server}}, which will do the necessary checks and then sends the results to the main server (\textbf{\textit{Results API}} has this purpose), where the score will be computed. Note that the Static Analyzer can be configured from the main server by using the provided APIs in \textbf{\textit{SA\_Configuration API}} (e.g., upload the test cases…). 
-As asked by the assignment we distinguished two types of \textit{Users}, \textbf{\textit{Students}} and \textbf{\textit{Educators}}, in order to differentiate the features the platform offers to the two. The same concept is also applied to the participants of a battle, which does not distinguish a team from a single student; this is very useful when the battle finishes and the results have to be translated into the competition. The \textbf{\textit{NotificationHandler}} has the purpose of handling the notifications of the users and it provides the procedures to do just so.
+As asked by the assignment we distinguished two types of users, \textbf{\textit{Students}} and \textbf{\textit{Educators}}, in order to differentiate the features the platform offers to the two. The same concept is also applied to the participants of a battle, which does not distinguish a team from a single student; this is very useful when the battle finishes and the results have to be translated into the competition. The \textbf{\textit{NotificationHandler}} has the purpose of handling the notifications of the users and it provides the procedures to do just so.
 
+
+% TO CHECK: link educator -> competition label "creates" should it be "manages"
 \begin{center}
   \includegraphics[width=\textwidth]{RASD_UML.png}
 \end{center}
