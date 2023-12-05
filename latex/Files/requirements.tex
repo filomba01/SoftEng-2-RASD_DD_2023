@@ -545,7 +545,7 @@ All the communication between CKB, the external interfaces and the user will be 
     Entry conditions & The ST isn’t already registered in the \verb|CKB| platform and he clicks on the sign-up button \\
     \hline
     Event Flow & 1.\ CKB asks the ST to insert the personal information (i.e. name, surname, nickname, e-mail and password) \\
-    & 2.\ The ST fills out the form with the requested informations and accepts the “Terms \& Conditions” and “Privacy Policy” \\
+    & 2.\ The ST fills out the form with the requested information and accepts the “Terms \& Conditions” and “Privacy Policy” \\
     & 3.\ CKB validate the inserted information \\
     & 4.\ CKB sends an account activation link to the email inserted by the ST \\
     & 5.\ ST clicks on the link received in the email \\
@@ -579,10 +579,10 @@ All the communication between CKB, the external interfaces and the user will be 
     Entry conditions & The ED isn’t already registered in the \verb|CKB| platform and he clicks on the sign-up button \\
     \hline
     Event Flow & 1.\ CKB asks the ED to insert the personal information (i.e. name, surname, nickname, e-mail and password) \\
-    & 2.\ The ED fills out the form with the requested informations and accepts the “Terms \& Conditions” and “Privacy Policy” \\
+    & 2.\ The ED fills out the form with the requested information and accepts the “Terms \& Conditions” and “Privacy Policy” \\
     & 3.\ CKB validate the inserted information \\
     & 4.\ CKB asks the ED to insert the information about the institution (i.e. name, address, city, country, website) \\
-    & 5.\ The ED fills out the form with the requested informations \\
+    & 5.\ The ED fills out the form with the requested information \\
     & 6.\ CKB validate the information about the institute \\
     & 7.\ CKB sends an account activation link to the email inserted by the ED \\
     & 8.\ ED clicks on the link received in the email \\
@@ -827,29 +827,45 @@ All the communication between CKB, the external interfaces and the user will be 
   \end{figure}
 \end{center}
 
-\subsubsection*{UC9: ST receives notification from CKB}
+\subsubsection*{UC9: ST joins a battle}
 \begin{center}
   \begin{longtable}{l|p{0.75\linewidth}}
     \hline
     Actor & Registered ST \\
     \hline
     Entry conditions & The ST is already registered  \\
-    & A competition is created \\
-    & A battle inside a competiton in which the ST is enrolled is created \\
-    & A battle in which the ST has partecipated has ended \\
-    & The rank of a competition in which the ST has partecipated is available \\
+    & The ST is enrolled in a competition \\
+    & The ST is in the competition page \\
     \hline
-    Event Flow & 1.\ CKB sends a notification via email to the ST \\
-    & 2.\ The ST clicks on the link received in the email \\
-    & 3.\ CKB shows the information about the notification \\
+    Event Flow & 1.\ CKB show the list of the battles inside of the competition \\
+    & 2.\ The ST select the battle that wants to join \\
+    & 3.\ CKB shows the information about the battle \\
+    & 4.\ The ST clicks on the “Join” button \\
+    & 5.\ CKB asks to create a new T or to join an existing one \\
+    & Here there are two possibilities: \\
+    & \quad \quad 6.1 The ST selects to create a new T \\
+    & \quad \quad 6.1.1 CKB asks for the information about the team (i.e. name, number of members) \\
+    & \quad \quad 6.1.2 The ST inserts the information \\
+    & \quad \quad 6.1.3 CKB validate the information \\
+    & \quad \quad 6.1.4 CKB asks for the name of the other STs to invite \\
+    & \quad \quad 6.1.5 The ST inserts the name of the other STs \\
+    & \quad \quad 6.1.6 CKB validate the information \\
+    & \quad \quad 6.1.7 CKB sends the invites to the other STs \\
+    & \quad \quad 6.1.8 CKB creates the T \\
+    & 6.2 The ST selects to join an existing public T \\
+    & \quad \quad 6.2.1 CKB shows the list of the public available Ts \\
+    & \quad \quad 6.2.2 The ST selects the T \\
+    & \quad \quad 6.2.3 CKB adds the ST to the T \\
     \hline
-    Exit condition &  The ST received the notification \\
+    Exit condition &  ST has joined the battle \\
     \hline
-    Exceptions & 2.1 The link is wrong \\ \\
-    & In this case the ST is notified with an error message \\
+    Exceptions & 6.1.3 CKB isn’t able to validate the information \\
+    & 6.1.6 CKB isn’t able to validate the information \\ \\
+    & In all the cases the ST is notified with an error message \\
+
     \hline
-    \caption{ST receives notification from CKB.}
-    \label{tab: ST_receive_notification}
+    \caption{ST joins a battle.}
+    \label{tab: ST_join_battle}
   \end{longtable}
 
   \begin{figure} [H]
@@ -931,6 +947,36 @@ All the communication between CKB, the external interfaces and the user will be 
         \includegraphics[width=0.65\textwidth,height=\textheight,keepaspectratio]{Images/UseCaseDiagrams/UC11.png}
         \caption{UC11 sequence diagram.}
         \label{fig: UC11_sequence_diagram}
+    \end{center}
+  \end{figure}
+\end{center}
+
+\subsubsection*{UC12: ST accepts an invitation to join a T}
+\begin{center}
+  \begin{longtable}{l|p{0.75\linewidth}}
+    \hline
+    Actor & Registered ST \\
+    \hline
+    Entry conditions & The ST is already registered \\
+    \hline
+    Event Flow & 1.\ CKB sends an invitation email to join a team to the ST \\
+    & 2.\ The ST clicks on the link received in the email \\
+    & 3.\ CKB adds the ST to the T \\
+    \hline
+    Exit condition &  The ST joined the team \\
+    \hline
+    Exceptions & 2.1 The link is expired \\ \\
+    & In this case the ST is notified with an error message \\
+    \hline
+    \caption{ST accepts an invitation to join a T.}
+    \label{tab: ST_accepts_invitation}
+  \end{longtable}
+
+  \begin{figure} [H]
+    \begin{center}
+        \includegraphics[width=0.65\textwidth,height=\textheight,keepaspectratio]{Images/UseCaseDiagrams/UC12.png}
+        \caption{UC12 sequence diagram.}
+        \label{fig: UC12_sequence_diagram}
     \end{center}
   \end{figure}
 \end{center}
