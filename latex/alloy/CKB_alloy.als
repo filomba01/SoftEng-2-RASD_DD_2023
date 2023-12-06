@@ -272,7 +272,6 @@ fact onlyStudentsPartOfTheTeamCanBeRemoved{
 		removeStudentFromTeam[s,t] 
 		implies (
 				s in t.teamStudents 
-				and t.public in False
 				and no b : Battle | t in b.participants and b.event.state != CREATED
 				)  
 }

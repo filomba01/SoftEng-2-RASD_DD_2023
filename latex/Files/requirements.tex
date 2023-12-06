@@ -559,7 +559,7 @@ For simplicity we decided not to include all the \textit{<<include>>} relationsh
     Entry conditions & The ST isn’t already registered in the \verb|CKB| platform and he clicks on the sign-up button \\
     \hline
     Event Flow & 1.\ CKB asks the ST to insert the personal information (i.e. name, surname, nickname, e-mail and password) \\
-    & 2.\ The ST fills out the form with the requested informations and accepts the “Terms \& Conditions” and “Privacy Policy” \\
+    & 2.\ The ST fills out the form with the requested information and accepts the “Terms \& Conditions” and “Privacy Policy” \\
     & 3.\ CKB validate the inserted information \\
     & 4.\ CKB sends an account activation link to the email inserted by the ST \\
     & 5.\ ST clicks on the link received in the email \\
@@ -593,10 +593,10 @@ For simplicity we decided not to include all the \textit{<<include>>} relationsh
     Entry conditions & The ED isn’t already registered in the \verb|CKB| platform and he clicks on the sign-up button \\
     \hline
     Event Flow & 1.\ CKB asks the ED to insert the personal information (i.e. name, surname, nickname, e-mail and password) \\
-    & 2.\ The ED fills out the form with the requested informations and accepts the “Terms \& Conditions” and “Privacy Policy” \\
+    & 2.\ The ED fills out the form with the requested information and accepts the “Terms \& Conditions” and “Privacy Policy” \\
     & 3.\ CKB validate the inserted information \\
     & 4.\ CKB asks the ED to insert the information about the institution (i.e. name, address, city, country, website) \\
-    & 5.\ The ED fills out the form with the requested informations \\
+    & 5.\ The ED fills out the form with the requested information \\
     & 6.\ CKB validate the information about the institute \\
     & 7.\ CKB sends an account activation link to the email inserted by the ED \\
     & 8.\ ED clicks on the link received in the email \\
@@ -841,29 +841,45 @@ For simplicity we decided not to include all the \textit{<<include>>} relationsh
   \end{figure}
 \end{center}
 
-\subsubsection*{UC9: ST receives notification from CKB}
+\subsubsection*{UC9: ST joins a battle}
 \begin{center}
   \begin{longtable}{l|p{0.75\linewidth}}
     \hline
     Actor & Registered ST \\
     \hline
     Entry conditions & The ST is already registered  \\
-    & A competition is created \\
-    & A battle inside a competiton in which the ST is enrolled is created \\
-    & A battle in which the ST has partecipated has ended \\
-    & The rank of a competition in which the ST has partecipated is available \\
+    & The ST is enrolled in a competition \\
+    & The ST is in the competition page \\
     \hline
-    Event Flow & 1.\ CKB sends a notification via email to the ST \\
-    & 2.\ The ST clicks on the link received in the email \\
-    & 3.\ CKB shows the information about the notification \\
+    Event Flow & 1.\ CKB show the list of the battles inside of the competition \\
+    & 2.\ The ST select the battle that wants to join \\
+    & 3.\ CKB shows the information about the battle \\
+    & 4.\ The ST clicks on the “Join” button \\
+    & 5.\ CKB asks to create a new T or to join an existing one \\
+    & Here there are two possibilities: \\
+    & \quad \quad 6.1 The ST selects to create a new T \\
+    & \quad \quad 6.1.1 CKB asks for the information about the team (i.e. name, number of members) \\
+    & \quad \quad 6.1.2 The ST inserts the information \\
+    & \quad \quad 6.1.3 CKB validate the information \\
+    & \quad \quad 6.1.4 CKB asks for the name of the other STs to invite \\
+    & \quad \quad 6.1.5 The ST inserts the name of the other STs \\
+    & \quad \quad 6.1.6 CKB validate the information \\
+    & \quad \quad 6.1.7 CKB sends the invites to the other STs \\
+    & \quad \quad 6.1.8 CKB creates the T \\
+    & 6.2 The ST selects to join an existing public T \\
+    & \quad \quad 6.2.1 CKB shows the list of the public available Ts \\
+    & \quad \quad 6.2.2 The ST selects the T \\
+    & \quad \quad 6.2.3 CKB adds the ST to the T \\
     \hline
-    Exit condition &  The ST received the notification \\
+    Exit condition &  ST has joined the battle \\
     \hline
-    Exceptions & 2.1 The link is wrong \\ \\
-    & In this case the ST is notified with an error message \\
+    Exceptions & 6.1.3 CKB isn’t able to validate the information \\
+    & 6.1.6 CKB isn’t able to validate the information \\ \\
+    & In all the cases the ST is notified with an error message \\
+
     \hline
-    \caption{ST receives notification from CKB.}
-    \label{tab: ST_receive_notification}
+    \caption{ST joins a battle.}
+    \label{tab: ST_join_battle}
   \end{longtable}
 
   \begin{figure} [H]
@@ -949,10 +965,100 @@ For simplicity we decided not to include all the \textit{<<include>>} relationsh
   \end{figure}
 \end{center}
 
+\subsubsection*{UC12: ST accepts an invitation to join a T}
+\begin{center}
+  \begin{longtable}{l|p{0.75\linewidth}}
+    \hline
+    Actor & Registered ST \\
+    \hline
+    Entry conditions & The ST is already registered \\
+    \hline
+    Event Flow & 1.\ CKB sends an invitation email to join a team to the ST \\
+    & 2.\ The ST clicks on the link received in the email \\
+    & 3.\ CKB adds the ST to the T \\
+    \hline
+    Exit condition &  The ST joined the team \\
+    \hline
+    Exceptions & 2.1 The link is expired \\ \\
+    & In this case the ST is notified with an error message \\
+    \hline
+    \caption{ST accepts an invitation to join a T.}
+    \label{tab: ST_accepts_invitation}
+  \end{longtable}
+
+  \begin{figure} [H]
+    \begin{center}
+        \includegraphics[width=0.65\textwidth,height=\textheight,keepaspectratio]{Images/SequenceDiagrams/UC12.png}
+        \caption{UC12 sequence diagram.}
+        \label{fig: UC12_sequence_diagram}
+    \end{center}
+  \end{figure}
+\end{center}
+
 
 \section{Performance Requirements}
 \label{s:Performance_requirements}%
 
+\subsection*{Concurrent connections}
+\label{ss:Concurrent_connections}%
+
+Since the connections during the phases of the competitions will for sure be very high we need to ensure that the system can handle a big number of concurrent connections. Considering an average number of partecipant in a competition of 300 and an average number of battles per competition of 5, we can estimate that the number of concurrent connections will be around 2000. To ensure that multiple competition can be run at the same time we need to ensure that the system can handle at least 10000 concurrent connections.
+
+\subsection*{Response time}
+\label{ss:Response_time}%
+
+The system should be able to respond to a request in less than 1 second. In particular the system should be able to respond to a request in less than 0.5 seconds for the most common requests (i.e. login, signup, create competition, create battle, join battle, join team, evaluate code, visualize ranking).
+
+\subsection*{Scalability}
+\label{ss:Scalability}%
+
+The system should be able to scale to support more competitions and battles. In particular the system should be able to support at least 1000 competitions and 10000 battles.
+
+
+
 \section{Design Constraints}
 \label{s:Design_constraints}%
 
+\subsection{Standard compliance}
+\label{ss:Standard_compliance}%
+
+The system should respect the laws about privacy and data protection of the country in which it is used. In particular for the use in Europe it should respect the GDPR. Morover the system should respect the data treatment for exchange with third party systems (i.e. GitHub).
+
+\subsection{Hardware limitation}
+\label{ss:Hardware_limitation}%
+
+The system should be able to run on any device with a browser and an internet connection. The system should be able to run on any operating system.
+
+\subsection{Any other constraint}
+\label{ss:Any_other_constraint}%
+
+There are no other constraints.
+
+\section{Software System Attributes}
+\label{s:Software_system_attributes}%
+
+\subsection{Reliability}
+\label{ss:Reliability}%
+
+Since the system is not critical as the code from the student is uploaded on Github, it is not necessary to have a high reliability. It is reasonable to have a failure rate between 0.1\% and 1\% to ensure an high quality service. In any case the system should be able to recover the data and state in case of failure.
+
+\subsection{Availability}
+\label{ss:Availability}%
+
+To ensure a good user experience and permit the ED to make changes to the competition and battles, the system should guarantee an availability of 99\%.
+
+
+\subsection{Security}
+\label{ss:Security}%
+
+The system guarantees the security of the communication between the users and the server using the HTTPS protocol. The system should guarantee the security of the data stored in the database using encryption and access control. 
+
+\subsection{Maintainability}
+\label{ss:Maintainability}%
+
+The system should be easy to maintain and update. The code should be well documented and the architecture should be well designed to allow the addition of new features and the correction of bugs.
+
+\subsection{Portability}
+\label{ss:Portability}%
+
+The system does not have restriction on the operating system and the browser. The system should be developed as a web application with a responsive design to allow the use on different devices.
