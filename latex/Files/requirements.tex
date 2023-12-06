@@ -988,7 +988,7 @@ For simplicity we decided not to include all the \textit{<<include>>} relationsh
 
   \begin{figure} [H]
     \begin{center}
-        \includegraphics[width=0.65\textwidth,height=\textheight,keepaspectratio]{Images/UseCaseDiagrams/UC12.png}
+        \includegraphics[width=0.65\textwidth,height=\textheight,keepaspectratio]{Images/SequenceDiagrams/UC12.png}
         \caption{UC12 sequence diagram.}
         \label{fig: UC12_sequence_diagram}
     \end{center}
@@ -999,6 +999,66 @@ For simplicity we decided not to include all the \textit{<<include>>} relationsh
 \section{Performance Requirements}
 \label{s:Performance_requirements}%
 
+\subsection*{Concurrent connections}
+\label{ss:Concurrent_connections}%
+
+Since the connections during the phases of the competitions will for sure be very high we need to ensure that the system can handle a big number of concurrent connections. Considering an average number of partecipant in a competition of 300 and an average number of battles per competition of 5, we can estimate that the number of concurrent connections will be around 2000. To ensure that multiple competition can be run at the same time we need to ensure that the system can handle at least 10000 concurrent connections.
+
+\subsection*{Response time}
+\label{ss:Response_time}%
+
+The system should be able to respond to a request in less than 1 second. In particular the system should be able to respond to a request in less than 0.5 seconds for the most common requests (i.e. login, signup, create competition, create battle, join battle, join team, evaluate code, visualize ranking).
+
+\subsection*{Scalability}
+\label{ss:Scalability}%
+
+The system should be able to scale to support more competitions and battles. In particular the system should be able to support at least 1000 competitions and 10000 battles.
+
+
+
 \section{Design Constraints}
 \label{s:Design_constraints}%
 
+\subsection{Standard compliance}
+\label{ss:Standard_compliance}%
+
+The system should respect the laws about privacy and data protection of the country in which it is used. In particular for the use in Europe it should respect the GDPR. Morover the system should respect the data treatment for exchange with third party systems (i.e. GitHub).
+
+\subsection{Hardware limitation}
+\label{ss:Hardware_limitation}%
+
+The system should be able to run on any device with a browser and an internet connection. The system should be able to run on any operating system.
+
+\subsection{Any other constraint}
+\label{ss:Any_other_constraint}%
+
+There are no other constraints.
+
+\section{Software System Attributes}
+\label{s:Software_system_attributes}%
+
+\subsection{Reliability}
+\label{ss:Reliability}%
+
+Since the system is not critical as the code from the student is uploaded on Github, it is not necessary to have a high reliability. It is reasonable to have a failure rate between 0.1\% and 1\% to ensure an high quality service. In any case the system should be able to recover the data and state in case of failure.
+
+\subsection{Availability}
+\label{ss:Availability}%
+
+To ensure a good user experience and permit the ED to make changes to the competition and battles, the system should guarantee an availability of 99\%.
+
+
+\subsection{Security}
+\label{ss:Security}%
+
+The system guarantees the security of the communication between the users and the server using the HTTPS protocol. The system should guarantee the security of the data stored in the database using encryption and access control. 
+
+\subsection{Maintainability}
+\label{ss:Maintainability}%
+
+The system should be easy to maintain and update. The code should be well documented and the architecture should be well designed to allow the addition of new features and the correction of bugs.
+
+\subsection{Portability}
+\label{ss:Portability}%
+
+The system does not have restriction on the operating system and the browser. The system should be developed as a web application with a responsive design to allow the use on different devices.
