@@ -30,7 +30,8 @@ sig Student extends User{
 sig Educator extends User{
 	created_badge: set Badge,
 	manage_competition: set Competition,
-	manage_battle: set Battle
+	manage_battle: set Battle,
+	manual_evalutions: set ManualEvalutation
 }
 
 sig Team{
@@ -39,7 +40,8 @@ sig Team{
 	joined_battle: one Battle,
 	teamState: one TeamState,
 	public: Bool,
-	invitedStudents: set Student
+	invitedStudents: set Student,
+	points: set Point
 }
 
 abstract sig TimeEvent{
@@ -63,10 +65,24 @@ sig Battle extends TimeEvent{
 	-- educators that manages the battle
 	manager: set Educator,
 	participant: set Team,
+	evaluations: set Point,
 	maxNstudentPerTeam: Int,
 	minNstudentPerTeam: Int,
 
 }
+
+sig PointValue{}
+
+abstract sig Point{
+	value: one PointValue
+}
+
+sig ManualEvalutation extends Point{}
+
+sig AutomaticEvaluation extends Point{}
+
+sig SATEvaluation extends Point{}
+
 
 ----------------
 -- PREDICATES --
@@ -214,7 +230,65 @@ fact StudentPartOfTeamInsideTheSameCompetition{
 }
 
 
+-- no invited students are part of the team --
+fact StudentInvitedNotInsideTeam{
+	all s:Student, t:Team |
+		t = s.team implies not (s in t.invitedStudents)
+}
+
 -- POINTSSSSSS ---
+
+-- every team which has been part of a competition (ENDED??)
+-- has an automatic point, a sat point and can have a manual
+-- evaluation
+fact teamHasConsistentPoints{
+	all b:Battle, t:Team |
+		t in b.participant implies 
+			one ae: AutomaticEvaluation | ae in t.points
+			and
+			one sate: SATEvaluation | sate in t.points
+			and
+			lone me : ManualEvalutation | me in t.points
+}
+--
+
+-- educators can evaluate only inside a battle they manage
+fact educatorsCanEvaluateOnlyInsideABattleTheyManage{
+	all e: Educator, b: Battle |
+		b.evaluations in e.manual_evalutions implies
+			b in e.manage_battle
+}
+
+-- only educators that manage a battle can assign manual evaluation to a student
+fact teamManualEvaluationsAreGivenByConsistentsEducators{
+	all e: Educator, t: Team | 
+		all i : t.points & e.manual_evalutions |
+			i in t.joined_battle.evaluations
+		
+}
+
+-- all points are assigned inside a battle
+fact allPointsAssigendInBattle{
+	all p: Point | 
+		one b: Battle |
+			p in b.evaluations
+}
+
+-- all points are assigned to a team and are assigend inside the battle
+-- they are part of
+fact allPointsAssigendToTeam{
+	all p: Point | 
+		one t: Team |
+			p in t.points and p in t.joined_battle.evaluations
+}
+
+--there is no manual evaluation not assigned to an educator
+fact manualEvaluationIsAlwaysMadeByanEducator{
+	all me: ManualEvalutation | 
+		one e: Educator | 
+			me in e.manual_evalutions and
+			me in e.manage_battle.evaluations
+}
 
 pred show{
 	#Student > 1 
@@ -222,6 +296,8 @@ pred show{
 	#Competition > 1
 	#Team > 1
 	#Educator > 2
+	#Team.invitedStudents > 1
+	#Team.teamStudents > 2
 }
 
 run show for 10
