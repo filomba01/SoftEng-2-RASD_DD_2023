@@ -7,7 +7,7 @@ The CodeKata is a learning method that takes inspiration from the Kata technique
 
 CodeKataBattle delineates an innovative platform geared towards enhancing students' software development skills through collaborative learning using CodeKata’s fundamentals. Facilitated by educators, CKB provides a dynamic environment where students engage in code kata battles, refining their programming proficiency and embracing best practices such as the test-driven development approach.
 
-Similar to recent initiatives addressing global challenges, CKB empowers educators to orchestrate challenges within competition, fostering healthy competition and cultivating an environment for skill enhancement. The platform enables educators to define battle parameters, set deadlines, and configure scoring criteria, fostering a tailored and effective learning experience.
+Similar to recent initiatives addressing global challenges, CKB empowers educators to orchestrate challenges within competition, stimulating healthy competition and cultivating an environment for skill enhancement. The platform enables educators to define battle parameters, set deadlines, and configure scoring criteria, fostering a tailored and effective learning experience.
 
 At its core, a code kata battle presents students with programming challenges within specific language frameworks, coupled with exhaustive test cases. Teams collaboratively tackle these exercises, adhering to a test-first methodology and submitting solutions to the platform upon battle completion.
 
@@ -17,32 +17,30 @@ CKB's automated evaluation system ensures an impartial assessment of student sub
 
 \subsection{Goals}
 \label{ss:goals}%
-The CKB platform aims to provide a collaborative environment for students to practice and refine their software development skills. The platform enables educators to orchestrate challenges within competitions, fostering healthy competition and cultivating an environment for skill enhancement. The platform enables educators to define battle parameters, set deadlines, and configure scoring criteria, fostering a tailored and effective learning experience.
-
-The platform will be used by two types of users: Educators (ED) and Students (ST). The ED will be able to create competitions and battles within competitions. The ST will be able to create teams and join battles as a team or individually. The platform will provide a dashboard for code submission and automated evaluation of the code submitted. The platform will also provide a ranking of the competition and battles.
+The platform will be used by two types of users: Educators (ED) and Students (ST). The ED will be able to create competitions and battles within competitions. The ST will be able to create teams and join battles as a team or individually. The platform will communicate with Github to pull the latest code submission and provides automated evaluation of the code submitted. The platform will also show a ranking of the competition and battles.
 
 Below there is the table of goals that the platform will achieve:
 \begin{longtable}{|l|l|}
   \hline
   \textbf{\#} & \textbf{Goal}      \\
   \hline
-  G1 & Enable ED to manage Competitions \\
+  G1 & Enable ED to manage competitions \\
   \hline
-  G2 & Enable ED to manage Code Battles within Competitions \\
+  G2 & Enable ED to manage code battles within competitions \\
   \hline
-  G3 & Enable ST to participate in a Competition \\
+  G3 & Enable ST to participate in a competition \\
   \hline
   G4 & Enable ST to be part of a team within a battle \\
   \hline
   G5 & Send Notifications to STs   \\
   \hline
-  G6 & Automatically Create GitHub Repositories for Every Battle in a Competition    \\
+  G6 & Automatically create GitHub repositories for every battle in a competition    \\
   \hline
-  G7 & Synchronize the Submission of Each Candidate with Their GitHub Repository   \\
+  G7 & Synchronize the submission of each candidate with their GitHub repository   \\
   \hline
-  G8 & CKB Provides an evaluation of the code submitted    \\
+  G8 & CKB provides an evaluation of the code submitted    \\
   \hline
-  G9 & Allow users to View Rankings in both battles and competitions   \\
+  G9 & Allow users to view rankings in both battles and competitions   \\
   \hline
   G10 & Allow to assign badges to the students    \\
   \hline
@@ -213,5 +211,21 @@ Below there is the table of goals that the platform will achieve:
 \section{Reference Documents}
 \label{s:Reference_documents}%
 
+\begin{itemize}
+  \item The specification document of the project: \textit{Assignment RDD AY 2023-2024}
+\end{itemize}
+
 \section{Document Structure}
 \label{s:Document_Structure}%
+
+The document is divided in five main section described as below.
+
+The first section is the introduction, that introduce the goals of the project, purpose and the analysis of world and shared phenomena. It also contains the definitions, acronyms and abbreviations used in the document. 
+
+The second section is the overall description, that contains the general factors that affect the product. Here there is also the analysis of the scenarios and functions of the platform and the domain assumptions.
+
+Then as third section there is the specific requirements section, that contains the functional and non-functional requirements of the platform. Morover, there is a more detailed analysis of the use cases and the mapping between goals and requirements. Then there is a description of the interfaces necessary for the platform to implement all the functionalities.
+
+The fourth section is the formal analysis using Alloy. Here there is the description of the model and the world generated by the Alloy Analyzer. This section is very important to prove the correctness of the model described in the previous sections.
+
+The last section is the effort spent by each member of the group to write this document.
