@@ -3,7 +3,7 @@
 
 \subsection{Class Diagram}
 \label{ss:class_diagram}%
-Here we provide the class diagram of our system and a brief description on some of the key aspects. The very first thing to explain is its logical split of the \textit{Static Analyzer} from the rest of the system, the reason for this is that we wanted to have a system that could be more \textit{flexible} than usual. The two logical parts can be implemented in the same tier or can also be split physically in terms of devices. What does not change is that when the STs set up github actions on their repository, the server that will be called when a commit is pushed is the \textbf{\textit{SA\_Server}}, which will do the necessary checks and then sends the results to the main server (\textbf{\textit{Results API}} has this purpose), where the score will be computed. Note that the Static Analyzer can be configured from the main server by using the provided APIs in \textbf{\textit{SA\_Configuration API}} (e.g., upload the test cases…). 
+Here we provide the class diagram of our system and a brief description on some of the key aspects. The very first thing to explain is the logical split of the \textit{Static Analyzer} from the rest of the system, the reason for this is that we wanted to have a system that could be more \textit{flexible} than usual. The two logical parts can be implemented in the same tier or can also be split physically in terms of devices. What does not change is that when the STs set up github actions on their repository, the server that will be called when a commit is pushed is the \textbf{\textit{SA\_Server}}, which will do the necessary checks and then sends the results to the main server (\textbf{\textit{Results API}} has this purpose), where the score will be computed. Note that the Static Analyzer can be configured from the main server by using the provided APIs in \textbf{\textit{SA\_Configuration API}} (e.g., upload the test cases…). 
 As asked by the assignment we distinguished two types of users, \textbf{\textit{Students}} and \textbf{\textit{Educators}}, in order to differentiate the features the platform offers to the two. To handle the participants of a battle we decided to represent every one of them as teams, therefore we can have a team that is composed by a single student, this will be very useful when analysing such teams to understand if they meet the criteria to join a battle. The \textbf{\textit{NotificationHandler}} has the purpose of handling the notifications of the users and it provides the procedures to do just so.
 
 
@@ -16,13 +16,13 @@ As asked by the assignment we distinguished two types of users, \textbf{\textit{
 \label{ss:state_diagrams}%
 
 \subsubsection*{Commit in github repository}
-Here there is the state diagram related to a participant pushing a commit in their repository.
+Here there is the state diagram related to the system that processes the push of a commit in a ST repository.
   \begin{center}
     \includegraphics[width=0.6\textwidth]{StateDiagrams/SD_1.png}
   \end{center}
 \newpage 
 \subsubsection*{Join battle}
-Here you can find the state diagram representing the process of joining a battle.
+Here you can find the state diagram representing the process of joining a battle from the system perspective.
   \begin{center}
     \includegraphics[width=0.8\textwidth]{StateDiagrams/SD_2.png}
   \end{center}
@@ -60,15 +60,12 @@ Inside of each battle the ED can add badges by clicking on the \textbf{\textit{A
 
 The ED can also invite other EDs to manage the competition with him by clicking on the \textbf{\textit{Invite Educator}} button and providing the email of the account of the ED he wants to invite. This will allow the colleague to change the settings of the competition and create new battles. \\
 
-\textbf{The ST can participate in a competition} \\
-The ST after logging in the platform can see the list of the competitions available, and can subscribe to them by clicking on the \textbf{\textit{Subscribe}} button. When the student clicks on the button he can choose to participate as a loner or as a team, in the latter case he has two possibilities: 
+\textbf{The ST can participate in a battle} \\
+The ST, assuming it is enrolled in a competition, can see the list of the battles available, and can subscribe to them by clicking on the \textbf{\textit{Subscribe}} button. When the student clicks on the button he can choose to participate as a loner or as a team, in the latter case he has two possibilities: 
 \begin{itemize}
-  \item Create a new team by clicking on the \textbf{\textit{Create Team}} button, where he can then insert the name of the team and the email of the other STs he wants to invite. Once the other STs accepted the invite the subscription to the competition will be automatically finalized by the platform.
-  \item Join an existing team by clicking on the \textbf{\textit{Join Team}} button. Once the team leader accepted the request,the ST will be added to the team.
+  \item Create a new team by clicking on the \textbf{\textit{Create Team}} button, where he can then insert the name of the team and the email of the other STs he wants to invite (CKB will send an invite via email to those addresses). Once the other STs accepted the invite the subscription to the competition will be automatically finalized by the platform.
+  \item To join an existing team a ST can click on the \textbf{\textit{Join Team}} button, where he can then insert the name of the team he wants to join. Another option is to accept an invite that a team leader sent to another ST.
 \end{itemize}
-
-
-After subscribing to a competition, the ST can see the list of the battles inside the competition and can subscribe to them by clicking on the \textbf{\textit{Subscribe}} button. When the student clicks on the button he can choose to participate as a loner or as a team, in the latter case he can invite other STs to participate in the battle with him by sending them an invite via email.
 
 Inside the competition ST can also see the general ranking of the competition, which is updated after each battle. It is also possible to see the partial ranking of each battle he have partecipated in, which is updated after each submission. 
 
