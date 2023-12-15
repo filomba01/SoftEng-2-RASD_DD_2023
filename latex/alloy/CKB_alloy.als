@@ -58,7 +58,7 @@ sig Team{
 	team_name: Name,
 	joined_battle: one Battle,
 	teamState: one TeamState,
-	link: one GitHubLink,
+	link: lone GitHubLink,
 	public: Bool,
 	invitedStudents: set Student,
 	points: set Point
@@ -83,6 +83,7 @@ sig Competition extends TimeEvent{
 sig Battle extends TimeEvent{
 	name: Name,
 	-- educators that manages the battle
+	link: one GitHubLink,
 	manager: set Educator,
 	participant: set Team,
 	evaluations: set Point,
@@ -267,6 +268,19 @@ fact teamCapacityRespectBattleConstraints{
 				#t.teamStudents < b.maxNstudentPerTeam + 1
 			)
 }
+-- battles have all different github links
+fact noSameGitHubLinksBattles{
+	all disj b1,b2: Battle|
+		b1.link != b2.link
+
+}
+
+-- teams have all different github links
+fact noSameGitHubLinksBattles{
+	all disj t1,t2: Team|
+		t1.link != t2.link
+
+}
 
 -- a student can be part of only a team
 fact StudentPartaTeamiffTeamHasStudent{
@@ -306,7 +320,7 @@ fact teamInWaitingOnlyInBattleNotStarted{
 }
 -- POINTS ---
 
--- every team which has been part of a competition (ENDED??)
+-- every team which has been part of a ended competition
 -- has an automatic point, a sat point and can have a manual
 -- evaluation
 fact teamHasConsistentPoints{
@@ -320,7 +334,12 @@ fact teamHasConsistentPoints{
 			lone me : ManualEvalutation | me in t.points
 
 }
---
+--no one shares the same evaluation
+fact noSameEvaluation{
+	all disj t1,t2 : Team |
+		#(t1.points & t2.points) = 0
+
+}
 
 -- educators can evaluate only inside a battle they manage
 fact educatorsCanEvaluateOnlyInsideABattleTheyManage{
@@ -410,7 +429,7 @@ assert noBadgeAssignedToStudentOutsideTheCompetition{
 --check noStudentInABattleInCompetitionNotJoined
 --check noStartedBattleWithWaitingTeams
 --check noStudentInsideABattleWith2Teams
---check allFinishedBattleGavePointsToTeams
+check allFinishedBattleGavePointsToTeams
 check noBadgeAssignedToStudentOutsideTheCompetition
 ----------------
 --	  RUN	  --
@@ -420,14 +439,14 @@ pred show{
 	#Student > 2 
 	#Badge = 1  
 	#Student.badges = 0
-	#Competition > 1
+	#Competition = 2
 	#Team > 2
 	#Battle > 2
 	#Educator >2
 	--#Team.invitedStudents > 1
-	#Team.teamStudents > 2
+	--#Team.teamStudents > 0
 	#Student.team > 2
 	some t: Team | t.teamState = WAITING
 }
 
---run show for 10
+run show for 10
