@@ -1,18 +1,37 @@
 open util/boolean
--- ENUMS
+-----------
+-- ENUMS --
+-----------
 -- state of a team
 enum TeamState{ WAITING, READY}
 
+enum BattleState{CREATED,STARTED,ENDED}
+-- type of possible condition for badges
+-- EQUAL: ==, GEQ: >=, LEQ: <= , LT: <, GT: >
+enum ConditionType { EQUAL, GEQ, LEQ, LT, GT}
+
+-----------
+-- SIG --
+-----------
+-- value that can be both Integer, Double or String used for badge conditions
+sig GenericValue{}
 -- Generalites such as name, surname 
 sig Generalities{}
-
-sig Badge{
-	--conditions: some Rule,
-}
-
 sig Name{}
 sig Username{}
 sig Email{}
+sig GitHubLink{}
+-- a rule can be also created without a badge assignation?
+sig Rule{
+	variables: Name,
+	conditionType: one ConditionType,
+	value: one GenericValue
+}
+
+sig Badge{
+	conditions: some Rule,
+}
+
 
 abstract sig User{
 	generalities: Generalities,
@@ -24,7 +43,7 @@ abstract sig User{
 sig Student extends User{
 	competitions: set Competition,
 	badges: set Badge,
-	team: lone Team
+	team: set Team
 }
 
 sig Educator extends User{
@@ -39,6 +58,7 @@ sig Team{
 	team_name: Name,
 	joined_battle: one Battle,
 	teamState: one TeamState,
+	link: one GitHubLink,
 	public: Bool,
 	invitedStudents: set Student,
 	points: set Point
@@ -66,9 +86,14 @@ sig Battle extends TimeEvent{
 	manager: set Educator,
 	participant: set Team,
 	evaluations: set Point,
+	battleState: one BattleState,
 	maxNstudentPerTeam: Int,
 	minNstudentPerTeam: Int,
 
+}{
+	--the min number of student is always less than equal than the max
+	minNstudentPerTeam > 0 and
+	minNstudentPerTeam < (maxNstudentPerTeam + 1)
 }
 
 sig PointValue{}
@@ -179,6 +204,8 @@ fact badgeAlwaysAssignedToCompetition{
 			b in c.badges
 }
 
+-- a badge is always linked
+
 -- a badge is assigned to a student only if it participated to the competition where the badge
 -- has been assigned
 fact studentsEarnsBadgesInsideRightCompetition{
@@ -197,6 +224,7 @@ fact badgeCreatedByEdAreInsideCompetitionManagedByHim{
 		b in e.manage_competition.badges
 }
 
+
 -- same as above for battles
 -- a badge created by an Educator is always part of a competition MANAGED by the same educator
 fact battlesCreatedByEdAreInsideCompetitionManagedByHim{
@@ -206,20 +234,52 @@ fact battlesCreatedByEdAreInsideCompetitionManagedByHim{
 		b in e.manage_competition.battles
 }
 
+-- if a team is in a battle it has joined it
+fact teamInBattleParticipantIffTeamJoinedBattle{
+	all t: Team, b: Battle |
+		t in b.participant iff t.joined_battle = b
+}
 
+--@toFix could be redundant if above true
 -- a team is part on only one Battle
 fact teamOnlyInOneBattle{
 	all t: Team, b: Battle |
 		t in b.participant
 		implies
 		no b2: Battle |
-			b2 != b and t in b2.participant 
+			b2 != b and t in b2.participant
+}
+-- a student is part of battles only if are in the same competition
+fact stdInsideBattleInConsistentCompetition{
+	all s: Student, c: Competition | 
+		s.team.joined_battle in c.battles
+		iff c in s.competitions
+}
+
+-- a team part of a battle respects its number constraints
+fact teamCapacityRespectBattleConstraints{
+	all t: Team, b: Battle | 
+		t in b.participant
+		implies
+			(
+				#t.teamStudents > b.minNstudentPerTeam - 1
+				and 
+				#t.teamStudents < b.maxNstudentPerTeam + 1
+			)
 }
 
 -- a student can be part of only a team
-fact StudentPartOfOnlyaTeam{
+fact StudentPartaTeamiffTeamHasStudent{
 	all t:Team, s:Student | 
-		t = s.team iff s in t.teamStudents
+		t in s.team iff s in t.teamStudents 
+		
+}
+-- a student cannot be part of two teams in the same battle
+fact StudentPartOnlyOfATeamInsideABattle{
+	all t:Team, s:Student | 
+		t in s.team
+			implies
+				#(t.joined_battle.participant & s.team) = 1 
 }
 
 -- student are part of a team that battle in a competition they are part of
@@ -236,19 +296,29 @@ fact StudentInvitedNotInsideTeam{
 		t = s.team implies not (s in t.invitedStudents)
 }
 
--- POINTSSSSSS ---
+
+-- a team is in waiting on a battle only if the battle is not started
+fact teamInWaitingOnlyInBattleNotStarted{
+	all b:Battle |
+		b.battleState != CREATED implies
+		(no t:Team | 
+			t.joined_battle = b and t.teamState = WAITING)
+}
+-- POINTS ---
 
 -- every team which has been part of a competition (ENDED??)
 -- has an automatic point, a sat point and can have a manual
 -- evaluation
 fact teamHasConsistentPoints{
 	all b:Battle, t:Team |
-		t in b.participant implies 
+		(t in b.participant and b.battleState = ENDED) 
+		implies 
 			one ae: AutomaticEvaluation | ae in t.points
 			and
 			one sate: SATEvaluation | sate in t.points
 			and
 			lone me : ManualEvalutation | me in t.points
+
 }
 --
 
@@ -290,14 +360,74 @@ fact manualEvaluationIsAlwaysMadeByanEducator{
 			me in e.manage_battle.evaluations
 }
 
-pred show{
-	#Student > 1 
-	#Badge > 1  #Student.badges > 3
-	#Competition > 1
-	#Team > 1
-	#Educator > 2
-	#Team.invitedStudents > 1
-	#Team.teamStudents > 2
+----------------
+-- ASSERTIONS --
+----------------
+
+-- there is no student in a battle inside competitions which
+-- are not joined by the student
+assert noStudentInABattleInCompetitionNotJoined{
+	all s: Student |
+		no c: Competition | 
+			#(s.team.joined_battle) > 0 and
+			s.team.joined_battle in c.battles 
+			and s not in c.students		
+}
+-- no battle started with a team not ready inside
+assert noStartedBattleWithWaitingTeams{
+	all b: Battle, t: Team |
+		(t in b.participant and b.battleState = STARTED)
+			implies
+			t.teamState = READY
+}
+-- there is no student inside a two team in the same
+-- competition
+assert noStudentInsideABattleWith2Teams{
+	all s:Student, t1: Team , t2: Team |
+		 t1 in s.team and 
+		 t2 in s.team and
+		 t2 != t1
+		implies
+			t2.joined_battle != t1.joined_battle 
+
 }
 
-run show for 10
+assert allFinishedBattleGavePointsToTeams{
+	all b: Battle |
+		b.battleState = ENDED 
+		implies 
+		no t: b.participant |
+			#(b.evaluations & t.points) = 0
+}
+
+-- no badge assigned in student not joined a competition
+assert noBadgeAssignedToStudentOutsideTheCompetition{
+	all s: Student |
+		s.badges in s.competitions.badges
+}
+
+
+--check noStudentInABattleInCompetitionNotJoined
+--check noStartedBattleWithWaitingTeams
+--check noStudentInsideABattleWith2Teams
+--check allFinishedBattleGavePointsToTeams
+check noBadgeAssignedToStudentOutsideTheCompetition
+----------------
+--	  RUN	  --
+----------------
+pred show{
+	#BattleState > 1
+	#Student > 2 
+	#Badge = 1  
+	#Student.badges = 0
+	#Competition > 1
+	#Team > 2
+	#Battle > 2
+	#Educator >2
+	--#Team.invitedStudents > 1
+	#Team.teamStudents > 2
+	#Student.team > 2
+	some t: Team | t.teamState = WAITING
+}
+
+--run show for 10
