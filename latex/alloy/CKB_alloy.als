@@ -126,6 +126,10 @@ pred CompetitionSameName[c1:Competition,c2:Competition]{
 	c1.name = c2.name
 }
 
+pred TeamSameName[t1:Team,t2:Team]{
+	t1.team_name = t2.team_name
+}
+
 -----------
 -- FACTS --
 -----------
@@ -146,6 +150,13 @@ fact CompetitionCannotHaveSameName{
 	all disj c1,c2 : Competition |
 		!CompetitionSameName[c1,c2]
 }
+
+-- two different teams cannot have the same name
+fact TeamCannotHaveSameName{
+	all disj t1,t2 : Team |
+		!TeamSameName[t1,t2]
+}
+
 -- there is no Competition which is not created by an educator
 fact aCompetitionIsAlwaysCreatedByAnEducator{
 	all c: Competition |
@@ -400,7 +411,7 @@ assert noStartedBattleWithWaitingTeams{
 			t.teamState = READY
 }
 -- there is no student inside a two team in the same
--- competition
+-- battle
 assert noStudentInsideABattleWith2Teams{
 	all s:Student, t1: Team , t2: Team |
 		 t1 in s.team and 
@@ -424,6 +435,33 @@ assert noBadgeAssignedToStudentOutsideTheCompetition{
 	all s: Student |
 		s.badges in s.competitions.badges
 }
+
+
+-- @toAdd
+-- Battle can't start if there are not enough teams / at least one team 
+
+-- @toAdd
+-- Each competition has at least one manager
+
+-- @toAdd
+-- No student is part of a team and an invited student simultaneously
+
+-- @toAdd
+-- Each badge has at least one rule
+
+-- @toAdd
+-- Each AutomaticEvaluation and SATEvaluation is linked only to a team
+
+-- @toDiscuss
+-- Distinction between educator that created the competion and educator that manage the competion
+-- For instance an educator that created the competion could add or remove another educator to manage the competion
+
+-- @toAdd
+-- Can't exist a team that has not student inside
+
+-- @toAdd
+-- Maximum number of students per team is grater than minimum number of students per team
+
 
 
 --check noStudentInABattleInCompetitionNotJoined
