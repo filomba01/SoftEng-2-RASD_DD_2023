@@ -315,7 +315,7 @@ fact StudentPartOfTeamInsideTheSameCompetition{
 }
 
 
--- no invited students are part of the team --
+-- no invited students are part of the team
 fact StudentInvitedNotInsideTeam{
 	all s:Student, t:Team |
 		t = s.team implies not (s in t.invitedStudents)
@@ -390,6 +390,24 @@ fact manualEvaluationIsAlwaysMadeByanEducator{
 			me in e.manage_battle.evaluations
 }
 
+
+-- @toAdd
+-- No student is part of a team and an invited student simultaneously
+fact noStudentBothInvitedAndJoinedInTheSameTeam{
+	all t: Team | 
+		all ts: t.teamStudents, ti: t.invitedStudents |
+			#(ts & ti) = 0
+}
+
+-- @toCheck
+-- Battle can't start if there are not enough teams / at least one team 
+fact noBattleStartsWithoutTeams{
+	all b: Battle |
+		b.battleState = STARTED 
+		implies
+	 		#b.participant > 0
+}
+
 ----------------
 -- ASSERTIONS --
 ----------------
@@ -436,33 +454,9 @@ assert noBadgeAssignedToStudentOutsideTheCompetition{
 		s.badges in s.competitions.badges
 }
 
-
--- @toAdd
--- Battle can't start if there are not enough teams / at least one team 
-
--- @toAdd
--- Each competition has at least one manager
-
--- @toAdd
--- No student is part of a team and an invited student simultaneously
-
--- @toAdd
--- Each badge has at least one rule
-
--- @toAdd
--- Each AutomaticEvaluation and SATEvaluation is linked only to a team
-
 -- @toDiscuss
 -- Distinction between educator that created the competion and educator that manage the competion
 -- For instance an educator that created the competion could add or remove another educator to manage the competion
-
--- @toAdd
--- Can't exist a team that has not student inside
-
--- @toAdd
--- Maximum number of students per team is grater than minimum number of students per team
-
-
 
 --check noStudentInABattleInCompetitionNotJoined
 --check noStartedBattleWithWaitingTeams
