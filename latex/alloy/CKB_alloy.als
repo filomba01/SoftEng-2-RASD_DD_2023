@@ -199,7 +199,7 @@ fact aBadgeIsAlwaysCreatedByAnEducator{
 			b in e.created_badge 
 }
 
--- a battle is part of an only competition
+-- a battle is part of only a competition
 fact battleOnlyInOneCompetition{
 	all b: Battle, c1:Competition |
 		b in c1.battles implies
@@ -222,7 +222,7 @@ fact battleTimeInsideItsCompetition{
 			bc.startTime > (c.startTime - 1) and bc.endTime < (c.endTime + 1) 
 }
 
--- if a badge is created by an Educator, is uniqe and is its creator
+-- if a badge is created by an Educator, is unique and is its creator
 fact badgeCreatedByOnlyOneEducator{
 	all b: Badge, e: Educator | 
 		b in e.created_badge 
@@ -230,6 +230,7 @@ fact badgeCreatedByOnlyOneEducator{
 			no e2: Educator | 
 				b in e2.created_badge and e != e2
 }
+
 -- a badge is always part of one competition
 fact badgeAlwaysAssignedToCompetition{
 	all b: Badge |
@@ -282,7 +283,7 @@ fact teamOnlyInOneBattle{
 		no b2: Battle |
 			b2 != b and t in b2.participant
 }
--- a student is part of battles only if are in the same competition
+-- a student is part of battles only if is also part of the competition
 fact stdInsideBattleInConsistentCompetition{
 	all s: Student, c: Competition | 
 		s.team.joined_battle in c.battles
@@ -302,7 +303,7 @@ fact teamCapacityRespectBattleConstraints{
 }
 
 
--- a team which is not ready yet cannot have more students than the maximum of the battle
+-- a team which is not ready yet cannot have more students than the maximum allowed by the battle
 fact teamCapacityRespectBattleConstraints{
 	all t: Team, b: Battle | 
 		t in b.participant and t.teamState = WAITING
@@ -311,6 +312,7 @@ fact teamCapacityRespectBattleConstraints{
 				#t.teamStudents < b.maxNstudentPerTeam + 1
 			)
 }
+
 -- battles have all different github links
 fact noSameGitHubLinksBattles{
 	all disj b1,b2: Battle|
@@ -332,7 +334,7 @@ fact noSameGitHubLinksBattles{
 
 }
 
--- a student can be part of only a team
+-- a student is part of a team only if the team has the student in it
 fact StudentPartaTeamiffTeamHasStudent{
 	all t:Team, s:Student | 
 		t in s.team iff s in t.teamStudents 
@@ -421,7 +423,7 @@ fact allPointsAssigendToTeam{
 			p in t.points and p in t.joined_battle.evaluations
 }
 
---there is no manual evaluation not assigned to an educator
+--there is no manual evaluation not assigned by an educator
 fact manualEvaluationIsAlwaysMadeByanEducator{
 	all me: ManualEvalutation | 
 		one e: Educator | 
@@ -460,6 +462,7 @@ assert noStudentInABattleInCompetitionNotJoined{
 			s.team.joined_battle in c.battles 
 			and s not in c.students		
 }
+
 -- no battle started with a team not ready inside
 assert noStartedBattleWithWaitingTeams{
 	all b: Battle, t: Team |
@@ -467,7 +470,8 @@ assert noStartedBattleWithWaitingTeams{
 			implies
 			t.teamState = READY
 }
--- there is no student inside a two team in the same
+
+-- there is no student inside two teams in the same
 -- battle
 assert noStudentInsideABattleWith2Teams{
 	all s:Student, t1: Team , t2: Team |
