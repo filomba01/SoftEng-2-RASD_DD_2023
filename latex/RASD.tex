@@ -79,6 +79,9 @@
 \usepackage{afterpage}
 \usepackage{lipsum} % DUMMY PACKAGE
 \usepackage{fancyhdr} % For the headers
+\usepackage{listings}
+\usepackage{Configuration_Files/alloy}
+\lstset{style=alloy}
 \fancyhf{}
 
 % Input of configuration file. Do not change config.tex file unless you really know what you are doing.
@@ -237,25 +240,25 @@
 
 \cleardoublepage
 \addtocontents{toc}{\vspace{2em}} % Add a gap in the Contents, for aesthetics
-\appendix
+%\appendix
 
 % LIST OF FIGURES
-\listoffigures
+%\listoffigures
 
 % LIST OF TABLES
-\listoftables
+%\listoftables
 
 % LIST OF SYMBOLS
 % Write out the List of Symbols in this page
-\chapter*{List of Symbols} % You have to include a chapter for your list of symbols (
-\begin{table}[H]
-    \centering
-    \begin{tabular}{lll}
-        \textbf{Variable} & \textbf{Description} & \textbf{SI unit} \\\hline\\[-9px]
-        $\bm{u}$ & solid displacement & m \\[2px]
-        $\bm{u}_f$ & fluid displacement & m \\[2px]
-    \end{tabular}
-\end{table}
+%\chapter*{List of Symbols} % You have to include a chapter for your list of symbols (
+%\begin{table}[H]
+%    \centering
+%    \begin{tabular}{lll}
+%        \textbf{Variable} & \textbf{Description} & \textbf{SI unit} \\\hline\\[-9px]
+%        $\bm{u}$ & solid displacement & m \\[2px]
+%        $\bm{u}_f$ & fluid displacement & m \\[2px]
+%    \end{tabular}
+%\end{table}
 
 
 \cleardoublepage

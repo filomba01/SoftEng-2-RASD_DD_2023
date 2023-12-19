@@ -493,17 +493,13 @@ assert noBadgeAssignedToStudentOutsideTheCompetition{
 		s.badges in s.competitions.badges
 }
 
--- @toDiscuss
--- Distinction between educator that created the competion and educator that manage the competion
--- For instance an educator that created the competion could add or remove another educator to manage the competion
-
---check noStudentInABattleInCompetitionNotJoined for 10
---check noStartedBattleWithWaitingTeams for 10
---check noStudentInsideABattleWith2Teams for 10
---check allFinishedBattleGavePointsToTeams for 10
---check noBadgeAssignedToStudentOutsideTheCompetition for 10
+check noStudentInABattleInCompetitionNotJoined for 10
+check noStartedBattleWithWaitingTeams for 10
+check noStudentInsideABattleWith2Teams for 10
+check allFinishedBattleGavePointsToTeams for 10
+check noBadgeAssignedToStudentOutsideTheCompetition for 10
 ----------------
---	  RUN	  --
+--    RUN     --
 ----------------
 pred show{
 	#Competition = 1
