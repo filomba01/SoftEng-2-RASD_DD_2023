@@ -133,6 +133,27 @@ pred TeamSameName[t1:Team,t2:Team]{
 -----------
 -- FACTS --
 -----------
+-- usernames, emails and generalities always linked to an user
+fact GenNeverAlone{
+	no g: Generalities |
+		all u: User |
+			u.generalities != g
+
+}
+
+fact usernameNeverAlone{
+	no un: Username |
+		all u: User |
+			u.username != un
+
+}
+
+fact mailNeverAlone{
+	no m: Email |
+		all u: User |
+			u.email != m
+
+}
 
 -- two different users cannot have same mail
 fact UserCannotHaveSameMail{
@@ -271,11 +292,22 @@ fact stdInsideBattleInConsistentCompetition{
 -- a team part of a battle respects its number constraints
 fact teamCapacityRespectBattleConstraints{
 	all t: Team, b: Battle | 
-		t in b.participant
+		t in b.participant and t.teamState = READY
 		implies
 			(
 				#t.teamStudents > b.minNstudentPerTeam - 1
 				and 
+				#t.teamStudents < b.maxNstudentPerTeam + 1
+			)
+}
+
+
+-- a team which is not ready yet cannot have more students than the maximum of the battle
+fact teamCapacityRespectBattleConstraints{
+	all t: Team, b: Battle | 
+		t in b.participant and t.teamState = WAITING
+		implies
+			(
 				#t.teamStudents < b.maxNstudentPerTeam + 1
 			)
 }
@@ -284,6 +316,13 @@ fact noSameGitHubLinksBattles{
 	all disj b1,b2: Battle|
 		b1.link != b2.link
 
+}
+
+-- all github links are linked to a battle or a team
+fact allGithubLinkPartOfSomething{
+	no g: GitHubLink |
+		all t: Team, b: Battle | 
+			t.link != g and b.link != g
 }
 
 -- teams have all different github links
@@ -458,23 +497,21 @@ assert noBadgeAssignedToStudentOutsideTheCompetition{
 -- Distinction between educator that created the competion and educator that manage the competion
 -- For instance an educator that created the competion could add or remove another educator to manage the competion
 
---check noStudentInABattleInCompetitionNotJoined
---check noStartedBattleWithWaitingTeams
---check noStudentInsideABattleWith2Teams
-check allFinishedBattleGavePointsToTeams
-check noBadgeAssignedToStudentOutsideTheCompetition
+--check noStudentInABattleInCompetitionNotJoined for 10
+--check noStartedBattleWithWaitingTeams for 10
+--check noStudentInsideABattleWith2Teams for 10
+--check allFinishedBattleGavePointsToTeams for 10
+--check noBadgeAssignedToStudentOutsideTheCompetition for 10
 ----------------
 --	  RUN	  --
 ----------------
 pred show{
-	#BattleState > 1
-	#Student > 2 
-	#Badge = 1  
-	#Student.badges = 0
-	#Competition = 2
-	#Team > 2
-	#Battle > 2
-	#Educator >2
+	#Competition = 1
+	#Battle < 5
+	#Team = 3
+	#Student > 5 
+	#Badge > 0  
+	#Educator = 2
 	--#Team.invitedStudents > 1
 	--#Team.teamStudents > 0
 	#Student.team > 2
