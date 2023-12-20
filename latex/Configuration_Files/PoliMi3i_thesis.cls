@@ -94,8 +94,8 @@
 \define@key[OIST]{title}{name3}{\def\nameC{#1}}
 \define@key[OIST]{title}{academicyear}{\def\academicyear{#1}}
 \define@key[OIST]{title}{deliverable}{\def\Deliverable{#1}}
-\define@key[OIST]{title}{version}{\def\Version{#1}}
-\define@key[OIST]{title}{date}{\def\Date{#1}}
+\define@key[OIST]{title}{version}{\def\version{#1}}
+\define@key[OIST]{title}{date}{\def\date{#1}}
 \define@key[OIST]{title}{copyright}{\def\Copyright{#1}}
 \define@key[OIST]{title}{download page}{\def\downloadpage{#1}}
 %\define@key[OIST]{title}{Coadvisor}{\def\Coadvisor{#1}\@cosupervisorexisttrue}
@@ -138,15 +138,18 @@
 			\\
 			\begin{minipage}{1\textwidth}
 				\normalsize{
-						Academic Year: {\academicyear}
+						{\date} - {\version}
 				} \\
 				\normalsize{
-						{\Copyright}
-				}
-				\\
-				\normalsize{
-						Download Page: {\url{\downloadpage}}
-				}
+						Academic Year: {\academicyear}
+				} \\
+				% \normalsize{
+				% 		{\Copyright}
+				% }
+				% \\
+				% \normalsize{
+				% 		Download Page: {\url{\downloadpage}}
+				% }
 			\end{minipage}
 	\end{titlepage}
 }
