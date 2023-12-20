@@ -133,6 +133,27 @@ pred TeamSameName[t1:Team,t2:Team]{
 -----------
 -- FACTS --
 -----------
+-- usernames, emails and generalities always linked to an user
+fact GenNeverAlone{
+	no g: Generalities |
+		all u: User |
+			u.generalities != g
+
+}
+
+fact usernameNeverAlone{
+	no un: Username |
+		all u: User |
+			u.username != un
+
+}
+
+fact mailNeverAlone{
+	no m: Email |
+		all u: User |
+			u.email != m
+
+}
 
 -- two different users cannot have same mail
 fact UserCannotHaveSameMail{
@@ -178,7 +199,7 @@ fact aBadgeIsAlwaysCreatedByAnEducator{
 			b in e.created_badge 
 }
 
--- a battle is part of an only competition
+-- a battle is part of only a competition
 fact battleOnlyInOneCompetition{
 	all b: Battle, c1:Competition |
 		b in c1.battles implies
@@ -201,7 +222,7 @@ fact battleTimeInsideItsCompetition{
 			bc.startTime > (c.startTime - 1) and bc.endTime < (c.endTime + 1) 
 }
 
--- if a badge is created by an Educator, is uniqe and is its creator
+-- if a badge is created by an Educator, is unique and is its creator
 fact badgeCreatedByOnlyOneEducator{
 	all b: Badge, e: Educator | 
 		b in e.created_badge 
@@ -209,6 +230,7 @@ fact badgeCreatedByOnlyOneEducator{
 			no e2: Educator | 
 				b in e2.created_badge and e != e2
 }
+
 -- a badge is always part of one competition
 fact badgeAlwaysAssignedToCompetition{
 	all b: Badge |
@@ -261,7 +283,7 @@ fact teamOnlyInOneBattle{
 		no b2: Battle |
 			b2 != b and t in b2.participant
 }
--- a student is part of battles only if are in the same competition
+-- a student is part of battles only if is also part of the competition
 fact stdInsideBattleInConsistentCompetition{
 	all s: Student, c: Competition | 
 		s.team.joined_battle in c.battles
@@ -271,7 +293,7 @@ fact stdInsideBattleInConsistentCompetition{
 -- a team part of a battle respects its number constraints
 fact teamCapacityRespectBattleConstraints{
 	all t: Team, b: Battle | 
-		t in b.participant
+		t in b.participant and t.teamState = READY
 		implies
 			(
 				#t.teamStudents > b.minNstudentPerTeam - 1
@@ -279,11 +301,30 @@ fact teamCapacityRespectBattleConstraints{
 				#t.teamStudents < b.maxNstudentPerTeam + 1
 			)
 }
+
+
+-- a team which is not ready yet cannot have more students than the maximum allowed by the battle
+fact teamCapacityRespectBattleConstraints{
+	all t: Team, b: Battle | 
+		t in b.participant and t.teamState = WAITING
+		implies
+			(
+				#t.teamStudents < b.maxNstudentPerTeam + 1
+			)
+}
+
 -- battles have all different github links
 fact noSameGitHubLinksBattles{
 	all disj b1,b2: Battle|
 		b1.link != b2.link
 
+}
+
+-- all github links are linked to a battle or a team
+fact allGithubLinkPartOfSomething{
+	no g: GitHubLink |
+		all t: Team, b: Battle | 
+			t.link != g and b.link != g
 }
 
 -- teams have all different github links
@@ -293,7 +334,7 @@ fact noSameGitHubLinksBattles{
 
 }
 
--- a student can be part of only a team
+-- a student is part of a team only if the team has the student in it
 fact StudentPartaTeamiffTeamHasStudent{
 	all t:Team, s:Student | 
 		t in s.team iff s in t.teamStudents 
@@ -382,7 +423,7 @@ fact allPointsAssigendToTeam{
 			p in t.points and p in t.joined_battle.evaluations
 }
 
---there is no manual evaluation not assigned to an educator
+--there is no manual evaluation not assigned by an educator
 fact manualEvaluationIsAlwaysMadeByanEducator{
 	all me: ManualEvalutation | 
 		one e: Educator | 
@@ -421,6 +462,7 @@ assert noStudentInABattleInCompetitionNotJoined{
 			s.team.joined_battle in c.battles 
 			and s not in c.students		
 }
+
 -- no battle started with a team not ready inside
 assert noStartedBattleWithWaitingTeams{
 	all b: Battle, t: Team |
@@ -428,7 +470,8 @@ assert noStartedBattleWithWaitingTeams{
 			implies
 			t.teamState = READY
 }
--- there is no student inside a two team in the same
+
+-- there is no student inside two teams in the same
 -- battle
 assert noStudentInsideABattleWith2Teams{
 	all s:Student, t1: Team , t2: Team |
@@ -454,27 +497,21 @@ assert noBadgeAssignedToStudentOutsideTheCompetition{
 		s.badges in s.competitions.badges
 }
 
--- @toDiscuss
--- Distinction between educator that created the competion and educator that manage the competion
--- For instance an educator that created the competion could add or remove another educator to manage the competion
-
---check noStudentInABattleInCompetitionNotJoined
---check noStartedBattleWithWaitingTeams
---check noStudentInsideABattleWith2Teams
-check allFinishedBattleGavePointsToTeams
-check noBadgeAssignedToStudentOutsideTheCompetition
+check noStudentInABattleInCompetitionNotJoined for 10
+check noStartedBattleWithWaitingTeams for 10
+check noStudentInsideABattleWith2Teams for 10
+check allFinishedBattleGavePointsToTeams for 10
+check noBadgeAssignedToStudentOutsideTheCompetition for 10
 ----------------
---	  RUN	  --
+--    RUN     --
 ----------------
 pred show{
-	#BattleState > 1
-	#Student > 2 
-	#Badge = 1  
-	#Student.badges = 0
-	#Competition = 2
-	#Team > 2
-	#Battle > 2
-	#Educator >2
+	#Competition = 1
+	#Battle < 5
+	#Team = 3
+	#Student > 5 
+	#Badge > 0  
+	#Educator = 2
 	--#Team.invitedStudents > 1
 	--#Team.teamStudents > 0
 	#Student.team > 2
