@@ -71,7 +71,7 @@ All the communication between CKB, the external interfaces and the user will be 
         \hline
         R18 & CKB shall create a GitHub repository containing the code kata \\
         \hline
-        R19 & CKB shall send the Github repository link to ST member of a T competing in the competition \\
+        R19 & CKB shall send the Github repository link to ST member of a T competing in the battle \\
         \hline
         R20 & CKB shall supply API to call with Github actions \\
         \hline
@@ -95,7 +95,7 @@ All the communication between CKB, the external interfaces and the user will be 
         \hline
         R30 & CKB shall notify ST when final battle ranks are available \\
         \hline
-        R31 & CKB shall update the personal competition score of an ST at the end of each battle \\
+        R31 & CKB shall update the personal competition score of a ST at the end of each battle \\
         \hline
         R32 & CKB shall create a rank with students' performances in a competition \\
         \hline
@@ -105,37 +105,37 @@ All the communication between CKB, the external interfaces and the user will be 
         \hline
         R35 & CKB shall allow EDs and STs to see all ST’s rank in competitions \\
         \hline
-        R36 & CKB shall update the personal competition score of an ST at the end of each battle \\
+        R36 & CKB shall allow ST to see the list of ongoing competitions \\
         \hline
-        R37 & CKB shall allow ST to see the list of ongoing competitions \\
+        R37 & CKB shall allow ED to close a competition \\
         \hline
-        R38 & CKB shall allow ED to close a competition \\
+        R38 & CKB shall allow ED to define badges in the context of a competition \\
         \hline
-        R39 & CKB shall allow ED to define badges in the context of a competition \\
+        R39 & CKB shall assign badges to students at the end of the competition \\
         \hline
-        R40 & CKB shall assign badges to students at the end of the competition \\
+        R40 & CKB shall allow ED to define new rules for badges \\
         \hline
-        R41 & CKB shall allow ED to define new rules for badges \\
+        R41 & CKB shall allow ED to define new variables for badges \\
         \hline
-        R42 & CKB shall allow ED to define new variables for badges \\
+        R42 & CKB shall allow users to visualize badges obtained by a ST \\
         \hline
-        R43 & CKB shall allow users to visualize badges obtained by an ST \\
+        R43 & CKB shall allow users to visualize a ST profile \\
         \hline
-        R44 & CKB shall allow users to visualize an ST profile \\
+        R44 & CKB shall allow ST to join a T for which is invited \\
         \hline
-        R45 & CKB shall allow ST to join a T for which is invited \\
+        R45 & CKB shall allow ST to join a public T \\
         \hline
-        R46 & CKB shall allow ST to join a public T \\
+        R46 & CKB shall allow ST to create a T \\
         \hline
-        R47 & CKB shall allow ST to create a T \\
+        R47 & CKB shall allow ST to set a T to public or private \\
         \hline
-        R48 & CKB shall allow ST to set a T to public or private \\
+        R48 & CKB can distinguish between an ED user and a ST user \\
         \hline
-        R49 & CKB can distinguish between an ED user and a ST user \\
+        R49 & CKB shall not allow ST/ED to see the rankings of battles in competitions they are not involved in \\
         \hline
-        R50 & CKB shall not allow ST/ED to see the rankings of battles in competitions they are not enrolled in \\
+        R50 & CKB shall have the environments for all the programming language it supports \\
         \hline
-        R51 & CKB shall have the environments for all the programming language it supports \\
+        R51 & CKB shall allow ED to close a battle they manage \\
         \hline
 
   \end{longtable}
@@ -146,32 +146,31 @@ All the communication between CKB, the external interfaces and the user will be 
 \label{ss:Mapping_requirements}%
 
 \begin{table}[H]
-  \begin{tabular}{|l|l|p{5cm}| }
+  \begin{tabular}{|l|p{9cm}|p{5cm}| }
     \hline
     \textbf{Goal} & \textbf{Requirements} & \textbf{Domain Assumptions}      \\
     \hline
-    G1 & R1 R2 R49 R3 R9 R38 R39 R41 R42 R50 & DA4 DA13 DA15 DA16 \\
+    G1 & R1 R2 R4 R6 R37 R38 R40 R41 R48 R49 & DA4 DA13 DA15 DA16 \\
     \hline
-    G2 & R1 R2 R49 R4 R5 R6 R34 R7 R8 R9 R10 R50 & DA5 DA6 DA8 DA13 \\
+    G2 & R1 R2 R4 R5 R6 R7 R8 R9 R10 R11 R12 R34 R48 R49 R51 & DA5 DA6 DA7 DA13 \\
     \hline
-    G3 & R1 R2 R13 R49 R2 R3 R13 R14 R15 R33 R37 R50 & DA1 DA2 DA3 DA4 \\
+    G3 & R1 R2 R3 R13 R14 R15 R30 R31 R33 R35 R36 R48 R49 & DA1 DA2 DA3 DA4 DA12 \\
     \hline
-    G4 & R1 R2 R49 R13 R15 R45 R46 R47 R48 & DA1 DA2 DA3 DA4 DA9 DA10 DA11  \\
+    G4 & R1 R2 R13 R15 R16 R17 R44 R45 R46 R47 R48 & DA1 DA11 DA12 \\
     \hline
-    G5 & R1 R2 R49 R12 R13 R30 & DA1 DA11  \\
+    G5 & R1 R2 R13 R14 R15 R17 R30 R48 & DA1 DA11 DA12 \\
     \hline
     G6 & R18 R19 R20 & DA9 \\
     \hline
-    G7 & R2 R19 R20 R21 & DA1 DA2 DA3 DA4 DA11 \\
+    G7 & R2 R3 R19 R20 R21 & DA1 DA2 DA3 DA4 \\
     \hline
-    G8 & R22 R23 R24 R25 R26 R27 R28 R29 R31 R32 R51 R36 & DA5 DA6 DA12 DA13 DA14 \\
+    G8 & R21 R22 R23 R24 R25 R26 R27 R28 R29 R31 R32 R50 & DA5 DA6 DA7 DA8 DA10 DA13 DA14 \\
     \hline
-    G9 & R1 R2 R13 R15 R29 R30 R34 R33 R35 & DA1 DA11 DA5 DA12
-    \\
+    G9 & R1 R2 R13 R15 R29 R30 R31 R32 R34 R33 R35 R49 & DA1 DA6 DA12 DA13 \\
     \hline
-    G10 & R39 R40 R43 R49 & DA1 DA5 DA11 DA12 DA15   \\
+    G10 & R38 R39 R40 R41 R42 R48 & DA16 \\
     \hline
-    G11 & R2 R40 R44 & DA1 DA6 DA12 DA13 DA17 \\
+    G11 & R1 R2 R42 R43 & DA1 DA6 DA12 DA13 DA17 \\
     \hline
   \end{tabular}
   \caption{Mapping between goals, requirements, and domain assumptions}
@@ -187,21 +186,21 @@ All the communication between CKB, the external interfaces and the user will be 
       \hline
       R2 & CKB shall allow users to log in \\
       \hline
-      R3 & CKB shall allow ST to connect their Github account \\
+      R4 & CKB shall allow ED to create competition \\
       \hline
-      R9 & CKB shall allow ED to set a minimum number of STs per group in a battle \\
+      R6 & CKB shall allow ED to invite other EDs to create battles in a competition \\
       \hline
-      R38 & CKB shall allow ED to close a competition \\
+      R37 & CKB shall allow ED to close a competition \\
       \hline
-      R39 & CKB shall allow ED to define badges in the context of a competition \\
+      R38 & CKB shall allow ED to define badges in the context of a competition \\
       \hline
-      R41 & CKB shall allow ED to define new rules for badges \\
+      R40 & CKB shall allow ED to define new rules for badges \\
       \hline
-      R42 & CKB shall allow ED to define new variables for badges \\
+      R41 & CKB shall allow ED to define new variables for badges \\
       \hline
-      R49 & CKB can distinguish between an ED user and an ST user \\
+      R48 & CKB can distinguish between an ED user and a ST user \\
       \hline
-      R50 & CKB shall not allow ST/ED to see the rankings of battles in competitions they are not enrolled in \\
+      R49 & CKB shall not allow ST/ED to see the rankings of battles in competitions they are not involved in \\
       \hline
       DA4 & ST knows how to use Git \\
       \hline
@@ -224,8 +223,6 @@ All the communication between CKB, the external interfaces and the user will be 
     \hline
     R2 & CKB shall allow users to log in \\
     \hline
-    R3 & CKB shall allow ST to connect their Github account \\
-    \hline
     R4 & CKB shall allow ED to create competition \\
     \hline
     R5 & CKB shall allow ED to create battle within a competition \\
@@ -240,25 +237,23 @@ All the communication between CKB, the external interfaces and the user will be 
     \hline
     R10 & CKB shall allow ED to set the maximum number of STs per group in a battle \\
     \hline
+    R11 & CKB shall allow ED to set a final submission deadline \\
+    \hline
+    R12 & CKB shall allow ED to set how to perform static analysis \\
+    \hline
     R34 & CKB shall allow ED to see all ST’s ranks in the battle that he/she manages \\
     \hline
-    R38 & CKB shall allow ED to close a competition \\
+    R48 & CKB can distinguish between an ED user and a ST user \\
     \hline
-    R39 & CKB shall allow ED to define badges in the context of a competition \\
+    R49 & CKB shall not allow ST/ED to see the rankings of battles in competitions they are not involved in \\
     \hline
-    R41 & CKB shall allow ED to define new rules for badges \\
-    \hline
-    R42 & CKB shall allow ED to define new variables for badges \\
-    \hline
-    R49 & CKB can distinguish between an ED user and an ST user \\
-    \hline
-    R50 & CKB shall not allow ST/ED to see the rankings of battles in competitions they are not enrolled in \\
+    R51 & CKB shall allow ED to close a battle they manage \\
     \hline
     DA5 & ED knows how to use Git \\
     \hline
     DA6 & ED owns a device able to connect to the internet \\
     \hline
-    DA8 & ED correctly evaluates the final source code of a T \\
+    DA7 & ED writes correct tests \\
     \hline
     DA13 & ED has an internet connection \\
     \hline
@@ -286,13 +281,19 @@ All the communication between CKB, the external interfaces and the user will be 
     \hline
     R15 & CKB shall send notification about battle created within a competition ST is subscribed in \\
     \hline
+    R30 & CKB shall notify ST when final battle ranks are available \\
+    \hline
+    R31 & CKB shall update the personal competition score of a ST at the end of each battle \\
+    \hline
     R33 & CKB shall allow ST to see all ST’s rank in a battle where is enrolled \\
     \hline
-    R37 & CKB shall allow ST to see the list of ongoing competitions \\
+    R35 & CKB shall allow EDs and STs to see all ST’s rank in competitions \\
     \hline
-    R49 & CKB can distinguish between an ED user and an ST user \\
+    R36 & CKB shall allow ST to see the list of ongoing competitions \\
     \hline
-    R50 & CKB shall not allow ST/ED to see the rankings of battles in competitions they are not enrolled in \\
+    R48 & CKB can distinguish between an ED user and a ST user \\
+    \hline
+    R49 & CKB shall not allow ST/ED to see the rankings of battles in competitions they are not involved in \\
     \hline
     DA1 & ST owns a device able to connect to the internet \\
     \hline
@@ -301,6 +302,8 @@ All the communication between CKB, the external interfaces and the user will be 
     DA3 & ST has installed Git on his computer \\
     \hline
     DA4 & ST knows how to use Git \\
+    \hline
+    DA12 & ST has an internet connection \\
     \hline
 
     \caption{Specific mapping on G3}
@@ -315,33 +318,29 @@ All the communication between CKB, the external interfaces and the user will be 
     \hline
     R2 & CKB shall allow users to log in \\
     \hline
-    R49 & CKB can distinguish between an ED user and an ST user \\
-    \hline
     R13 & CKB shall allow ST to subscribe to a competition \\
     \hline
     R15 & CKB shall send notification about battle created within a competition ST is subscribed in \\
     \hline
-    R45 & CKB shall allow ST to join a T for which is invited \\
+    R16 & CKB shall allow ST to join a battle on his own \\
     \hline
-    R46 & CKB shall allow ST to join a public T \\
+    R17 & CKB shall allow ST to invite other ST in a T for a battle \\
     \hline
-    R47 & CKB shall allow ST to create a T \\
+    R44 & CKB shall allow ST to join a T for which is invited \\
     \hline
-    R48 & CKB shall allow ST to set a T to public or private \\
+    R45 & CKB shall allow ST to join a public T \\
+    \hline
+    R46 & CKB shall allow ST to create a T \\
+    \hline
+    R47 & CKB shall allow ST to set a T to public or private \\
+    \hline
+    R48 & CKB can distinguish between an ED user and a ST user \\
     \hline
     DA1 & ST owns a device able to connect to the internet \\
     \hline
-    DA2 & ST owns a GitHub account \\
-    \hline
-    DA3 & ST has installed Git on his computer \\
-    \hline
-    DA4 & ST knows how to use Git \\
-    \hline
-    DA9 & GitHub permits automatic push to a repository \\
-    \hline
-    DA10 & GitHub permits automatically pull from a repository \\
-    \hline
     DA11 & ST knows the usernames of other STs they want to invite to a T \\
+    \hline
+    DA12 & ST has an internet connection \\
     \hline
 
     \caption{Specific mapping on G4}
@@ -356,17 +355,23 @@ All the communication between CKB, the external interfaces and the user will be 
     \hline
     R2 & CKB shall allow users to log in \\
     \hline
-    R49 & CKB can distinguish between an ED user and an ST user \\
-    \hline
-    R12 & CKB shall allow ED to set how to perform static analysis \\
-    \hline
     R13 & CKB shall allow ST to subscribe to a competition \\
     \hline
+    R14 & CKB shall send notifications about a new competition to ST \\
+    \hline
+    R15 & CKB shall send notification about battle created within a competition ST is subscribed in \\
+    \hline
+    R17 & CKB shall allow ST to invite other ST in a T for a battle \\
+    \hline
     R30 & CKB shall notify ST when final battle ranks are available \\
+    \hline
+    R48 & CKB can distinguish between an ED user and a ST user \\
     \hline
     DA1 & ST owns a device able to connect to the internet \\
     \hline
     DA11 & ST knows the usernames of other STs they want to invite to a T \\
+    \hline
+    DA12 & ST has an internet connection \\
     \hline
 
     \caption{Specific mapping on G5}
@@ -379,7 +384,7 @@ All the communication between CKB, the external interfaces and the user will be 
     \hline
     R18 & CKB shall create a GitHub repository containing the code kata \\
     \hline
-    R19 & CKB shall send the Github repository link to ST member of a T competing in the competition \\
+    R19 & CKB shall send the Github repository link to ST member of a T competing in the battle \\
     \hline
     R20 & CKB shall supply API to call with Github actions \\
     \hline
@@ -396,6 +401,8 @@ All the communication between CKB, the external interfaces and the user will be 
     \hline
     R2 & CKB shall allow users to log in \\
     \hline
+    R3 & CKB shall allow ST to connect their Github account \\
+    \hline
     R19 & CKB shall send the Github repository link to ST member of a T competing in the competition \\
     \hline
     R20 & CKB shall supply API to call with Github actions \\
@@ -410,8 +417,6 @@ All the communication between CKB, the external interfaces and the user will be 
     \hline
     DA4 & ST knows how to use Git \\
     \hline
-    DA11 & ST knows the usernames of other STs they want to invite to a T \\
-    \hline
 
     \caption{Specific mapping on G7}
     \label{tab:mappingG7}
@@ -421,6 +426,8 @@ All the communication between CKB, the external interfaces and the user will be 
   \begin{longtable}{|l|p{12cm}|}
     \hline
     \textbf{G8} & \textbf{CKB Provides an evaluation of the code submitted}      \\
+    \hline
+    R21 & CKB shall be able to pull sources from GitHub \\
     \hline
     R22 & CKB shall be able to send the ST source code to the correct SAT \\
     \hline
@@ -438,19 +445,21 @@ All the communication between CKB, the external interfaces and the user will be 
     \hline
     R29 & CKB shall allow ED to go through sources produced by Ts \\
     \hline
-    R31 & CKB shall update the personal competition score of an ST at the end of each battle \\
+    R31 & CKB shall update the personal competition score of a ST at the end of each battle \\
     \hline
     R32 & CKB shall create a rank with students' performances in a competition \\
     \hline
-    R51 & CKB shall have the environments for all the programming language it supports \\
-    \hline
-    R36 & CKB shall update the personal competition score of an ST at the end of each battle \\
+    R50 & CKB shall have the environments for all the programming language it supports \\
     \hline
     DA5 & ED knows how to use Git \\
     \hline
     DA6 & ED owns a device able to connect to the internet \\
     \hline
-    DA12 & GitHub permits automatic push to a repository \\
+    DA7 & ED writes correct tests \\
+    \hline
+    DA8 & ED correctly evaluates the final source code of a T \\
+    \hline
+    DA10 & Github permits automatical pull from a repository \\
     \hline
     DA13 & ED has an internet connection \\
     \hline
@@ -477,21 +486,25 @@ All the communication between CKB, the external interfaces and the user will be 
     \hline
     R30 & CKB shall notify ST when final battle ranks are available \\
     \hline
-    R34 & CKB shall allow ED to see all ST’s ranks in the battle that he/she manages \\
+    R31 & CKB shall update the personal competition score of a ST at the end of each battle \\
+    \hline
+    R32 & CKB shall create a rank with students' performances in a competition \\
     \hline
     R33 & CKB shall allow ST to see all ST’s rank in a battle where is enrolled \\
     \hline
+    R34 & CKB shall allow ED to see all ST’s ranks in the battle that he/she manages \\
+    \hline
     R35 & CKB shall allow EDs and STs to see all ST’s rank in competitions \\
     \hline
-    R44 & CKB shall allow users to visualize badges obtained by an ST \\
+    R49 & CKB shall not allow ST/ED to see the rankings of battles in competitions they are not involved in \\
     \hline
     DA1 & ST owns a device able to connect to the internet \\
     \hline
-    DA11 & ST knows the usernames of other STs they want to invite to a T \\
+    DA6 & ED owns a device able to connect to the internet \\
     \hline
-    DA5 & ED knows how to use Git \\
+    DA12 & ST has an internet connection \\
     \hline
-    DA12 & GitHub permits automatically pull from a repository \\
+    DA13 & ED has an internet connection \\ 
     \hline
 
     \caption{Specific mapping on G9}
@@ -502,23 +515,19 @@ All the communication between CKB, the external interfaces and the user will be 
     \hline
     \textbf{G10} & \textbf{Allow to assign badges to the students}      \\
     \hline
-    R39 & CKB shall allow ED to define badges in the context of a competition \\
+    R38 & CKB shall allow ED to define badges in the context of a competition \\
     \hline
-    R40 & CKB shall assign badges to students at the end of the competition \\
+    R39 & CKB shall assign badges to students at the end of the competition \\
     \hline
-    R43 & CKB shall allow users to visualize badges obtained by an ST \\
+    R40 & CKB shall allow ED to define new rules for badges \\
     \hline
-    R49 & CKB can distinguish between an ED user and an ST user \\
+    R41 & CKB shall allow ED to define new variables for badges \\
     \hline
-    DA1 & ST owns a device able to connect to the internet \\
+    R42 & CKB shall allow users to visualize badges obtained by a ST \\
     \hline
-    DA5 & ED knows how to use Git \\
+    R48 & CKB can distinguish between an ED user and a ST user \\
     \hline
-    DA11 & ST knows the usernames of other STs they want to invite to a T \\
-    \hline
-    DA12 & GitHub permits automatically pull from a repository \\
-    \hline
-    DA15 & ED knows the email of the other EDs he wants to invite to manage a competition \\
+    DA16 & ED writes the correct badge’ rules \\
     \hline
 
     \caption{Specific mapping on G10}
@@ -527,23 +536,25 @@ All the communication between CKB, the external interfaces and the user will be 
 
   \begin{longtable}{|l|p{12cm}| }
     \hline
-    \textbf{G11} & \textbf{Allow to visualize ST profiles}      \\
+    \textbf{G11} & \textbf{Allow users to visualize ST profiles}      \\
+    \hline
+    R1 & CKB shall allow an unregistered user to create an account \\
     \hline
     R2 & CKB shall allow users to log in \\
     \hline
-    R40 & CKB shall assign badges to students at the end of the competition \\
+    R42 & CKB shall allow users to visualize badges obtained by a ST \\
     \hline
-    R44 & CKB shall allow users to visualize badges obtained by an ST \\
+    R43 & CKB shall allow users to visualize a ST profile \\
     \hline
     DA1 & ST owns a device able to connect to the internet \\
     \hline
     DA6 & ED owns a device able to connect to the internet \\
     \hline
-    DA12 & STs has an internet connection \\
+    DA12 & ST has an internet connection \\
     \hline
     DA13 & ED has an internet connection \\
     \hline
-    DA17 & ED knows the username of the STs' profile they want to visualize \\
+    DA17 & User knows the username of the STs' profile they want to visualize \\
     \hline
     \caption{Specific mapping on G11}
     \label{tab:mappingG11}
