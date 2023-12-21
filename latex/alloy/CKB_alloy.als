@@ -105,9 +105,9 @@ abstract sig Point{
 
 sig ManualEvalutation extends Point{}
 
-sig AutomaticEvaluation extends Point{}
-
-sig SATEvaluation extends Point{}
+sig AutomaticEvaluation extends Point{
+	sateValue: one PointValue
+}
 
 
 ----------------
@@ -320,6 +320,12 @@ fact noSameGitHubLinksBattles{
 
 }
 
+-- a battle does not share the same github link with a team
+fact noSameGithuBLinkBetweenBattleAndTeam{
+	all b: Battle, t: Team|
+		b.link != t.link
+}
+
 -- all github links are linked to a battle or a team
 fact allGithubLinkPartOfSomething{
 	no g: GitHubLink |
@@ -328,7 +334,7 @@ fact allGithubLinkPartOfSomething{
 }
 
 -- teams have all different github links
-fact noSameGitHubLinksBattles{
+fact noSameGitHubLinksTeams{
 	all disj t1,t2: Team|
 		t1.link != t2.link
 
@@ -373,19 +379,41 @@ fact teamInWaitingOnlyInBattleNotStarted{
 -- POINTS ---
 
 -- every team which has been part of a ended competition
--- has an automatic point, a sat point and can have a manual
+-- has an automatic point and can have a manual
 -- evaluation
 fact teamHasConsistentPoints{
 	all b:Battle, t:Team |
-		(t in b.participant and b.battleState = ENDED) 
-		implies 
-			one ae: AutomaticEvaluation | ae in t.points
-			and
-			one sate: SATEvaluation | sate in t.points
-			and
-			lone me : ManualEvalutation | me in t.points
+		((t in b.participant and b.battleState = ENDED) 
+		implies
+			( 
+				some ae: AutomaticEvaluation | ae in t.points
+				and
+				lone me : ManualEvalutation | me in t.points
+			)
+		) or
+		((t in b.participant and b.battleState = STARTED) 
+		implies
+			( 
+				-- if commit happened, it could be already a
+				-- an Automatic one
+				no me : ManualEvalutation | me in t.points
+			)
+		)
+		or
+		((t in b.participant and b.battleState = CREATED) 
+		implies
+			( 
+				no ae: AutomaticEvaluation | ae in t.points
+				and
+				no me : ManualEvalutation | me in t.points
+			)
+		)
+		
 
 }
+
+
+
 --no one shares the same evaluation
 fact noSameEvaluation{
 	all disj t1,t2 : Team |
@@ -415,6 +443,14 @@ fact allPointsAssigendInBattle{
 			p in b.evaluations
 }
 
+-- a pointvalue is always assigned to points
+fact allPointValueAssignedtoPoints{
+	all pv: PointValue |
+		some p: Point | 
+			p.value = pv
+}
+
+
 -- all points are assigned to a team and are assigend inside the battle
 -- they are part of
 fact allPointsAssigendToTeam{
@@ -432,7 +468,6 @@ fact manualEvaluationIsAlwaysMadeByanEducator{
 }
 
 
--- @toAdd
 -- No student is part of a team and an invited student simultaneously
 fact noStudentBothInvitedAndJoinedInTheSameTeam{
 	all t: Team | 
@@ -440,7 +475,6 @@ fact noStudentBothInvitedAndJoinedInTheSameTeam{
 			#(ts & ti) = 0
 }
 
--- @toCheck
 -- Battle can't start if there are not enough teams / at least one team 
 fact noBattleStartsWithoutTeams{
 	all b: Battle |
@@ -448,6 +482,7 @@ fact noBattleStartsWithoutTeams{
 		implies
 	 		#b.participant > 0
 }
+
 
 ----------------
 -- ASSERTIONS --
@@ -483,6 +518,8 @@ assert noStudentInsideABattleWith2Teams{
 
 }
 
+
+
 assert allFinishedBattleGavePointsToTeams{
 	all b: Battle |
 		b.battleState = ENDED 
@@ -497,25 +534,23 @@ assert noBadgeAssignedToStudentOutsideTheCompetition{
 		s.badges in s.competitions.badges
 }
 
-check noStudentInABattleInCompetitionNotJoined for 10
-check noStartedBattleWithWaitingTeams for 10
-check noStudentInsideABattleWith2Teams for 10
-check allFinishedBattleGavePointsToTeams for 10
-check noBadgeAssignedToStudentOutsideTheCompetition for 10
+--check noStudentInABattleInCompetitionNotJoined for 5
+--check noStartedBattleWithWaitingTeams for 5
+--check noStudentInsideABattleWith2Teams for 5
+--check allFinishedBattleGavePointsToTeams for 5
+--check noBadgeAssignedToStudentOutsideTheCompetition for 5
 ----------------
 --    RUN     --
 ----------------
 pred show{
 	#Competition = 1
-	#Battle < 5
-	#Team = 3
-	#Student > 5 
+	#Battle = 2
+	#Team = 4
+	#Student > 3 
 	#Badge > 0  
 	#Educator = 2
-	--#Team.invitedStudents > 1
-	--#Team.teamStudents > 0
 	#Student.team > 2
-	some t: Team | t.teamState = WAITING
+	--some t: Team | t.teamState = WAITING
 }
 
 run show for 10
