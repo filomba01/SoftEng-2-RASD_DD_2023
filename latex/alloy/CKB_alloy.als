@@ -281,7 +281,7 @@ fact teamInBattleParticipantIffTeamJoinedBattle{
 		t in b.participant iff t.joined_battle = b
 }
 
---@toFix could be redundant if above true
+
 -- a team is part on only one Battle
 fact teamOnlyInOneBattle{
 	all t: Team, b: Battle |
@@ -410,17 +410,7 @@ fact teamHasConsistentPointsinStartedBattle{
 			)
 }
 
---fact teamHasConsistentPointsinEndedBattle{
---	all b:Battle, t:Team |
---		((t in b.participant and b.battleState = CREATED) 
---		implies
---			( 
---				(no ae: AutomaticEvaluation | ae in t.points)
---				and
---				(no me : ManualEvalutation | me in t.points)
---			)
---		)
---}
+
 
 
 

@@ -118,7 +118,8 @@
 			\vfill
 			%\begin{minipage}{0.95\textwidth}
 			\begin{minipage}{0.95\textwidth}
-            \includegraphics[trim={0 0 0 0},clip, width=0.9\textwidth]{Images/phd_logo.png}
+			\hspace{-1.2cm}
+            \includegraphics[trim={0 0 0 0},clip, width=0.9\textwidth]{Images/02_ING_IND_INFORMAZIONE_COL_POSITIVO.eps}
             \hfill
             \\
 			\vspace{2.5cm}
