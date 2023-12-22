@@ -87,7 +87,7 @@ sig Battle extends TimeEvent{
 	manager: set Educator,
 	participant: set Team,
 	evaluations: set Point,
-	battleState: one BattleState,
+	battleState: BattleState,
 	maxNstudentPerTeam: Int,
 	minNstudentPerTeam: Int,
 
@@ -152,6 +152,13 @@ fact mailNeverAlone{
 	no m: Email |
 		all u: User |
 			u.email != m
+
+}
+
+fact nameNeverAlone{
+	all n: Name |
+		some disj nn: (Competition.name + Battle.name + Team.team_name) |
+			n = nn
 
 }
 
@@ -383,34 +390,37 @@ fact teamInWaitingOnlyInBattleNotStarted{
 -- evaluation
 fact teamHasConsistentPoints{
 	all b:Battle, t:Team |
-		((t in b.participant and b.battleState = ENDED) 
+		(t in b.participant and b.battleState = ENDED) 
 		implies
 			( 
-				some ae: AutomaticEvaluation | ae in t.points
+				(some ae: AutomaticEvaluation | ae in t.points)
 				and
-				lone me : ManualEvalutation | me in t.points
+				(lone me : ManualEvalutation | me in t.points)
 			)
-		) or
-		((t in b.participant and b.battleState = STARTED) 
+}
+
+fact teamHasConsistentPointsinStartedBattle{
+	all b:Battle, t:Team |
+		(t in b.participant and b.battleState = STARTED) 
 		implies
 			( 
 				-- if commit happened, it could be already a
 				-- an Automatic one
 				no me : ManualEvalutation | me in t.points
 			)
-		)
-		or
-		((t in b.participant and b.battleState = CREATED) 
-		implies
-			( 
-				no ae: AutomaticEvaluation | ae in t.points
-				and
-				no me : ManualEvalutation | me in t.points
-			)
-		)
-		
-
 }
+
+--fact teamHasConsistentPointsinEndedBattle{
+--	all b:Battle, t:Team |
+--		((t in b.participant and b.battleState = CREATED) 
+--		implies
+--			( 
+--				(no ae: AutomaticEvaluation | ae in t.points)
+--				and
+--				(no me : ManualEvalutation | me in t.points)
+--			)
+--		)
+--}
 
 
 
@@ -482,7 +492,21 @@ fact noBattleStartsWithoutTeams{
 		implies
 	 		#b.participant > 0
 }
+-- rules always assigned to badges
+fact rulesAlwaysAssignedToBadges{
+	all r:Rule | 
+		some b: Badge |
+			r in b.conditions
+}
 
+-- if a battle is created it does not have any assigned point
+fact noBattleHavePointsIfCreated{
+	all b: Battle |
+		b.battleState = CREATED 
+			implies
+		no p: Point | 
+			p in b.evaluations
+}
 
 ----------------
 -- ASSERTIONS --
@@ -534,23 +558,30 @@ assert noBadgeAssignedToStudentOutsideTheCompetition{
 		s.badges in s.competitions.badges
 }
 
---check noStudentInABattleInCompetitionNotJoined for 5
---check noStartedBattleWithWaitingTeams for 5
---check noStudentInsideABattleWith2Teams for 5
---check allFinishedBattleGavePointsToTeams for 5
---check noBadgeAssignedToStudentOutsideTheCompetition for 5
+
+assert noTeaminWaitingWithPoints{
+	all t: Team |
+		t.teamState = WAITING implies #(t.points) = 0
+}
+check noStudentInABattleInCompetitionNotJoined for 5
+check noStartedBattleWithWaitingTeams for 5
+check noStudentInsideABattleWith2Teams for 5
+check allFinishedBattleGavePointsToTeams for 5
+check noBadgeAssignedToStudentOutsideTheCompetition for 5
+check noTeaminWaitingWithPoints for 5
 ----------------
 --    RUN     --
 ----------------
 pred show{
 	#Competition = 1
 	#Battle = 2
-	#Team = 4
-	#Student > 3 
-	#Badge > 0  
-	#Educator = 2
-	#Student.team > 2
-	--some t: Team | t.teamState = WAITING
+	#Team = 2
+	#Student > 2
+	#Educator > 0
+	#Student.team > 1
+	some t: Team | t.teamState = WAITING
+	some b: Battle | b.battleState = CREATED
+	some b: Battle | b.battleState = STARTED
 }
 
-run show for 10
+run show for 5
