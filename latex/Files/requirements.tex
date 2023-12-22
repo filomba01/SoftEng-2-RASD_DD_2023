@@ -842,7 +842,7 @@ For simplicity we decided not to include all the \textit{<<include>>} relationsh
     & 4.\ The ST clicks on the “Join” button \\
     & 5.\ CKB asks to create a new T or to join an existing one \\
     & Here there are two possibilities: \\
-    & \quad \quad 6.1 The ST selects to create a new T \\
+    & 6.1 The ST selects to create a new T \\
     & \quad \quad 6.1.1 CKB asks for the information about the team (i.e. name, number of members) \\
     & \quad \quad 6.1.2 The ST inserts the information \\
     & \quad \quad 6.1.3 CKB validate the information \\
@@ -925,7 +925,7 @@ For simplicity we decided not to include all the \textit{<<include>>} relationsh
     & 2.\ CKB shows the information about the T \\
     & 3.\ ED clicks on the “Evaluate” button \\
     & 4.\ CKB shows the information about the last code submission \\
-    & 5.\ ED navigates through the code \\
+    & 5.\ ED navigates through the code in Github\\
     & 6.\ ED assigns a score to the code \\
     & 7.\ CKB saves the score \\
     \hline
@@ -975,6 +975,37 @@ For simplicity we decided not to include all the \textit{<<include>>} relationsh
         \includegraphics[width=0.50\textwidth,height=\textheight,keepaspectratio]{Images/SequenceDiagrams/UC12.png}
         \caption{UC12 sequence diagram.}
         \label{fig: UC12_sequence_diagram}
+    \end{center}
+  \end{figure}
+\end{center}
+
+\subsubsection*{UC13: User visualizes the profile of a ST}
+\begin{center}
+  \begin{longtable}{l|p{0.75\linewidth}}
+    \hline
+    Actor & Registered user \\
+    \hline
+    Entry conditions & The user is already logged in \\
+    \hline
+    Event Flow & 1.\ The user search the name of the ST he wants to visualize \\
+    & 2.\ CKB shows a result list of the search \\  
+    & 3.\ The user selects the ST \\
+    & 4.\ CKB shows the profile of the ST \\
+    \hline
+    Exit condition &  The user visualize the profile of the ST \\
+    \hline
+    Exceptions & 2.1 There are no STs with that name \\ \\
+    & In this case the user visualizes a message that there are no STs with that name \\
+    \hline
+    \caption{User visualizes the profile of a ST.}
+    \label{tab: User_visualizes_ST_profile}
+  \end{longtable}
+
+  \begin{figure} [H]
+    \begin{center}
+        \includegraphics[width=0.50\textwidth,height=\textheight,keepaspectratio]{Images/SequenceDiagrams/UC13.png}
+        \caption{UC13 sequence diagram.}
+        \label{fig: UC13_sequence_diagram}
     \end{center}
   \end{figure}
 \end{center}
