@@ -1,0 +1,92 @@
+title Student Registration
+
+participant Unregistered ST
+participant WebAppUI
+participant Authentication Service
+participant Data Manager
+
+participant DBMS
+
+participant Notification Service
+
+participant Mail Service
+
+Unregistered ST->WebAppUI:singUp()
+
+activate Unregistered ST
+
+activate WebAppUI
+
+WebAppUI-->Unregistered ST:singUpForm
+
+
+Unregistered ST->WebAppUI:register(UserInfo)
+
+WebAppUI->Authentication Service:register(UserInfo)
+
+activate Authentication Service
+
+
+Authentication Service->Data Manager:addUser(info: UserInfo)
+
+activate Data Manager
+
+alt [validationSuccessful]
+
+Data Manager->DBMS:INSERT QUERY
+
+activate DBMS
+
+DBMS-->Data Manager:RESULT
+deactivate DBMS
+
+Data Manager-->Authentication Service:True
+Authentication Service->Data Manager:getUser(Userinfo.username)
+
+Data Manager->DBMS:SELECT QUERY
+
+activate DBMS
+
+DBMS-->Data Manager:RESULT
+deactivate DBMS
+
+Data Manager-->Authentication Service:User
+
+deactivate Data Manager
+
+Authentication Service->Notification Service:NotifyUserRegistration(User)
+activate Notification Service
+
+Notification Service->>Mail Service:sendMail()
+
+Notification Service-->Authentication Service:True
+
+deactivate Notification Service
+deactivate Data Manager
+
+Authentication Service-->WebAppUI:True
+deactivate Authentication Service
+WebAppUI-->Unregistered ST:ActivationSent
+deactivate WebAppUI
+
+Unregistered ST->WebAppUI:open(activationLink)
+activate WebAppUI
+
+WebAppUI->Authentication Service:ActivateAccount(username)
+activate Authentication Service
+
+Authentication Service->Data Manager:ActivateAccount(username)
+
+activate Data Manager
+
+Data Manager->DBMS: UPDATE QUERY
+
+activate DBMS
+DBMS-->Data Manager:RESULT
+deactivate DBMS
+Data Manager-->Authentication Service:True
+deactivate Data Manager
+Authentication Service-->WebAppUI:True
+deactivate Authentication Service
+WebAppUI-->Unregistered ST:AccountActivated
+end

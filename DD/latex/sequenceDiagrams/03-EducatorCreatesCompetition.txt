@@ -1,0 +1,62 @@
+participant Educator
+participant Dashboard Manager
+participant Competion Manager
+participant Data Manager
+participant DBMS
+
+Educator->Dashboard Manager:showNewCompetitionForm()
+activate Educator
+activate Dashboard Manager
+Dashboard Manager-->Educator:newCompetitionForm
+deactivate Dashboard Manager
+
+Educator->Dashboard Manager:createCompetition(competitionInfo)
+activate Dashboard Manager
+
+
+Dashboard Manager->Competion Manager: addCompetition(CompetitionInfo)
+
+activate Competion Manager
+Competion Manager->Data Manager:createCompetition(CompetitionInfo)
+activate Data Manager
+
+Data Manager->DBMS:SELECT QUERY
+activate DBMS
+DBMS-->Data Manager:RESULT
+deactivate DBMS
+
+alt competition is creatable
+
+Data Manager->DBMS:INSERT QUERY
+activate DBMS
+DBMS-->Data Manager:RESULT
+deactivate DBMS
+
+Data Manager-->Competion Manager:True
+deactivate Data Manager
+Competion Manager->Data Manager:getCompetition(CompetitionInfo.name)
+activate Data Manager
+Data Manager->DBMS:SELECT QUERY
+activate DBMS
+DBMS-->Data Manager:RESULT
+deactivate DBMS
+Data Manager-->Competion Manager:Competition
+deactivate Data Manager
+Competion Manager-->Dashboard Manager:True
+deactivate Competion Manager
+Dashboard Manager-->Educator:showCreatedCompetition
+deactivate Dashboard Manager
+deactivate Educator
+else competition name already used
+activate Educator
+activate Dashboard Manager
+activate Competion Manager
+activate Data Manager
+Data Manager-->Competion Manager:False
+deactivate Data Manager
+Competion Manager-->Dashboard Manager:False
+deactivate Competion Manager
+Dashboard Manager-->Educator:showCompetitionNotCreated
+deactivate Dashboard Manager
+deactivate Educator
+end

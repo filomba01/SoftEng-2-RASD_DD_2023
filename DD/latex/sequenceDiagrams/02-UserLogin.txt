@@ -1,0 +1,58 @@
+title User Login
+
+participant registered User
+participant WebAppUI
+participant DashboardManager
+participant Authentication Service
+participant Data Manager
+participant DBMS
+
+
+
+registered User->WebAppUI:showLogin()
+activate registered User
+activate WebAppUI
+WebAppUI-->registered User:showLoginForm
+registered User->WebAppUI:login(username,password)
+WebAppUI->Authentication Service:login(username,password)
+activate Authentication Service
+Authentication Service->Data Manager:checkCredential(username,password)
+activate Data Manager
+Data Manager->DBMS:SELECT QUERY
+activate DBMS
+DBMS-->Data Manager:RESULT  
+deactivate DBMS
+alt success
+
+Data Manager-->Authentication Service:True
+deactivate Data Manager
+Authentication Service->Data Manager:getUserInfo(username)
+activate Data Manager
+Data Manager->DBMS:SELECT QUERY
+activate DBMS
+DBMS-->Data Manager:RESULT  
+deactivate DBMS
+Data Manager-->Authentication Service:User
+deactivate Data Manager
+Authentication Service-->WebAppUI:User
+WebAppUI->DashboardManager:getDashboardInfo(User)
+activate DashboardManager
+DashboardManager-->WebAppUI:DashboardInfo
+deactivate DashboardManager
+deactivate Authentication Service
+WebAppUI-->registered User:RedirectToHomePage
+deactivate WebAppUI
+deactivate registered User
+else invalid credential
+activate Data Manager
+activate Authentication Service
+activate WebAppUI
+activate registered User
+Data Manager-->Authentication Service:False
+deactivate Data Manager
+Authentication Service-->WebAppUI:False
+deactivate Authentication Service
+WebAppUI-->registered User:showLoginError
+deactivate WebAppUI
+deactivate registered User
+end
