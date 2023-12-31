@@ -1,19 +1,23 @@
 participant Educator
+participant WebAppUI
 participant Dashboard Manager
 participant Competion Manager
 participant Data Manager
 participant DBMS
 
-Educator->Dashboard Manager:showNewCompetitionForm()
+
+Educator->WebAppUI:showNewCompetitionForm()
 activate Educator
+activate WebAppUI
+WebAppUI-->Educator:newCompetitionForm
+deactivate WebAppUI
+
+Educator->WebAppUI:createCompetition(competitionInfo)
+activate WebAppUI
+
+
+WebAppUI->Dashboard Manager:createCompetition(competitionInfo)
 activate Dashboard Manager
-Dashboard Manager-->Educator:newCompetitionForm
-deactivate Dashboard Manager
-
-Educator->Dashboard Manager:createCompetition(competitionInfo)
-activate Dashboard Manager
-
-
 Dashboard Manager->Competion Manager: addCompetition(CompetitionInfo)
 
 activate Competion Manager
@@ -42,21 +46,27 @@ DBMS-->Data Manager:RESULT
 deactivate DBMS
 Data Manager-->Competion Manager:Competition
 deactivate Data Manager
-Competion Manager-->Dashboard Manager:True
+Competion Manager-->Dashboard Manager:Competition
 deactivate Competion Manager
-Dashboard Manager-->Educator:showCreatedCompetition
+Dashboard Manager-->WebAppUI:Competition
 deactivate Dashboard Manager
+WebAppUI-->Educator:showCreatedCompetition
+deactivate WebAppUI
 deactivate Educator
 else competition name already used
 activate Educator
 activate Dashboard Manager
 activate Competion Manager
 activate Data Manager
+activate WebAppUI
 Data Manager-->Competion Manager:False
 deactivate Data Manager
-Competion Manager-->Dashboard Manager:False
+Competion Manager-->Dashboard Manager:CompetitionCannotBeCreatedException
 deactivate Competion Manager
-Dashboard Manager-->Educator:showCompetitionNotCreated
+
+Dashboard Manager-->WebAppUI:CompetitionCannotBeCreatedException
 deactivate Dashboard Manager
+WebAppUI-->Educator:showErrorCompetitionNotCreated
+deactivate WebAppUI
 deactivate Educator
 end

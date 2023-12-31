@@ -1,0 +1,112 @@
+participant Educator
+participant WebAppUI
+participant Dashboard Manager
+participant Battle Manager
+participant Data Manager
+participant DBMS
+participant Mail Server
+
+
+Educator->WebAppUI:showCreateBattleForm()
+activate Educator
+activate WebAppUI
+
+WebAppUI-->Educator:CreateBattleForm
+deactivate WebAppUI
+loop until name is valid
+Educator->WebAppUI:createBattle(battleInfo)
+activate WebAppUI
+WebAppUI->Dashboard Manager:createBattle(battleInfo, competitionName, educatorId)
+activate Dashboard Manager
+Dashboard Manager->Battle Manager:createBattle(battleInfo,competitionName,educatorId)
+activate Battle Manager
+Battle Manager->Data Manager:createBattle(battleInfo,competitionName,educatorId)
+activate Data Manager
+
+Data Manager->DBMS:SELECT QUERY
+activate DBMS
+DBMS-->Data Manager:RESULT
+deactivate DBMS
+Data Manager-->Battle Manager:False
+deactivate Data Manager
+Battle Manager-->Dashboard Manager:False
+deactivate Battle Manager
+Dashboard Manager-->WebAppUI:False
+deactivate Dashboard Manager
+WebAppUI-->Educator:ShowNameNotAvailable
+deactivate WebAppUI
+end
+activate Dashboard Manager
+activate Battle Manager
+activate Data Manager
+activate WebAppUI
+Data Manager->DBMS:INSERT QUERY
+activate DBMS
+DBMS-->Data Manager:RESULT
+deactivate DBMS
+Data Manager-->Battle Manager:True
+deactivate Data Manager
+Battle Manager-->Dashboard Manager:True
+deactivate Battle Manager
+Dashboard Manager-->WebAppUI:True
+deactivate Dashboard Manager
+WebAppUI-->Educator:ShowSATConfigurationForm
+deactivate WebAppUI
+
+loop until data is invalid
+Educator->WebAppUI:insertSATConfiguration(satConfiguration)
+activate WebAppUI
+WebAppUI-->Educator:ShowTestCases&SolutionForm
+Educator->WebAppUI:insertTestAndSolutions(tests,solutions)
+WebAppUI->Dashboard Manager:insertBattleConfiguration(battleConfiguration,battleName,educatorId)
+
+activate Dashboard Manager
+Dashboard Manager->Battle Manager:insertBattleConfiguration(battleConfiguration,battleName,educatorId)
+activate Battle Manager
+Battle Manager->:insertBattleConfiguration(battleConfiguration,battleName,educatorId)
+
+Battle Manager->Data Manager:insertBattleConfiguration(battleConfiguration,battleName,educatorId)
+activate Data Manager
+Data Manager->DBMS:INSERT QUERY
+activate DBMS
+DBMS-->Data Manager:RESULT
+deactivate DBMS
+
+Data Manager-->Battle Manager:ErroneusBattleSettingsException
+deactivate Data Manager
+Battle Manager-->Dashboard Manager:ErroneusBattleSettingsException
+deactivate Battle Manager
+Dashboard Manager-->WebAppUI:ErroneusBattleSettingsException
+deactivate Dashboard Manager
+WebAppUI-->Educator:ErroneusBattleSettingsException
+deactivate WebAppUI
+deactivate Educator
+
+end
+activate Data Manager
+activate Battle Manager
+activate Dashboard Manager
+activate WebAppUI
+activate Educator
+
+
+Data Manager->DBMS:SELECT QUERY
+activate DBMS
+DBMS-->Data Manager:RESULT
+deactivate DBMS
+loop forall student in competition
+Data Manager->DBMS:SELECT QUERY
+activate DBMS
+DBMS-->Data Manager:RESULT
+deactivate DBMS
+Data Manager->>Mail Server:sendMail(student,battleInfo)
+end 
+Data Manager-->Battle Manager:Battle
+deactivate Data Manager
+Battle Manager-->Dashboard Manager:Battle
+deactivate Battle Manager
+Dashboard Manager-->WebAppUI:Battle
+deactivate Dashboard Manager
+WebAppUI-->Educator:ShowCreatedBattle
+deactivate WebAppUI
+deactivate Educator
