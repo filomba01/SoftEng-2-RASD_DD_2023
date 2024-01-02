@@ -1,17 +1,68 @@
 \section{Purpose}
 \label{s:Purpose}%
 
+This document contains the design description of the \emph{CodeKataBattle} system. It includes the architectural design, the user interface design and the descrpition of all the operations that the system will perform. It also show how the requirements and use cases detailed in the RASD document are satisfied by the design of the system.
+
+This document is intended to be read by the developers of the system, the testers and the project managers. It is also intended to be used as a reference for the future maintenance of the system.
+
 \section{Scope}
 \label{s:Scope}%
 
+The \emph{CodeKataBattle} system is a web application that allows educators to create challenges for their students based on solving programming problems. In particular the system is based on the concept of \emph{Code Kata} that is an exercise in programming which helps a programmer hone their skills through practice and repetition. The system will allow the educators to create competition and battle based on \emph{Code Kata}. The students will be able to participate in the battles with a team or by themselves and solve the challenges in order to earn points. The system will also provide a leader board that will show the ranking of the students based on their scores.
+
+A more detailed description of the system can be found in the RASD document, whilist in this document is provided a detailed description of the design of the system to implement the requirements and use cases described in the RASD document.
+
 \section{Definitions, Acronyms, Abbreviations}
 \label{s:definitions-acronyms-abbreviations}%
+\subsection{Definitions}
+\label{ss:Definitions}
+
+\begin{table}[H]
+  \begin{tabular}{|l|p{0.8\textwidth}|}
+
+    \hline
+    User & Anyone interacting with the system, it can be both a Student or an Educator    \\
+    \hline
+    Manage & Create, supervise and edit a certain element of the application. \\
+    \hline
+    Code Kata & A challenge intended to improve programming abilities, including description, test cases and build automation scripts. \\
+    \hline
+  \end{tabular}
+  \caption{List of definitions}
+  \label{tab:definitions}
+\end{table}
+
+\subsection{Acronyms}
+\label{ss:Acronyms}
+
+\begin{table}[H]
+  \begin{tabular}{|l|l|}
+
+    \hline
+    ST & Student \\
+    \hline
+    ED & Educator \\
+    \hline
+    CKB & CodaKataBattle \\
+    \hline
+    RASD & Requirements Analysis and Specification Document     \\
+    \hline
+    SAT & Static Analyzer Tool    \\
+    \hline
+    T & Team    \\
+    \hline
+  \end{tabular}
+  \caption{List of Acronyms}
+  \label{tab:acronyms}
+\end{table}
+
 
 \section{Revision history}
 \label{s:revision-history}%
 
 \section{Reference Documents}
 \label{s:reference-documents}%
+
 
 \section{Document Structure}
 \label{s:document-structure}%
