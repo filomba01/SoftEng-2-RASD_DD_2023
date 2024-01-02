@@ -3,7 +3,7 @@ participant WebAppUI
 
 participant Dashboard Manager
 participant Competition Manager
-participant Badge Monitor
+participant Badge Manager
 participant Data Manager
 participant DBMS
 
@@ -35,9 +35,9 @@ activate Dashboard Manager
 Dashboard Manager->Competition Manager:createBadge(educatorId,competitionId, badgeInfo)
 activate Competition Manager
 
-Competition Manager->Badge Monitor:createBadge(educatorId,competitionId, badgeInfo)
-activate Badge Monitor
-Badge Monitor->Data Manager:createBadge(educatorId,competitionId, badgeInfo)
+Competition Manager->Badge Manager:createBadge(educatorId,competitionId, badgeInfo)
+activate Badge Manager
+Badge Manager->Data Manager:createBadge(educatorId,competitionId, badgeInfo)
 activate Data Manager
 Data Manager->DBMS:SELECT QUERY
 activate DBMS
@@ -48,10 +48,10 @@ Data Manager->DBMS:INSERT QUERY
 activate DBMS
 DBMS->Data Manager:RESULT
 deactivate DBMS
-Data Manager-->Badge Monitor:True
+Data Manager-->Badge Manager:True
 deactivate Data Manager
-Badge Monitor-->Competition Manager:True
-deactivate Badge Monitor
+Badge Manager-->Competition Manager:True
+deactivate Badge Manager
 Competition Manager-->Dashboard Manager:True
 deactivate Competition Manager
 Dashboard Manager-->WebAppUI:True
@@ -65,14 +65,14 @@ activate Dashboard Manager
 activate WebAppUI
 activate Educator
 activate Data Manager
-activate Badge Monitor
+activate Badge Manager
 
 
 
-Data Manager-->Badge Monitor:False
+Data Manager-->Badge Manager:False
 deactivate Data Manager
-Badge Monitor-->Competition Manager:False
-deactivate Badge Monitor
+Badge Manager-->Competition Manager:False
+deactivate Badge Manager
 Competition Manager-->Dashboard Manager:False
 deactivate Competition Manager
 Dashboard Manager-->WebAppUI:False
