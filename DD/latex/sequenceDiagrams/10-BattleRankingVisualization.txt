@@ -1,0 +1,38 @@
+title ST visualizes the ranking of their T
+
+WebAppUI->Dashboard Manager: getBattles(competitionId, battleInfo)
+activate WebAppUI
+activate Dashboard Manager
+Dashboard Manager->Battle Manager: searchBattle(battleInfo)
+activate Battle Manager
+Battle Manager->Data Manager: searchBattle(battleInfo)
+activate Data Manager
+Data Manager->DBMS: SELECT QUERY
+activate DBMS
+DBMS-->Data Manager: battles
+deactivate DBMS
+Data Manager-->Battle Manager: battles
+deactivate Data Manager
+Battle Manager-->Dashboard Manager: battles
+deactivate Battle Manager
+Dashboard Manager-->WebAppUI: battles
+deactivate Dashboard Manager
+WebAppUI->WebAppUI: selectBattle(battleid)
+
+WebAppUI->Dashboard Manager: getBattleRankings(battleInfo)
+activate Dashboard Manager
+Dashboard Manager->Battle Manager: getRankings(battleInfo)
+activate Battle Manager
+Battle Manager->Data Manager: getBattleRankings(battleInfo)
+activate Data Manager
+Data Manager->DBMS: SELECT QUERY
+activate DBMS
+DBMS-->Data Manager: rankings
+deactivate DBMS
+Data Manager-->Battle Manager: rankings
+deactivate Data Manager
+Battle Manager-->Dashboard Manager: rankings
+deactivate Battle Manager
+Dashboard Manager-->WebAppUI: rankings
+deactivate Dashboard Manager
+deactivate WebAppUI

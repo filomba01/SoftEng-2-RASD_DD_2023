@@ -1,0 +1,102 @@
+title ST joins a battle
+
+WebAppUI->Dashboard Manager: getBattles(competitionid)
+activate WebAppUI
+activate Dashboard Manager
+Dashboard Manager->Battle Manager: searchBattle(battleInfo)
+activate Battle Manager
+Battle Manager->Data Manager: searchBattle(battleInfo)
+activate Data Manager
+Data Manager->DBMS: SELECT QUERY
+activate DBMS
+Data Manager<--DBMS: battles
+deactivate DBMS
+Battle Manager<--Data Manager: battles
+deactivate Data Manager
+Dashboard Manager<--Battle Manager: battles
+deactivate Battle Manager
+WebAppUI<--Dashboard Manager: battles
+deactivate Dashboard Manager
+
+WebAppUI->WebAppUI: selectBattle(battle)
+alt ST selects to create a new T
+
+WebAppUI->WebAppUI: showNewTeamForm()
+
+WebAppUI->Dashboard Manager: createTeam(battleid, teamInfo)
+activate Dashboard Manager
+Dashboard Manager->Battle Manager: createTeam(battleid, teamInfo)
+activate Battle Manager
+Battle Manager->Team Manager: createTeam(battleid, teamInfo)
+activate Team Manager
+Team Manager->Data Manager: createTeam(battleid, teamInfo)
+activate Data Manager
+Data Manager->DBMS: INSERT QUERY
+activate DBMS
+Data Manager<--DBMS: result
+deactivate DBMS
+Team Manager<--Data Manager: result
+deactivate Data Manager
+Battle Manager<-- Team Manager: result
+deactivate Team Manager
+Dashboard Manager<--Battle Manager: result
+deactivate Battle Manager
+
+alt 'result' shows error
+Dashboard Manager-->WebAppUI:error
+else 
+Dashboard Manager-->WebAppUI: result
+loop for each ST to invite
+WebAppUI->Dashboard Manager: inviteStudentToTeam(username, teamid)
+Dashboard Manager->Team Manager:inviteStudentToTeam(username, teamid)
+activate Team Manager
+Team Manager->Notification Service: inviteStudentToTeam(username, teamid)
+activate Notification Service
+Team Manager<--Notification Service: result
+deactivate Notification Service
+Dashboard Manager<--Team Manager: result
+deactivate Team Manager
+WebAppUI<--Dashboard Manager: result
+end 
+
+end
+
+
+else ST selects to join an existing public T
+WebAppUI->Dashboard Manager: getTeams(battleid)
+Dashboard Manager->Team Manager: getTeams(battleid)
+activate Team Manager
+Team Manager->Data Manager: getTeams(battleid)
+activate Data Manager
+Data Manager->DBMS: SELECT QUERY
+activate DBMS
+Data Manager<--DBMS: teams
+deactivate DBMS
+Team Manager<--Data Manager: teams
+deactivate Data Manager
+Dashboard Manager<--Team Manager: teams
+deactivate Team Manager
+WebAppUI<--Dashboard Manager: teams
+
+WebAppUI->WebAppUI: showPublicTeams()
+
+WebAppUI->Dashboard Manager: joinTeam(username, teamid)
+Dashboard Manager->Team Manager: addStudentToTeam(username, teamid)
+activate Team Manager
+
+Team Manager->Data Manager: addStudentToTeam(username, teamid)
+activate Data Manager
+Data Manager->DBMS: INSERT QUERY
+activate DBMS
+Data Manager<--DBMS: result
+deactivate DBMS
+Team Manager<--Data Manager: result
+deactivate Data Manager
+Dashboard Manager<--Team Manager: result
+deactivate Team Manager
+WebAppUI<--Dashboard Manager: result
+deactivate Dashboard Manager
+deactivate WebAppUI
+end
+
+
