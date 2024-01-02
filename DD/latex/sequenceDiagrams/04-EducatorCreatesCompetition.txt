@@ -18,7 +18,7 @@ activate WebAppUI
 
 WebAppUI->Dashboard Manager:createCompetition(competitionInfo)
 activate Dashboard Manager
-Dashboard Manager->Competion Manager: addCompetition(CompetitionInfo)
+Dashboard Manager->Competion Manager: createCompetition(CompetitionInfo)
 
 activate Competion Manager
 Competion Manager->Data Manager:createCompetition(CompetitionInfo)
