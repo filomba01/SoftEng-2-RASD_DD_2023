@@ -1,0 +1,49 @@
+Invited ST->WebAppUI:open(activationLink)
+activate Invited ST
+activate WebAppUI
+
+WebAppUI->Dashboard Manager:acceptTeamInvitation(username, teamId)
+activate Dashboard Manager
+Dashboard Manager->Team Manager:addStudentToTeam(username, teamId)
+activate Team Manager
+Team Manager->Data Manager:addStudentToTeam(username, teamId)
+activate Data Manager
+
+Data Manager->DBMS:SELECT QUERY
+
+activate DBMS
+DBMS-->Data Manager:RESULT
+deactivate DBMS
+alt link valid
+
+Data Manager->DBMS:INSERT/UPDATE QUERY
+
+activate DBMS
+DBMS-->Data Manager:RESULT
+deactivate DBMS
+Data Manager-->Team Manager:True
+deactivate Data Manager
+Team Manager-->Dashboard Manager:True
+deactivate Team Manager
+Dashboard Manager-->WebAppUI:True
+deactivate Dashboard Manager
+WebAppUI-->Invited ST:show invitation accepted
+deactivate WebAppUI
+deactivate Invited ST
+
+else link expired 
+activate Invited ST
+activate Data Manager
+activate Dashboard Manager
+activate WebAppUI
+Data Manager-->Team Manager:False
+deactivate Data Manager
+Team Manager-->Dashboard Manager:False
+deactivate Team Manager
+Dashboard Manager-->WebAppUI:False
+deactivate Dashboard Manager
+WebAppUI-->Invited ST: LinkExpired
+deactivate WebAppUI
+deactivate Unregistered ST
+deactivate Invited ST
+end

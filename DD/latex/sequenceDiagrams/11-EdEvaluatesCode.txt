@@ -1,0 +1,65 @@
+participant Educator
+participant WebAppUI
+participant Dashboard Manager
+participant Team Manager
+participant Data Manager
+participant DBMS
+
+activate Educator
+Educator->WebAppUI:getTeams(battleId)
+activate WebAppUI
+WebAppUI->Dashboard Manager:getTeams(battleId)
+activate Dashboard Manager
+Dashboard Manager->Team Manager:getTeams(battleId)
+activate Team Manager
+Team Manager->Data Manager:getTeams(battleId)
+activate Data Manager
+Data Manager->DBMS:SELECT QUERY
+activate DBMS
+DBMS-->Data Manager:RESULT
+deactivate DBMS
+Data Manager-->Team Manager:Team
+deactivate Data Manager
+Team Manager-->Dashboard Manager:Team
+deactivate Team Manager
+Dashboard Manager-->WebAppUI:Team
+deactivate Dashboard Manager
+WebAppUI-->Educator:showTeam
+
+
+Educator->WebAppUI:getLastCommit(teamId)
+WebAppUI->Dashboard Manager:getLastCommit(teamId)
+activate Dashboard Manager
+Dashboard Manager->Data Manager:getLastCommit(teamId)
+activate Data Manager
+Data Manager->DBMS:SELECT QUERY
+activate DBMS
+DBMS-->Data Manager:RESULT
+deactivate DBMS
+Data Manager-->Dashboard Manager:CommitInfo
+deactivate Data Manager
+Dashboard Manager-->WebAppUI:CommitInfo
+deactivate Dashboard Manager
+WebAppUI-->Educator:CommitInfo
+
+Educator->WebAppUI:evaluateCommit(commitId)
+WebAppUI->Dashboard Manager:evaluateCommit(commitId)
+activate Dashboard Manager
+Dashboard Manager->Team Manager:setManualEvaluation(educatorId, commitId, evaluation)
+activate Team Manager
+Team Manager->Data Manager:setManualEvaluation(educatorId, commitId, evaluation)
+activate Data Manager
+Data Manager->DBMS:INSERT QUERY
+activate DBMS
+DBMS-->Data Manager:RESULT
+deactivate DBMS
+Data Manager-->Team Manager:True
+deactivate Data Manager
+Team Manager-->Dashboard Manager:True
+deactivate Team Manager
+Dashboard Manager-->WebAppUI:True
+deactivate Dashboard Manager
+WebAppUI-->Educator:showScoreSaved
+
+deactivate WebAppUI
+deactivate Educator
