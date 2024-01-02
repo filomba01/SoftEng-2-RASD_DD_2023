@@ -1,0 +1,83 @@
+participant Educator
+participant WebAppUI
+
+participant Dashboard Manager
+participant Competition Manager
+participant Data Manager
+participant DBMS
+participant Notification Service
+participant Mail Server
+
+
+
+Educator->WebAppUI:showCompetitionSettings()
+activate Educator
+activate WebAppUI
+WebAppUI->Dashboard Manager:showCompetitionSettings(educatorId,competitionId)
+activate Dashboard Manager
+Dashboard Manager-->WebAppUI:CompetitionSettings
+deactivate Dashboard Manager
+WebAppUI-->Educator:Show competition setting
+deactivate WebAppUI
+Educator->WebAppUI:showInviteEd()
+activate WebAppUI
+WebAppUI->Dashboard Manager:showInviteED(educatorId,competitionId)
+activate Dashboard Manager
+Dashboard Manager-->WebAppUI:InviteEdPanel
+deactivate Dashboard Manager
+WebAppUI-->Educator:show invite ED panel
+deactivate WebAppUI
+Educator->WebAppUI:inviteED(invitedEducatorId)
+activate WebAppUI
+WebAppUI->Dashboard Manager:inviteED(educatorId,competitionId,invitedEducatorId)
+activate Dashboard Manager
+Dashboard Manager->Competition Manager:inviteED(educatorId,competitionId,invitedEducatorId)
+activate Competition Manager
+Competition Manager->Data Manager:checkEdCanBeInvited(competitionName,invitedEducatorId)
+activate Data Manager
+Data Manager->DBMS:SELECT QUERY
+activate DBMS
+DBMS-->Data Manager:RESULT
+deactivate DBMS
+
+alt ed can be invited
+Data Manager-->Competition Manager:True
+deactivate Data Manager
+Competition Manager->Notification Service:notifyEdInvitation(competitionId,invitedEducatorId)
+activate Notification Service
+Notification Service->Data Manager:retreiveEducatorInfo(invitedEducatorId)
+activate Data Manager
+Data Manager->DBMS:SELECT QUERY
+activate DBMS
+DBMS-->Data Manager:RESULT
+deactivate DBMS
+Data Manager-->Notification Service:Educator
+deactivate Data Manager
+Notification Service->>Mail Server:sendMail()
+Notification Service-->Competition Manager:True
+deactivate Notification Service
+Competition Manager-->Dashboard Manager:True
+deactivate Competition Manager
+Dashboard Manager-->WebAppUI:True
+deactivate Dashboard Manager
+WebAppUI-->Educator: show message Ed invited
+deactivate WebAppUI
+deactivate Educator
+else
+activate Data Manager
+activate Competition Manager
+activate Dashboard Manager
+activate WebAppUI
+activate Educator
+
+Data Manager-->Competition Manager:False
+deactivate Data Manager
+Competition Manager-->Dashboard Manager:False
+deactivate Competition Manager
+Dashboard Manager-->WebAppUI:False
+deactivate Dashboard Manager
+WebAppUI-->Educator: show error message
+deactivate WebAppUI
+deactivate Educator
+
+end

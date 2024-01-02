@@ -1,0 +1,83 @@
+participant Educator
+participant WebAppUI
+
+participant Dashboard Manager
+participant Competition Manager
+participant Badge Monitor
+participant Data Manager
+participant DBMS
+
+
+
+
+Educator->WebAppUI:showCompetitionSettings()
+activate Educator
+activate WebAppUI
+WebAppUI->Dashboard Manager:showCompetitionSettings(educatorId,competitionId)
+activate Dashboard Manager
+Dashboard Manager-->WebAppUI:CompetitionSettings
+deactivate Dashboard Manager
+WebAppUI-->Educator:Show competition setting
+deactivate WebAppUI
+
+Educator->WebAppUI:showBadgeCreation()
+activate WebAppUI
+WebAppUI->Dashboard Manager:showBadgeCreation(educatorId,competitionId)
+activate Dashboard Manager
+Dashboard Manager-->WebAppUI:BadgeCreation
+deactivate Dashboard Manager
+WebAppUI-->Educator:show Badge creation
+deactivate WebAppUI
+Educator->WebAppUI:createBadge(badgeInfo)
+activate WebAppUI
+WebAppUI->Dashboard Manager:createBadge(educatorId,competitionId, badgeInfo)
+activate Dashboard Manager
+Dashboard Manager->Competition Manager:createBadge(educatorId,competitionId, badgeInfo)
+activate Competition Manager
+
+Competition Manager->Badge Monitor:createBadge(educatorId,competitionId, badgeInfo)
+activate Badge Monitor
+Badge Monitor->Data Manager:createBadge(educatorId,competitionId, badgeInfo)
+activate Data Manager
+Data Manager->DBMS:SELECT QUERY
+activate DBMS
+DBMS->Data Manager:RESULT
+deactivate DBMS
+alt badge created successfully
+Data Manager->DBMS:INSERT QUERY
+activate DBMS
+DBMS->Data Manager:RESULT
+deactivate DBMS
+Data Manager-->Badge Monitor:True
+deactivate Data Manager
+Badge Monitor-->Competition Manager:True
+deactivate Badge Monitor
+Competition Manager-->Dashboard Manager:True
+deactivate Competition Manager
+Dashboard Manager-->WebAppUI:True
+deactivate Dashboard Manager
+WebAppUI-->Educator:show badge correctly created
+deactivate WebAppUI
+deactivate Educator
+else invalid request
+activate Competition Manager
+activate Dashboard Manager
+activate WebAppUI
+activate Educator
+activate Data Manager
+activate Badge Monitor
+
+
+
+Data Manager-->Badge Monitor:False
+deactivate Data Manager
+Badge Monitor-->Competition Manager:False
+deactivate Badge Monitor
+Competition Manager-->Dashboard Manager:False
+deactivate Competition Manager
+Dashboard Manager-->WebAppUI:False
+deactivate Dashboard Manager
+WebAppUI-->Educator:show error request invalid
+deactivate WebAppUI
+deactivate Educator
+end

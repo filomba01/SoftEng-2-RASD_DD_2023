@@ -1,0 +1,51 @@
+participant Student
+participant WebAppUI
+participant Dashboard Manager
+participant Data Manager
+participant DBMS
+
+Student->WebAppUI:searchStudent(username)
+activate WebAppUI
+activate Student
+WebAppUI->Dashboard Manager:searchStudent(username)
+activate Dashboard Manager
+Dashboard Manager->Data Manager:searchStudent(username)
+activate Data Manager
+Data Manager->DBMS: SELECT QUERY
+activate DBMS
+DBMS-->Data Manager:RESULT
+deactivate DBMS
+Data Manager-->Dashboard Manager:List<Student>
+deactivate Data Manager
+Dashboard Manager-->WebAppUI:List<Student>
+deactivate Dashboard Manager
+alt list not empty
+WebAppUI-->Student:Show Student List
+deactivate WebAppUI
+
+Student->WebAppUI:showStudentProfile(username)
+activate WebAppUI
+WebAppUI->Dashboard Manager:showStudentProfile(username)
+activate Dashboard Manager
+Dashboard Manager->Data Manager:showStudentProfile(username)
+activate Data Manager
+
+Data Manager->DBMS:SELECT QUERY
+activate DBMS
+DBMS-->Data Manager: RESULT
+deactivate DBMS
+Data Manager-->Dashboard Manager:Student
+deactivate Data Manager
+Dashboard Manager-->WebAppUI:Student
+deactivate Dashboard Manager
+WebAppUI-->Student:Show Student Profile
+deactivate WebAppUI
+deactivate Student
+else 
+activate WebAppUI
+activate Student
+WebAppUI-->Student:Show no student found
+deactivate WebAppUI
+deactivate Student
+
+end

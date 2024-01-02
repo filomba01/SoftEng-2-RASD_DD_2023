@@ -1,0 +1,46 @@
+Invited ED->WebAppUI:open(activationLink)
+activate Invited ED
+activate WebAppUI
+
+WebAppUI->Competition Manager:acceptInvitation(username,competitionId)
+activate Competition Manager
+
+Competition Manager->Data Manager:addManager(username,competitionId)
+
+activate Data Manager
+
+Data Manager->DBMS:SELECT QUERY
+
+activate DBMS
+DBMS-->Data Manager:RESULT
+deactivate DBMS
+alt link valid
+
+Data Manager->DBMS:INSERT/UPDATE QUERY
+
+activate DBMS
+DBMS-->Data Manager:RESULT
+deactivate DBMS
+Data Manager-->Competition Manager:True
+deactivate Data Manager
+Competition Manager-->WebAppUI:True
+deactivate Competition Manager
+WebAppUI-->Invited ED:show invitation accepted
+deactivate WebAppUI
+deactivate Invited ED
+
+else link expired 
+activate Invited ED
+activate Data Manager
+activate Competition Manager
+activate WebAppUI
+Data Manager-->Competition Manager:False
+deactivate Data Manager
+
+Competition Manager-->WebAppUI:False
+deactivate Competition Manager
+WebAppUI-->Invited ED: LinkExpired
+deactivate WebAppUI
+deactivate Unregistered ST
+deactivate Invited ED
+end

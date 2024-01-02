@@ -27,11 +27,25 @@ WebAppUI->Authentication Service:register(UserInfo)
 activate Authentication Service
 
 
+Authentication Service->Data Manager:validateNewUser(info:UserInfo)
+
+
+activate Data Manager
+
+Data Manager->DBMS: SELECT QUERY
+activate DBMS
+DBMS-->Data Manager: RESULT
+deactivate DBMS
+
+alt validationSuccessful
+Data Manager-->Authentication Service:True
+
+
+deactivate Data Manager
 Authentication Service->Data Manager:addUser(info: UserInfo)
 
 activate Data Manager
 
-alt [validationSuccessful]
 
 Data Manager->DBMS:INSERT QUERY
 
@@ -49,6 +63,7 @@ activate DBMS
 
 DBMS-->Data Manager:RESULT
 deactivate DBMS
+
 
 Data Manager-->Authentication Service:User
 
@@ -68,9 +83,13 @@ Authentication Service-->WebAppUI:True
 deactivate Authentication Service
 WebAppUI-->Unregistered ST:ActivationSent
 deactivate WebAppUI
+deactivate Unregistered ST
+
 
 Unregistered ST->WebAppUI:open(activationLink)
+activate Unregistered ST
 activate WebAppUI
+alt validLink
 
 WebAppUI->Authentication Service:ActivateAccount(username)
 activate Authentication Service
@@ -89,4 +108,33 @@ deactivate Data Manager
 Authentication Service-->WebAppUI:True
 deactivate Authentication Service
 WebAppUI-->Unregistered ST:AccountActivated
+deactivate WebAppUI
+else link expired 
+activate Data Manager
+activate Authentication Service
+activate WebAppUI
+Data Manager-->Authentication Service:False
+deactivate Data Manager
+
+Authentication Service-->WebAppUI:False
+deactivate Authentication Service
+WebAppUI-->Unregistered ST: LinkExpired
+deactivate WebAppUI
+deactivate Unregistered ST
+end
+else registration error
+
+activate Data Manager
+activate Authentication Service
+activate WebAppUI
+activate Unregistered ST
+Data Manager-->Authentication Service:False
+deactivate Data Manager
+Authentication Service-->WebAppUI:False
+deactivate Authentication Service
+WebAppUI-->Unregistered ST:Error
+deactivate WebAppUI
+deactivate Unregistered ST
+
+
 end
