@@ -2,7 +2,11 @@ Invited ED->WebAppUI:open(activationLink)
 activate Invited ED
 activate WebAppUI
 
-WebAppUI->Competition Manager:acceptInvitation(username,competitionId)
+
+WebAppUI->Dashboard Manager:acceptInvitation(username,competitionId)
+activate Dashboard Manager
+
+Dashboard Manager->Competition Manager:acceptInvitation(username,competitionId)
 activate Competition Manager
 
 Competition Manager->Data Manager:addManager(username,competitionId)
@@ -23,8 +27,10 @@ DBMS-->Data Manager:RESULT
 deactivate DBMS
 Data Manager-->Competition Manager:True
 deactivate Data Manager
-Competition Manager-->WebAppUI:True
+Competition Manager-->Dashboard Manager:True
 deactivate Competition Manager
+Dashboard Manager-->WebAppUI:True
+deactivate Dashboard Manager
 WebAppUI-->Invited ED:show invitation accepted
 deactivate WebAppUI
 deactivate Invited ED
@@ -34,13 +40,15 @@ activate Invited ED
 activate Data Manager
 activate Competition Manager
 activate WebAppUI
+activate Dashboard Manager
 Data Manager-->Competition Manager:False
 deactivate Data Manager
 
-Competition Manager-->WebAppUI:False
+Competition Manager-->Dashboard Manager:False
 deactivate Competition Manager
+Dashboard Manager-->WebAppUI:False
+deactivate Dashboard Manager
 WebAppUI-->Invited ED: LinkExpired
 deactivate WebAppUI
-deactivate Unregistered ST
 deactivate Invited ED
 end

@@ -90,19 +90,26 @@ activate WebAppUI
 activate Educator
 
 
-Data Manager->DBMS:SELECT QUERY
-activate DBMS
-DBMS-->Data Manager:RESULT
-deactivate DBMS
-loop forall student in competition
-Data Manager->DBMS:SELECT QUERY
-activate DBMS
-DBMS-->Data Manager:RESULT
-deactivate DBMS
-Data Manager->>Mail Server:sendMail(student,battleInfo)
-end 
 Data Manager-->Battle Manager:Battle
 deactivate Data Manager
+Battle Manager->Notification Service:notifyBattleCreation(battleId)
+activate Notification Service
+Notification Service->Data Manager:retreiveStudentsFromBattle(battleId)
+activate Data Manager
+
+deactivate DBMS
+Data Manager->DBMS:SELECT QUERY
+activate DBMS
+DBMS-->Data Manager:RESULT
+deactivate DBMS
+Data Manager-->Notification Service:List<Student>
+deactivate Data Manager
+loop forall student in competition
+Notification Service->>Mail Server:sendMail(student,battleInfo)
+end 
+deactivate Data Manager
+Battle Manager<-Notification Service:True
+deactivate Notification Service
 Battle Manager-->Dashboard Manager:Battle
 deactivate Battle Manager
 Dashboard Manager-->WebAppUI:Battle

@@ -1,1 +1,113 @@
 %
+\section{Requirement Traceability}
+\label{s:requirement_traceability}%
+
+\begin{center}
+  \begin{longtable}{|p{0.05\linewidth}|p{0.55\linewidth}|p{0.4\linewidth}|}
+        %WebAppUI - Authentication Service - Dashboard Manager - Competition Manager - Battle Manager  - Badge Manager - Team Manager - Notification Service - Evaluator Controller - Code Evaluator - Static Analyzer - Point Manager - Data Manager
+        \hline
+         & \textbf{Description} & \textbf{Components}\\
+        \hline
+        R1 & CKB shall allow an unregistered user to create an account &  Authentication Service, Data Manager\\
+        \hline
+        R2 & CKB shall allow users to log in &  Authentication Service, Data Manager\\
+        \hline
+        R3 & CKB shall allow ED to create competition & Dashboard Manager, Competition Manager, Data Manager \\
+        \hline
+        R4 & CKB shall allow ED to create battle within a competition that he/she manages &  Dashboard Manager, Battle Manager, Data Manager\\
+        \hline
+        R5 & CKB shall allow ED to invite other EDs to manage battles in a competition & Dashboard Manager, Competition Manager, Battle Manager, Data Manager, Notification Service\\
+        \hline
+        R6 & CKB shall allow ED to upload the code kata & Dashboard Manager, Battle Manager, Data Manager \\
+        \hline
+        R7 & CKB shall allow ED to set a registration deadline to the battle & Dashboard Manager, Battle Manager, Data Manager\\
+        \hline
+        R8 & CKB shall allow ED to set a minimum number of STs per group in a battle & Dashboard Manager, Battle Manager, Data Manager \\
+        \hline
+        R9 & CKB shall allow ED to set the maximum number of STs per group in a battle & Dashboard Manager, Battle Manager, Data Manager \\
+        \hline
+        R10 & CKB shall allow ED to set a final submission deadline & Dashboard Manager, Battle Manager, Data Manager \\
+        \hline
+        R11 & CKB shall allow ED to set how to perform static analysis &  Dashboard Manager, Battle Manager, Static Analyzer\\
+        \hline
+        R12 & CKB shall allow ST to subscribe to a competition &  Dashboard Manager, Competition Manager, Data Manager\\
+        \hline
+        R13 & CKB shall send notifications about a new competition to ST & Competition Manager, Notification Service \\
+        \hline
+        R14 & CKB shall send notification about battle created within a competition ST are subscribed in & Battle Manager, Notification Service \\
+        \hline
+        R15 & CKB shall allow ST to join a battle on his own &  Dashboard Manager, Battle Manager, Team Manager, Data Manager\\
+        \hline
+        R16 & CKB shall allow ST to invite other ST in a T for a battle &  Dashboard Manager, Team Manager, Data Manager, Notification Service \\
+        \hline
+        R17 & CKB shall create a GitHub repository containing the description, software project and the build automation scripts & Dashboard Manager, Battle Manager\\
+        \hline
+        R18 & CKB shall send the Github repository link to ST member of a T competing in the battle & Battle Manager, Data Manger, Notification Service\\
+        \hline
+        R19 & CKB shall supply API to call with Github actions & Battle Manager \\
+        \hline
+        R20 & CKB shall be able to pull sources from GitHub & Battle Manager \\
+        \hline
+        R21 & CKB shall be able to send the ST source code to the correct SAT  & Evaluator Controller, Static Analyzer\\
+        \hline
+        R22 & CKB shall be able to receive the evaluation given by SAT on a source code & Point Manager, Data Manager\\
+        \hline
+        R23 & CKB shall be able to run tests on code & Code Evaluator \\
+        \hline
+        R24 & CKB shall evaluate the code in terms of test cases passed & Code Evaluator\\
+        \hline
+        R25 & CKB shall evaluate the code in terms of timeliness & Code Evaluator\\
+        \hline
+        R26 & CKB shall allow ED to assign a score to codes & Dashboard Manager, Team Manager, Data Manager \\
+        \hline
+        R27 & CKB shall update the score of a T (as soon as new push actions are performed) & Evaluator Controller, Code Evaluator, Static Analyzer, Point Manger, Data Manger\\
+        \hline
+        R28 & CKB shall allow ED to go through sources produced by Ts & Dashboard Manager, Battle Manager\\
+        \hline
+        R29 & CKB shall notify ST when final battle ranks are available & Battle Manager, Notification Service \\
+        \hline
+        R30 & CKB shall update the personal competition score of a ST at the end of each battle &\\
+        \hline
+        R31 & CKB shall create a rank with students' performances in a competition & Competition Manager, Data Manager \\
+        \hline
+        R32 & CKB shall allow ST to see all ST’s rank in battle where is enrolled & Dashboard Manager, Battle Manager,  Data Manager \\
+        \hline
+        R33 & CKB shall allow ED to see all ST’s ranks in the battle that he/she manages & Dashboard Manager, Battle Manager, Data Manager\\
+        \hline
+        R34 & CKB shall allow EDs and STs to see all ST’s rank in competitions & Dashboard Manager, Competition Manager, Data Manager \\
+        \hline
+        R35 & CKB shall allow ST to see the list of ongoing competitions & Dashboard Manager, Competition Manager, Data Manager\\
+        \hline
+        R36 & CKB shall allow ED to close a competition &  Dashboard Manager, Competition Manager, Data Manager\\
+        \hline
+        R37 & CKB shall allow ED to define badges in the context of a competition & Dashboard Manager, Competition Manager, Badge Manager, Data Manager \\
+        \hline
+        R38 & CKB shall assign badges to students at the end of the competition & Competition Manager, Badge Manager, Data Manager \\
+        \hline
+        R39 & CKB shall allow ED to define new rules for badges & Dashboard Manager, Competition Manager, Badge Manager, Data Manager \\
+        \hline
+        R40 & CKB shall allow ED to define new variables for badges & Dashboard Manager, Competition Manager, Badge Manager, Data Manager\\
+        \hline
+        R41 & CKB shall allow users to visualize badges obtained by a ST & Dashboard Manager, Competition Manager, Badge Manager, Data Manager \\
+        \hline
+        R42 & CKB shall allow users to visualize a ST profile & Dashboard Manager,  Data Manager\\
+        \hline
+        R43 & CKB shall allow ST to join a T for which is invited & Dashboard Manager, Team Manager, Data Manager \\
+        \hline
+        R44 & CKB shall allow ST to join a public T & Dashboard Manager, Team Manager, Data Manager \\
+        \hline
+        R45 & CKB shall allow ST to create a T & Dashboard Manager, Battle Manager,Team Manager, Data Manager \\
+        \hline
+        R46 & CKB shall allow ST to set a T to public or private & Dashboard Manager, Battle Manager,Team Manager, Data Manager  \\
+        \hline
+        R47 & CKB can distinguish between an ED user and a ST user & Authentication Service, Data Manager \\
+        \hline
+        R48 & CKB shall not allow ST/ED to see the rankings of battles they are not involved in & Battle Manager, Data Manager\\
+        \hline
+        R49 & CKB shall have the environments for all the programming language it supports & Static Analyzer\\
+        \hline
+        R50 & CKB shall allow ED to close a battle they manage & Dashboard Manager, Battle Manager, Data Manager \\
+        \hline
+
+  \end{longtable}
+\end{center}
