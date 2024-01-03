@@ -1,0 +1,50 @@
+participant Student
+participant WebAppUI
+participant Dashboard Manager
+participant Competion Manager
+participant Data Manager
+participant DBMS
+
+activate Student
+Student->WebAppUI:showCompetition(competitionName)
+activate WebAppUI
+WebAppUI->Dashboard Manager:showCompetition(competitionName)
+activate Dashboard Manager
+Dashboard Manager->Competion Manager:showCompetition(competitionName)
+activate Competion Manager
+Competion Manager->Data Manager:getCompetition(competitionName)
+activate Data Manager
+Data Manager->DBMS:SELECT QUERY
+activate DBMS
+DBMS-->Data Manager:RESULT
+deactivate DBMS
+Data Manager-->Competion Manager:CompetitionInfo
+deactivate Data Manager
+Competion Manager-->Dashboard Manager:CompetitionInfo
+deactivate Competion Manager
+Dashboard Manager-->WebAppUI:CompetitionInfo
+deactivate Dashboard Manager
+WebAppUI-->Student:showCompetitionInfo
+
+
+Student->WebAppUI:joinCompetition(competitionName, studentUsername)
+WebAppUI->Dashboard Manager:joinCompetition(competitionName, studentUsername)
+activate Dashboard Manager
+Dashboard Manager->Competion Manager:joinCompetition(competitionName, studentUsername)
+activate Competion Manager
+Competion Manager->Data Manager:addStudentToCompetition(competitionName, studentUsername)
+activate Data Manager
+Data Manager->DBMS:INSERT QUERY
+activate DBMS
+DBMS-->Data Manager:RESULT
+deactivate DBMS
+Data Manager-->Competion Manager:True
+deactivate Data Manager
+Competion Manager-->Dashboard Manager:True
+deactivate Competion Manager
+Dashboard Manager-->WebAppUI:True
+deactivate Dashboard Manager
+WebAppUI-->Student:showCompetitionJoined
+
+deactivate WebAppUI
+deactivate Student

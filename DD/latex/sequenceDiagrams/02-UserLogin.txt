@@ -1,6 +1,6 @@
 title User Login
 
-participant registered User
+participant Registered User
 participant WebAppUI
 participant DashboardManager
 participant Authentication Service
@@ -9,11 +9,11 @@ participant DBMS
 
 
 
-registered User->WebAppUI:showLogin()
-activate registered User
+Registered User->WebAppUI:showLogin()
+activate Registered User
 activate WebAppUI
-WebAppUI-->registered User:showLoginForm
-registered User->WebAppUI:login(username,password)
+WebAppUI-->Registered User:showLoginForm
+Registered User->WebAppUI:login(username,password)
 WebAppUI->Authentication Service:login(username,password)
 activate Authentication Service
 Authentication Service->Data Manager:checkCredential(username,password)
@@ -40,19 +40,19 @@ activate DashboardManager
 DashboardManager-->WebAppUI:DashboardInfo
 deactivate DashboardManager
 deactivate Authentication Service
-WebAppUI-->registered User:RedirectToHomePage
+WebAppUI-->Registered User:RedirectToHomePage
 deactivate WebAppUI
-deactivate registered User
+deactivate Registered User
 else invalid credential
 activate Data Manager
 activate Authentication Service
 activate WebAppUI
-activate registered User
+activate Registered User
 Data Manager-->Authentication Service:False
 deactivate Data Manager
 Authentication Service-->WebAppUI:False
 deactivate Authentication Service
-WebAppUI-->registered User:showLoginError
+WebAppUI-->Registered User:showLoginError
 deactivate WebAppUI
-deactivate registered User
+deactivate Registered User
 end
