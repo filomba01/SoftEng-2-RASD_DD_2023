@@ -1,5 +1,5 @@
 
-actor Unregistered ST
+actor Unregistered User
 participant WebAppUI
 participant Authentication Service
 participant Data Manager
@@ -10,16 +10,16 @@ participant Notification Service
 
 participant Mail Service
 
-Unregistered ST->WebAppUI:singUp()
+Unregistered User->WebAppUI:singUp()
 
-#activate Unregistered ST
+#activate Unregistered User
 
 activate WebAppUI
 
-WebAppUI-->Unregistered ST:singUpForm
+WebAppUI-->Unregistered User:singUpForm
 
 
-Unregistered ST->WebAppUI:register(UserInfo)
+Unregistered User->WebAppUI:register(UserInfo)
 
 WebAppUI->Authentication Service:register(UserInfo)
 
@@ -80,13 +80,13 @@ deactivate Notification Service
 
 Authentication Service-->WebAppUI:True
 deactivate Authentication Service
-WebAppUI-->Unregistered ST:ActivationSent
+WebAppUI-->Unregistered User:ActivationSent
 deactivate WebAppUI
-#deactivate Unregistered ST
+#deactivate Unregistered User
 
 
-Unregistered ST->WebAppUI:open(activationLink)
-#activate Unregistered ST
+Unregistered User->WebAppUI:open(activationLink)
+#activate Unregistered User
 activate WebAppUI
 alt validLink
 
@@ -106,7 +106,7 @@ Data Manager-->Authentication Service:True
 deactivate Data Manager
 Authentication Service-->WebAppUI:True
 deactivate Authentication Service
-WebAppUI-->Unregistered ST:AccountActivated
+WebAppUI-->Unregistered User:AccountActivated
 deactivate WebAppUI
 else link expired 
 activate Data Manager
@@ -117,23 +117,23 @@ deactivate Data Manager
 
 Authentication Service-->WebAppUI:False
 deactivate Authentication Service
-WebAppUI-->Unregistered ST: LinkExpired
+WebAppUI-->Unregistered User: LinkExpired
 deactivate WebAppUI
-#deactivate Unregistered ST
+#deactivate Unregistered User
 end
 else registration error
 
 activate Data Manager
 activate Authentication Service
 activate WebAppUI
-#activate Unregistered ST
+#activate Unregistered User
 Data Manager-->Authentication Service:False
 deactivate Data Manager
 Authentication Service-->WebAppUI:False
 deactivate Authentication Service
-WebAppUI-->Unregistered ST:Error
+WebAppUI-->Unregistered User:Error
 deactivate WebAppUI
-#deactivate Unregistered ST
+#deactivate Unregistered User
 
 
 end
