@@ -1,4 +1,4 @@
-participant Educator
+actor Educator
 participant WebAppUI
 participant Dashboard Manager
 participant Battle Manager
@@ -8,7 +8,7 @@ participant Mail Server
 
 
 Educator->WebAppUI:showCreateBattleForm()
-activate Educator
+#activate Educator
 activate WebAppUI
 
 WebAppUI-->Educator:CreateBattleForm
@@ -63,8 +63,6 @@ WebAppUI->Dashboard Manager:insertBattleConfiguration(battleConfiguration,battle
 activate Dashboard Manager
 Dashboard Manager->Battle Manager:insertBattleConfiguration(battleConfiguration,battleName,educatorId)
 activate Battle Manager
-Battle Manager->:insertBattleConfiguration(battleConfiguration,battleName,educatorId)
-
 Battle Manager->Data Manager:insertBattleConfiguration(battleConfiguration,battleName,educatorId)
 activate Data Manager
 Data Manager->DBMS:INSERT QUERY
@@ -80,14 +78,14 @@ Dashboard Manager-->WebAppUI:ErroneusBattleSettingsException
 deactivate Dashboard Manager
 WebAppUI-->Educator:ErroneusBattleSettingsException
 deactivate WebAppUI
-deactivate Educator
+#deactivate Educator
 
 end
 activate Data Manager
 activate Battle Manager
 activate Dashboard Manager
 activate WebAppUI
-activate Educator
+#activate Educator
 
 
 Data Manager-->Battle Manager:Battle
@@ -97,7 +95,7 @@ activate Notification Service
 Notification Service->Data Manager:retreiveStudentsFromBattle(battleId)
 activate Data Manager
 
-deactivate DBMS
+#deactivate DBMS
 Data Manager->DBMS:SELECT QUERY
 activate DBMS
 DBMS-->Data Manager:RESULT
@@ -107,7 +105,7 @@ deactivate Data Manager
 loop forall student in competition
 Notification Service->>Mail Server:sendMail(student,battleInfo)
 end 
-deactivate Data Manager
+#deactivate Data Manager
 Battle Manager<-Notification Service:True
 deactivate Notification Service
 Battle Manager-->Dashboard Manager:Battle
@@ -116,4 +114,4 @@ Dashboard Manager-->WebAppUI:Battle
 deactivate Dashboard Manager
 WebAppUI-->Educator:ShowCreatedBattle
 deactivate WebAppUI
-deactivate Educator
+#deactivate Educator

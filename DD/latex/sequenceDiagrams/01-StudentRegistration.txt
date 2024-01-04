@@ -1,6 +1,5 @@
-title Student Registration
 
-participant Unregistered ST
+actor Unregistered ST
 participant WebAppUI
 participant Authentication Service
 participant Data Manager
@@ -13,7 +12,7 @@ participant Mail Service
 
 Unregistered ST->WebAppUI:singUp()
 
-activate Unregistered ST
+#activate Unregistered ST
 
 activate WebAppUI
 
@@ -77,17 +76,17 @@ Notification Service->>Mail Service:sendMail()
 Notification Service-->Authentication Service:True
 
 deactivate Notification Service
-deactivate Data Manager
+#deactivate Data Manager
 
 Authentication Service-->WebAppUI:True
 deactivate Authentication Service
 WebAppUI-->Unregistered ST:ActivationSent
 deactivate WebAppUI
-deactivate Unregistered ST
+#deactivate Unregistered ST
 
 
 Unregistered ST->WebAppUI:open(activationLink)
-activate Unregistered ST
+#activate Unregistered ST
 activate WebAppUI
 alt validLink
 
@@ -120,21 +119,21 @@ Authentication Service-->WebAppUI:False
 deactivate Authentication Service
 WebAppUI-->Unregistered ST: LinkExpired
 deactivate WebAppUI
-deactivate Unregistered ST
+#deactivate Unregistered ST
 end
 else registration error
 
 activate Data Manager
 activate Authentication Service
 activate WebAppUI
-activate Unregistered ST
+#activate Unregistered ST
 Data Manager-->Authentication Service:False
 deactivate Data Manager
 Authentication Service-->WebAppUI:False
 deactivate Authentication Service
 WebAppUI-->Unregistered ST:Error
 deactivate WebAppUI
-deactivate Unregistered ST
+#deactivate Unregistered ST
 
 
 end

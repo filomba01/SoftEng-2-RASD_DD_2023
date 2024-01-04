@@ -1,4 +1,4 @@
-participant Educator
+actor Educator
 participant WebAppUI
 participant Dashboard Manager
 participant Competion Manager
@@ -7,7 +7,7 @@ participant DBMS
 
 
 Educator->WebAppUI:showNewCompetitionForm()
-activate Educator
+#activate Educator
 activate WebAppUI
 WebAppUI-->Educator:newCompetitionForm
 deactivate WebAppUI
@@ -52,9 +52,9 @@ Dashboard Manager-->WebAppUI:Competition
 deactivate Dashboard Manager
 WebAppUI-->Educator:showCreatedCompetition
 deactivate WebAppUI
-deactivate Educator
+#deactivate Educator
 else competition name already used
-activate Educator
+#activate Educator
 activate Dashboard Manager
 activate Competion Manager
 activate Data Manager
@@ -68,5 +68,5 @@ Dashboard Manager-->WebAppUI:CompetitionCannotBeCreatedException
 deactivate Dashboard Manager
 WebAppUI-->Educator:showErrorCompetitionNotCreated
 deactivate WebAppUI
-deactivate Educator
+#deactivate Educator
 end

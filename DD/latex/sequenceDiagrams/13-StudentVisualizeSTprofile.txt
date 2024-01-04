@@ -1,4 +1,4 @@
-participant Student
+actor Student
 participant WebAppUI
 participant Dashboard Manager
 participant Data Manager
@@ -6,7 +6,7 @@ participant DBMS
 
 Student->WebAppUI:searchStudent(username)
 activate WebAppUI
-activate Student
+#activate Student
 WebAppUI->Dashboard Manager:searchStudent(username)
 activate Dashboard Manager
 Dashboard Manager->Data Manager:searchStudent(username)
@@ -40,12 +40,12 @@ Dashboard Manager-->WebAppUI:Student
 deactivate Dashboard Manager
 WebAppUI-->Student:Show Student Profile
 deactivate WebAppUI
-deactivate Student
+#deactivate Student
 else 
 activate WebAppUI
-activate Student
+#activate Student
 WebAppUI-->Student:Show no student found
 deactivate WebAppUI
-deactivate Student
+#deactivate Student
 
 end

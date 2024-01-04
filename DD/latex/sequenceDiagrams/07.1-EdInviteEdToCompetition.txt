@@ -1,4 +1,4 @@
-participant Educator
+actor Educator
 participant WebAppUI
 
 participant Dashboard Manager
@@ -11,7 +11,7 @@ participant Mail Server
 
 
 Educator->WebAppUI:showCompetitionSettings()
-activate Educator
+#activate Educator
 activate WebAppUI
 WebAppUI->Dashboard Manager:showCompetitionSettings(educatorId,competitionId)
 activate Dashboard Manager
@@ -62,13 +62,13 @@ Dashboard Manager-->WebAppUI:True
 deactivate Dashboard Manager
 WebAppUI-->Educator: show message Ed invited
 deactivate WebAppUI
-deactivate Educator
+#deactivate Educator
 else
 activate Data Manager
 activate Competition Manager
 activate Dashboard Manager
 activate WebAppUI
-activate Educator
+#activate Educator
 
 Data Manager-->Competition Manager:False
 deactivate Data Manager
@@ -78,6 +78,6 @@ Dashboard Manager-->WebAppUI:False
 deactivate Dashboard Manager
 WebAppUI-->Educator: show error message
 deactivate WebAppUI
-deactivate Educator
+#deactivate Educator
 
 end

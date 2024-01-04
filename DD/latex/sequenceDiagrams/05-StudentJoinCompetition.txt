@@ -1,11 +1,11 @@
-participant Student
+actor Student
 participant WebAppUI
 participant Dashboard Manager
 participant Competion Manager
 participant Data Manager
 participant DBMS
 
-activate Student
+#activate Student
 Student->WebAppUI:showCompetition(competitionName)
 activate WebAppUI
 WebAppUI->Dashboard Manager:showCompetition(competitionName)
@@ -47,4 +47,4 @@ deactivate Dashboard Manager
 WebAppUI-->Student:showCompetitionJoined
 
 deactivate WebAppUI
-deactivate Student
+#deactivate Student

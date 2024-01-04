@@ -1,11 +1,11 @@
-participant Educator
+actor Educator
 participant WebAppUI
 participant Dashboard Manager
 participant Team Manager
 participant Data Manager
 participant DBMS
 
-activate Educator
+#activate Educator
 Educator->WebAppUI:getTeams(battleId)
 activate WebAppUI
 WebAppUI->Dashboard Manager:getTeams(battleId)
@@ -62,4 +62,4 @@ deactivate Dashboard Manager
 WebAppUI-->Educator:showScoreSaved
 
 deactivate WebAppUI
-deactivate Educator
+#deactivate Educator

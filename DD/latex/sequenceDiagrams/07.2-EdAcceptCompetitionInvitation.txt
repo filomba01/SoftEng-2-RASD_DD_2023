@@ -1,5 +1,6 @@
+actor Invited ED
 Invited ED->WebAppUI:open(activationLink)
-activate Invited ED
+#activate Invited ED
 activate WebAppUI
 
 
@@ -33,10 +34,10 @@ Dashboard Manager-->WebAppUI:True
 deactivate Dashboard Manager
 WebAppUI-->Invited ED:show invitation accepted
 deactivate WebAppUI
-deactivate Invited ED
+#deactivate Invited ED
 
 else link expired 
-activate Invited ED
+#activate Invited ED
 activate Data Manager
 activate Competition Manager
 activate WebAppUI
@@ -50,5 +51,5 @@ Dashboard Manager-->WebAppUI:False
 deactivate Dashboard Manager
 WebAppUI-->Invited ED: LinkExpired
 deactivate WebAppUI
-deactivate Invited ED
+#deactivate Invited ED
 end

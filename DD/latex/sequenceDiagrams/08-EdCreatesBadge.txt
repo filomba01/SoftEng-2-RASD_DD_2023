@@ -1,4 +1,4 @@
-participant Educator
+actor Educator
 participant WebAppUI
 
 participant Dashboard Manager
@@ -11,7 +11,7 @@ participant DBMS
 
 
 Educator->WebAppUI:showCompetitionSettings()
-activate Educator
+#activate Educator
 activate WebAppUI
 WebAppUI->Dashboard Manager:showCompetitionSettings(educatorId,competitionId)
 activate Dashboard Manager
@@ -58,12 +58,12 @@ Dashboard Manager-->WebAppUI:True
 deactivate Dashboard Manager
 WebAppUI-->Educator:show badge correctly created
 deactivate WebAppUI
-deactivate Educator
+#deactivate Educator
 else invalid request
 activate Competition Manager
 activate Dashboard Manager
 activate WebAppUI
-activate Educator
+#activate Educator
 activate Data Manager
 activate Badge Manager
 
@@ -79,5 +79,5 @@ Dashboard Manager-->WebAppUI:False
 deactivate Dashboard Manager
 WebAppUI-->Educator:show error request invalid
 deactivate WebAppUI
-deactivate Educator
+#deactivate Educator
 end

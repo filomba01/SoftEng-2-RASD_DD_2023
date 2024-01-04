@@ -1,5 +1,7 @@
+actor Invited ST
+
 Invited ST->WebAppUI:open(activationLink)
-activate Invited ST
+#activate Invited ST
 activate WebAppUI
 
 WebAppUI->Dashboard Manager:acceptTeamInvitation(username, teamId)
@@ -29,21 +31,21 @@ Dashboard Manager-->WebAppUI:True
 deactivate Dashboard Manager
 WebAppUI-->Invited ST:show invitation accepted
 deactivate WebAppUI
-deactivate Invited ST
+#deactivate Invited ST
 
 else link expired 
-activate Invited ST
+#activate Invited ST
 activate Data Manager
 activate Dashboard Manager
 activate WebAppUI
 Data Manager-->Team Manager:False
 deactivate Data Manager
 Team Manager-->Dashboard Manager:False
-deactivate Team Manager
+#deactivate Team Manager
 Dashboard Manager-->WebAppUI:False
 deactivate Dashboard Manager
 WebAppUI-->Invited ST: LinkExpired
 deactivate WebAppUI
-deactivate Unregistered ST
-deactivate Invited ST
+#deactivate Unregistered ST
+#deactivate Invited ST
 end
