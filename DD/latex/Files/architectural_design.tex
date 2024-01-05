@@ -114,21 +114,22 @@ If the battle is successfully created, the system will send a notification, thro
 
 %9
 \subsection*{ST Joins Battle}
-To be able to join a battle, a \textit{ST} must be enrolled in a competition and in such competition there has to be at least 1 battle available (subscription deadline not expired). Assuming all those things, when a ST wants to join a battle, he/she has two options: create a team (with the possibility, if enabled by the EDs of the battle, to be a singleton) or to join an already existing team. In the first case the ST has to provide the system all the information needed for the team registration, and if the team has been created correctly he/she can invite other STs to join his/her team (if the ST, owner of the team, wants to participate alone he/she must skip the invite part). In the latter case instead, the ST looks at the list of existing and available teams and if he/she wants to join one of those team they can simply click on the join button. \\ \\
+To be able to join a battle, a \textit{ST} must be enrolled in a competition and in such competition there has to be at least 1 battle available (subscription deadline not expired). Assuming all those things, when a ST wants to join a battle, he/she has two options: create a team (with the possibility, if enabled by the EDs of the battle, to be a singleton) or to join an already existing team. In the first case the ST has to provide the system all the information needed for the team registration, and if the team has been created correctly he/she can invite other STs to join his/her team (if the ST, owner of the team, wants to participate alone he/she must skip the invite part). In the latter case instead, the ST looks at the list of existing and available teams and if he/she wants to join one of those team they can simply click on the join button.
+
 Since the sequence diagram below was pretty long we decided to split it in two so that it was easier to read it; this means that the two following diagrams are to be understood as consecutive (the [\textit{alt 'ST wants to join an existing public T'}] fragment, in the second part of the diagram, is the [\textit{else}] of the [\textit{alt 'ST selects to create a new T'}] fragment in the first part of the diagram)
 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth,height=0.83\textheight, keepaspectratio]{SequenceDiagrams/09.1-StudentJoinsBattle.png}
-  \caption{Create battle sequence diagram}
+  \includegraphics[width=\textwidth,height=\textheight, keepaspectratio]{SequenceDiagrams/09.1-StudentJoinsBattle.png}
+  \caption{ST joins battle sequence diagram - Part 1}
   \label{fig:st_joins_battle_1}
 \end{figure}
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth, keepaspectratio]{SequenceDiagrams/09.2-StudentJoinsBattle.png}
-  \caption{Create battle sequence diagram}
+  \caption{ST joins battle sequence diagram - Part 2}
   \label{fig:st_joins_battle_2}
 \end{figure}
 
