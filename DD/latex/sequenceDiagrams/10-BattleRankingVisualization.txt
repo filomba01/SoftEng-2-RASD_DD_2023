@@ -1,7 +1,10 @@
 title ST visualizes the ranking of their T
+actor Student
 
-WebAppUI->Dashboard Manager: getBattles(competitionId, battleInfo)
+Student->WebAppUI: showEnrolledBattlesInComp()
+activate Student
 activate WebAppUI
+WebAppUI->Dashboard Manager: getBattles(competitionId, battleInfo)
 activate Dashboard Manager
 Dashboard Manager->Battle Manager: searchBattle(battleInfo)
 activate Battle Manager
@@ -16,11 +19,11 @@ deactivate Data Manager
 Battle Manager-->Dashboard Manager: battles
 deactivate Battle Manager
 Dashboard Manager-->WebAppUI: battles
-deactivate Dashboard Manager
-WebAppUI->WebAppUI: selectBattle(battleid)
-
+Student<--WebAppUI: show enrolled battles
+Student->WebAppUI: selectBattle()
+WebAppUI->WebAppUI: showBattlePage()
+Student->WebAppUI: getBattleLeaderboard()
 WebAppUI->Dashboard Manager: getBattleRankings(battleInfo)
-activate Dashboard Manager
 Dashboard Manager->Battle Manager: getRankings(battleInfo)
 activate Battle Manager
 Battle Manager->Data Manager: getBattleRankings(battleInfo)
@@ -35,4 +38,5 @@ Battle Manager-->Dashboard Manager: rankings
 deactivate Battle Manager
 Dashboard Manager-->WebAppUI: rankings
 deactivate Dashboard Manager
+WebAppUI-->Student: show battle leaderboard
 deactivate WebAppUI

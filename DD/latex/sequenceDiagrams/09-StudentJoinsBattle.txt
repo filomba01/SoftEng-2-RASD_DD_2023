@@ -23,10 +23,12 @@ deactivate Data Manager
 Dashboard Manager<--Battle Manager: battles
 deactivate Battle Manager
 WebAppUI<--Dashboard Manager: battles
-Student<--WebAppUI: show battles of the competition
-WebAppUI->Dashboard Manager: selectBattle(battle)
+Student<--WebAppUI: show available battles in competition
+Student->WebAppUI: selectBattle()
 
 alt ST selects to create a new T
+Student->WebAppUI: participateAsTeam()
+WebAppUI->WebAppUI: showNewTeamForm()
 Student->WebAppUI: createTeam()
 WebAppUI->Dashboard Manager: createTeam(battleid, teamInfo)
 Dashboard Manager->Battle Manager: createTeam(battleid, teamInfo)
@@ -86,7 +88,8 @@ end
 end
 
 else ST wants to join an existing public T
-Student->WebAppUI: showTeams()
+Student->WebAppUI: joinExistingTeam()
+#Student->WebAppUI: showTeams()
 WebAppUI->Dashboard Manager: getTeams(battleid)
 Dashboard Manager->Team Manager: getTeams(battleid)
 activate Team Manager
@@ -104,7 +107,7 @@ WebAppUI<--Dashboard Manager: teams
 Student<--WebAppUI: show available teams
 
 alt at least 1 team available
-Student->WebAppUI: joinTeam()
+Student->WebAppUI: selectTeamToJoin()
 WebAppUI->Dashboard Manager: joinTeam(username, teamid)
 Dashboard Manager->Team Manager: addStudentToTeam(username, teamid)
 activate Team Manager
