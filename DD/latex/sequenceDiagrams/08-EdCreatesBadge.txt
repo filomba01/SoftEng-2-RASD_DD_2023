@@ -39,15 +39,12 @@ Competition Manager->Badge Manager:createBadge(educatorId,competitionId, badgeIn
 activate Badge Manager
 Badge Manager->Data Manager:createBadge(educatorId,competitionId, badgeInfo)
 activate Data Manager
-Data Manager->DBMS:SELECT QUERY
-activate DBMS
-DBMS->Data Manager:RESULT
-deactivate DBMS
-alt badge created successfully
+
 Data Manager->DBMS:INSERT QUERY
 activate DBMS
 DBMS->Data Manager:RESULT
 deactivate DBMS
+alt badge created successfully
 Data Manager-->Badge Manager:True
 deactivate Data Manager
 Badge Manager-->Competition Manager:True

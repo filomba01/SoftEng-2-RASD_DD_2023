@@ -12,6 +12,7 @@ activate WebAppUI
 WebAppUI-->Educator:newCompetitionForm
 deactivate WebAppUI
 
+loop until competition information are invalid
 Educator->WebAppUI:createCompetition(competitionInfo)
 activate WebAppUI
 
@@ -29,12 +30,27 @@ activate DBMS
 DBMS-->Data Manager:RESULT
 deactivate DBMS
 
-alt competition is creatable
+Data Manager-->Competion Manager:False
+deactivate Data Manager
+Competion Manager-->Dashboard Manager:CompetitionCannotBeCreatedException
+deactivate Competion Manager
+
+Dashboard Manager-->WebAppUI:CompetitionCannotBeCreatedException
+deactivate Dashboard Manager
+WebAppUI-->Educator:showErrorCompetitionNotCreated
+deactivate WebAppUI
+
+end 
+activate Dashboard Manager
+activate Competion Manager
+activate Data Manager
+activate WebAppUI
 
 Data Manager->DBMS:INSERT QUERY
 activate DBMS
 DBMS-->Data Manager:RESULT
 deactivate DBMS
+
 
 Data Manager-->Competion Manager:True
 deactivate Data Manager
@@ -55,18 +71,7 @@ deactivate WebAppUI
 #deactivate Educator
 else competition name already used
 #activate Educator
-activate Dashboard Manager
-activate Competion Manager
-activate Data Manager
-activate WebAppUI
-Data Manager-->Competion Manager:False
-deactivate Data Manager
-Competion Manager-->Dashboard Manager:CompetitionCannotBeCreatedException
-deactivate Competion Manager
 
-Dashboard Manager-->WebAppUI:CompetitionCannotBeCreatedException
-deactivate Dashboard Manager
-WebAppUI-->Educator:showErrorCompetitionNotCreated
-deactivate WebAppUI
+
 #deactivate Educator
-end
+

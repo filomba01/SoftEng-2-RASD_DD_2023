@@ -4,6 +4,7 @@ participant Dashboard Manager
 participant Battle Manager
 participant Data Manager
 participant DBMS
+participant Notification Service
 participant Mail Server
 
 
@@ -90,9 +91,9 @@ activate WebAppUI
 
 Data Manager-->Battle Manager:Battle
 deactivate Data Manager
-Battle Manager->Notification Service:notifyBattleCreation(battleId)
+Battle Manager->Notification Service:notifyBattleCreation(battleId,competitionId)
 activate Notification Service
-Notification Service->Data Manager:retreiveStudentsFromBattle(battleId)
+Notification Service->Data Manager:retreiveStudentsFromCompetition(competitionId)
 activate Data Manager
 
 #deactivate DBMS

@@ -28,7 +28,7 @@
         \hline
         R10 & CKB shall allow ED to set a final submission deadline & Dashboard Manager, Battle Manager, Data Manager \\
         \hline
-        R11 & CKB shall allow ED to set how to perform static analysis &  Dashboard Manager, Battle Manager, Static Analyzer\\
+        R11 & CKB shall allow ED to set how to perform static analysis &  Dashboard Manager, Battle Manager, Data Manager\\
         \hline
         R12 & CKB shall allow ST to subscribe to a competition &  Dashboard Manager, Competition Manager, Data Manager\\
         \hline
@@ -40,9 +40,9 @@
         \hline
         R16 & CKB shall allow ST to invite other ST in a T for a battle &  Dashboard Manager, Team Manager, Data Manager, Notification Service \\
         \hline
-        R17 & CKB shall create a GitHub repository containing the description, software project and the build automation scripts & Dashboard Manager, Battle Manager\\
+        R17 & CKB shall create a GitHub repository containing the description, software project and the build automation scripts & Dashboard Manager, Battle Manager, Data Manager\\
         \hline
-        R18 & CKB shall send the Github repository link to ST member of a T competing in the battle & Battle Manager, Data Manger, Notification Service\\
+        R18 & CKB shall send the Github repository link to ST member of a T competing in the battle & Battle Manager, Team Manager, Data Manger, Notification Service\\
         \hline
         R19 & CKB shall supply API to call with Github actions & Battle Manager \\
         \hline
@@ -50,13 +50,13 @@
         \hline
         R21 & CKB shall be able to send the ST source code to the correct SAT  & Evaluator Controller, Static Analyzer\\
         \hline
-        R22 & CKB shall be able to receive the evaluation given by SAT on a source code & Point Manager, Data Manager\\
+        R22 & CKB shall be able to receive the evaluation given by SAT on a source code & Point Manager, Static Analyzer,Data Manager\\
         \hline
-        R23 & CKB shall be able to run tests on code & Code Evaluator \\
+        R23 & CKB shall be able to run tests on code & Code Evaluator, Evaluator Controller \\
         \hline
-        R24 & CKB shall evaluate the code in terms of test cases passed & Code Evaluator\\
+        R24 & CKB shall evaluate the code in terms of test cases passed & Code Evaluator, Evaluator Controller, Point Manager\\
         \hline
-        R25 & CKB shall evaluate the code in terms of timeliness & Code Evaluator\\
+        R25 & CKB shall evaluate the code in terms of timeliness & Code Evaluator, Evaluator Controller, Point Manager\\
         \hline
         R26 & CKB shall allow ED to assign a score to codes & Dashboard Manager, Team Manager, Data Manager \\
         \hline
@@ -66,7 +66,7 @@
         \hline
         R29 & CKB shall notify ST when final battle ranks are available & Battle Manager, Notification Service \\
         \hline
-        R30 & CKB shall update the personal competition score of a ST at the end of each battle &\\
+        R30 & CKB shall update the personal competition score of a ST at the end of each battle & Battle Manager, Competition Manager, Data Manager\\
         \hline
         R31 & CKB shall create a rank with students' performances in a competition & Competition Manager, Data Manager \\
         \hline
@@ -92,7 +92,7 @@
         \hline
         R42 & CKB shall allow users to visualize a ST profile & Dashboard Manager,  Data Manager\\
         \hline
-        R43 & CKB shall allow ST to join a T for which is invited & Dashboard Manager, Team Manager, Data Manager \\
+        R43 & CKB shall allow ST to join a T for which is invited & Dashboard Manager, Team Manager, Notification Manager, Data Manager \\
         \hline
         R44 & CKB shall allow ST to join a public T & Dashboard Manager, Team Manager, Data Manager \\
         \hline
@@ -104,7 +104,7 @@
         \hline
         R48 & CKB shall not allow ST/ED to see the rankings of battles they are not involved in & Battle Manager, Data Manager\\
         \hline
-        R49 & CKB shall have the environments for all the programming language it supports & Static Analyzer\\
+        R49 & CKB shall have the environments for all the programming language it supports & Static Analyzer, Evaluation Controller, Code evaluator\\
         \hline
         R50 & CKB shall allow ED to close a battle they manage & Dashboard Manager, Battle Manager, Data Manager \\
         \hline

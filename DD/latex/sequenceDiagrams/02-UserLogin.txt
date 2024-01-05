@@ -1,5 +1,3 @@
-title User Login
-
 actor Registered User
 participant WebAppUI
 participant DashboardManager
