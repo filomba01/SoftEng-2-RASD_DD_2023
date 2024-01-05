@@ -1,7 +1,14 @@
-title ST joins a battle
+actor Student
+participant WebAppUI
+participant Dashboard Manager
+participant Battle Manager
+participant Team Manager
+participant Data Manager
 
-WebAppUI->Dashboard Manager: getBattles(competitionid)
+Student->WebAppUI: showBattlesInComp()
+activate Student
 activate WebAppUI
+WebAppUI->Dashboard Manager:  getBattles(competitionid)
 activate Dashboard Manager
 Dashboard Manager->Battle Manager: searchBattle(battleInfo)
 activate Battle Manager
@@ -16,15 +23,14 @@ deactivate Data Manager
 Dashboard Manager<--Battle Manager: battles
 deactivate Battle Manager
 WebAppUI<--Dashboard Manager: battles
-deactivate Dashboard Manager
+Student<--WebAppUI: show available battles in competition
+Student->WebAppUI: selectBattle()
 
-WebAppUI->WebAppUI: selectBattle(battle)
 alt ST selects to create a new T
-
+Student->WebAppUI: participateAsTeam()
 WebAppUI->WebAppUI: showNewTeamForm()
-
+Student->WebAppUI: createTeam()
 WebAppUI->Dashboard Manager: createTeam(battleid, teamInfo)
-activate Dashboard Manager
 Dashboard Manager->Battle Manager: createTeam(battleid, teamInfo)
 activate Battle Manager
 Battle Manager->Team Manager: createTeam(battleid, teamInfo)
@@ -35,34 +41,55 @@ Data Manager->DBMS: INSERT QUERY
 activate DBMS
 Data Manager<--DBMS: result
 deactivate DBMS
-Team Manager<--Data Manager: result
-deactivate Data Manager
-Battle Manager<-- Team Manager: result
-deactivate Team Manager
-Dashboard Manager<--Battle Manager: result
-deactivate Battle Manager
-
 alt 'result' shows error
-Dashboard Manager-->WebAppUI:error
+Team Manager<--Data Manager: null
+Battle Manager<-- Team Manager: null
+Dashboard Manager<--Battle Manager: null
+Dashboard Manager-->WebAppUI: null
+Student<--WebAppUI: show error
+
 else 
-Dashboard Manager-->WebAppUI: result
+Team Manager<--Data Manager: team
+deactivate Data Manager
+Battle Manager<-- Team Manager: team
+deactivate Team Manager
+Dashboard Manager<--Battle Manager: team
+deactivate Battle Manager
+Dashboard Manager-->WebAppUI: team
+Student<--WebAppUI: confirm team creation
+
+WebAppUI->WebAppUI: showInviteToTeamForm()
+
 loop for each ST to invite
+Student->WebAppUI: inviteStudentToTeam()
 WebAppUI->Dashboard Manager: inviteStudentToTeam(username, teamid)
 Dashboard Manager->Team Manager:inviteStudentToTeam(username, teamid)
 activate Team Manager
 Team Manager->Notification Service: inviteStudentToTeam(username, teamid)
 activate Notification Service
-Team Manager<--Notification Service: result
+
+alt invite is successful
+Team Manager<--Notification Service: True
+Dashboard Manager<--Team Manager: True
+WebAppUI<--Dashboard Manager: True
+Student<--WebAppUI: confirm successful invite
+
+else 
+Team Manager<--Notification Service: False
 deactivate Notification Service
-Dashboard Manager<--Team Manager: result
+Dashboard Manager<--Team Manager: False
 deactivate Team Manager
-WebAppUI<--Dashboard Manager: result
+WebAppUI<--Dashboard Manager: False
+Student<--WebAppUI: show failed invite 
 end 
 
 end
 
+end
 
-else ST selects to join an existing public T
+else ST wants to join an existing public T
+Student->WebAppUI: joinExistingTeam()
+#Student->WebAppUI: showTeams()
 WebAppUI->Dashboard Manager: getTeams(battleid)
 Dashboard Manager->Team Manager: getTeams(battleid)
 activate Team Manager
@@ -77,9 +104,10 @@ deactivate Data Manager
 Dashboard Manager<--Team Manager: teams
 deactivate Team Manager
 WebAppUI<--Dashboard Manager: teams
+Student<--WebAppUI: show available teams
 
-WebAppUI->WebAppUI: showPublicTeams()
-
+alt at least 1 team available
+Student->WebAppUI: selectTeamToJoin()
 WebAppUI->Dashboard Manager: joinTeam(username, teamid)
 Dashboard Manager->Team Manager: addStudentToTeam(username, teamid)
 activate Team Manager
@@ -90,13 +118,22 @@ Data Manager->DBMS: INSERT QUERY
 activate DBMS
 Data Manager<--DBMS: result
 deactivate DBMS
-Team Manager<--Data Manager: result
+alt result shows error
+Team Manager<--Data Manager: False
+Dashboard Manager<--Team Manager: False
+WebAppUI<--Dashboard Manager: False
+Student<--WebAppUI: show team join error
+
+else 
+Team Manager<--Data Manager: True
 deactivate Data Manager
-Dashboard Manager<--Team Manager: result
+Dashboard Manager<--Team Manager: True
 deactivate Team Manager
-WebAppUI<--Dashboard Manager: result
+WebAppUI<--Dashboard Manager: True
 deactivate Dashboard Manager
+Student<--WebAppUI: confirm team join
 deactivate WebAppUI
+deactivate Student
 end
-
-
+end 
+end
