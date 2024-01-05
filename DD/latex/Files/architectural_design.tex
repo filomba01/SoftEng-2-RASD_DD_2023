@@ -7,12 +7,242 @@
 \section{Deployment view}
 \label{s:deployment-view}%
 
+\begin{figure}[H]
+    \label{fig:deployment-view}
+    \centering
+    \includegraphics[width=\textwidth]{ArchitecturalDesign/deploymentView.png}
+    \caption{Deployment view}
+\end{figure}
 
 \section{Runtime view}
 \label{s:runtime-view}%
 
 \section{Component interfaces}
 \label{s:component-interfaces}%
+
+
+\subsection{Authentication Service}
+\subsubsection{AuthInterface}
+\begin{itemize}
+    \item \texttt{User login(username:String,password:String)}
+    \item \texttt{bool register(info:UserInfo)}
+\end{itemize}
+
+\subsection{Data Manager}
+\subsubsection{AuthDAOInterface}
+\begin{itemize}
+    \item \texttt{bool addUser(info: UserInfo)}
+    \item \texttt{bool checkCredential(username:String,password:String)}
+    \item \texttt{bool validateNewUser(info:UserInfo)}
+    \item \texttt{User getUser(username:String)}
+\end{itemize}
+
+\subsubsection{CompetitionDAOInterface}
+\begin{itemize}
+    \item \texttt{bool createCompetition(info:CompetitionInfo)}
+    \item \texttt{bool addStudentToCompetition(competitionName:String, studentUsername:String)}
+    \item \texttt{bool checkEdCanbeInvited(competitionName:String,educatorId:String)}
+    \item \texttt{CompetitionInfo getCompetition(name:String)}
+    \item \texttt{List<Team> getCompRankings(competitionid: String)}
+\end{itemize}
+
+\subsubsection{BattleDAOInterface}
+\begin{itemize}
+    \item \texttt{bool createBattle(competitionName:String, battleInfo:BattleInfo, educatorId:String)}
+    \item \texttt{Set<Battle> searchBattle(battleInfo:BattleInfo)}
+    \item \texttt{Battle showBattle(battleName:String)}
+    \item \texttt{List<Team> getBattleRankings(battleid: String)}
+\end{itemize}
+
+\subsubsection{UserDAOInterface}
+\begin{itemize}
+    \item \texttt{Team createTeam(battleId:String, teamInfo:TeamInfo)}
+    \item \texttt{bool removeTeam(teamId:String)}
+    \item \texttt{bool addStudentToTeam(username:String,teamId:String)}
+    \item \texttt{bool setManualEvaluation(educatorId:String,commitId:String,evaluation: Evaluation)}
+    \item \texttt{Team getTeams(battleid: String)}
+\end{itemize}
+
+\subsubsection{BadgeDAOInterface}
+\begin{itemize}
+    \item \texttt{Set<User> retrieveUsersFromCompetition(competitionName:String)}
+    \item \texttt{BadgeRule getBadgeRule(badge: Badge)}
+    \item \texttt{bool removeBadge(badge:Badge)}
+    \item \texttt{bool assignBadge(username:String, badge:Badge)}
+    \item \texttt{Badge createBadge(educatorId:String,competitionId:String, badgeInfo:BadgeInfo)}
+\end{itemize}
+
+\subsubsection{NotificationDAOInterface}
+\begin{itemize}
+    \item \texttt{Set<Student> retrieveStudentsFromTeam(teamId:String)}
+    \item \texttt{Set<User> retrieveUsersFromCompetition(competitionId:String)}
+    \item \texttt{Set<Student> retrieveStudentsFromCompetition(competitionId:String)}
+    \item \texttt{Set<Educator> retrieveEducatorsFromCompetition(competitionId:String)}
+    \item \texttt{Set<User> retrieveUsersFromBattle(battleId:String)}
+    \item \texttt{Set<Student> retrieveStudentsFromBattle(battleId:String)}
+    \item \texttt{Set<Educator> retrieveEducatorsFromBattle(battleId:String)}
+    \item \texttt{Educator retrieveEducatorInfo(educatorId:String)}
+\end{itemize}
+
+\subsubsection{PointsAPI}
+\begin{itemize}
+    \item \texttt{bool addEvaluationToTeam(teamId:string, evaluation:Evaluation)}
+\end{itemize}
+
+\subsubsection{DashboardDAOInterface}
+\begin{itemize}
+    \item \texttt{List<Student> searchStudent(studentName:String)}
+    \item \texttt{Student showStudentProfile(username:String)}
+\end{itemize}
+
+\subsection{Dashboard Manager}
+\subsubsection{DashboardInterface}
+\begin{itemize}
+    \item \texttt{DashboardInfo getDashboardInfo(User)}
+    \item \texttt{createCompetition(competitionInfo:CompetitionInfo)}
+    \item \texttt{bool createBattle(battleInfo:BattleInfo)}
+    \item \texttt{bool joinCompetition(competitionName:String, studentUsername:String)}
+    \item \texttt{CompetitionInfo showCompetition(name:String)}
+    \item \texttt{BattleInfo getBattles(competitionid: String)}
+    \item \texttt{BattleInfo getBattles(competitionid: String, battleInfo: BattleInfo)}
+    \item \texttt{bool insertSATConfiguration(satConfiguration,battleName,educatorId)}
+    \item \texttt{bool inviteStudentToTeam(username: String, teamid: String)}
+    \item \texttt{List<Team> getTeams(battleid: String)}
+    \item \texttt{bool joinTeam(teamid: String)}
+    \item \texttt{List<Team> getCompRankings(competitionid: String)}
+    \item \texttt{List<Team> getBattleRankings(battleInfo: BattleInfo)}
+    \item \texttt{List<Student> searchStudent(studentName:String)}
+    \item \texttt{Student showStudentProfile(username:String)}
+    \item \texttt{CompetitionSetting showCompetitionSettings(educatorId:String,competitionId:String)}
+    \item \texttt{bool inviteED(educatorId:String,competitionId:String,invitedEducatorId:String)}
+    \item \texttt{Badge createBadge(educatorId:String,competitionName:String, badgeInfo: BadgeInfo)}
+    \item \texttt{CommitInfo getLastCommit(teamId: String)}
+    \item \texttt{bool acceptCompInvitation(username:String,competitionId:String)}
+    \item \texttt{bool acceptTeamInvitation(username:String,teamId:String)}
+    \item \texttt{Team createTeam(battleid: String, username: String)}
+\end{itemize}
+
+\subsection{Competition Manager}
+\subsubsection{CompetitionInterface}
+\begin{itemize}
+    \item \texttt{bool createCompetition(info:CompetitionInfo)}
+    \item \texttt{Set<Competition> searchCompetition(info:CompetitionInfo)}
+    \item \texttt{bool deleteCompetition(name:String)}
+    \item \texttt{CompetitionInfo showCompetition(name:String)}
+    \item \texttt{bool addManager(competitionName:String,username:String)}
+    \item \texttt{bool removeManager(competitionName:String,username:String)}
+    \item \texttt{bool endCompetition(competitionName:String)}
+    \item \texttt{bool joinCompetition(competitionName:String, studentUsername:String)}
+    \item \texttt{Badge createBadge(educatorId:String,competitionName:String, badgeInfo: BadgeInfo)}
+    \item \texttt{bool removeBadge(badgeId:String)}
+    \item \texttt{List<Team> getRankings(competitionid: String)}
+    \item \texttt{bool acceptInvitation(educatorId:String,competitionId:String)}
+    \item \texttt{bool inviteED(educatorId:String,competitionId:String,invitedEducatorId:String)}
+\end{itemize}
+
+\subsection{Badge Monitor}
+\subsubsection{BadgeInterface}
+\begin{itemize}
+    \item \texttt{bool createBadge(competitionName:String, badgeInfo: BadgeInfo)}
+    \item \texttt{bool assignBadges(competitionName:String)}
+    \item \texttt{bool removeBadge(badgeId:String)}
+\end{itemize}
+
+\subsection{BattleManager}
+\subsubsection{BattleInterface}
+\begin{itemize}
+    \item \texttt{bool createBattle(competitionName:String, battleInfo:BattleInfo, educatorId:String)}
+    \item \texttt{Team createTeam(battleId:String, teamInfo:TeamInfo)}
+    \item \texttt{bool removeTeam(teamId:String)}
+    \item \texttt{Set<Battle> searchBattle(battleInfo:BattleInfo)}
+    \item \texttt{Battle showBattle(battleName:String)}
+    \item \texttt{bool deleteBattle(battleName:String)}
+    \item \texttt{insertSATConfiguration(satConfiguration,battleName,educatorId)}
+    \item \texttt{List<Team> getRankings(battleid: String)}
+\end{itemize}
+
+\subsection{Team Manager}
+\subsubsection{TeamHandlerInterface}
+\begin{itemize}
+    \item \texttt{Team createTeam(battleId:String, teamInfo:TeamInfo)}
+    \item \texttt{bool removeTeam(teamId:String)}
+    \item \texttt{Team getTeams(battleid: String)}
+\end{itemize}
+
+\subsubsection{TeamInterface}
+\begin{itemize}
+    \item \texttt{bool addStudentToTeam(username:String,teamId:String)}
+    \item \texttt{bool inviteStudentToTeam(username:String,teamId:String)}
+    \item \texttt{bool setManualEvaluation(educatorId:String,commitId:String,evaluation: Evaluation)}
+\end{itemize}
+
+
+\subsection{Notification Service}
+\subsubsection{InviteInterface}
+\begin{itemize}
+    \item \texttt{bool inviteStudentToTeam(username:String,teamId:String)}
+\end{itemize}
+
+\subsubsection{NotifyBattleInterface}
+\begin{itemize}
+    \item \texttt{bool notifyBattleCreation(battleId:String, competitionId:String)}
+    \item \texttt{bool notifyStartedBattle(battleId:String,username:String)}
+    \item \texttt{bool notifyEndBattle(battleId:String,username:String)}
+    \item \texttt{bool notifyManageBattle(battleId:String,username:String)}
+\end{itemize}
+
+\subsubsection{NotifyCompInterface}
+\begin{itemize}
+    \item \texttt{bool notifyNewCompetion(competitionId:String,username:String)}
+    \item \texttt{bool notifyNewBattle(competitionId:String, battleId:String,username:String)}
+    \item \texttt{bool notifyEdInvitation(competitionId:String,invitedEd:String)}
+    \item \texttt{bool notifyManageCompetition(competitionId:String,username:String)}
+    \item \texttt{bool notifyNewBadge(competitionId:String,badgeId:String)}
+\end{itemize}
+
+\subsubsection{NotifyAuthInterface}
+\begin{itemize}
+    \item \texttt{bool NotifyUserRegistration(User)}
+\end{itemize}
+
+\subsection{Evaluator Controller}
+\subsubsection{EvaluationAPI}
+\begin{itemize}
+    \item \texttt{bool pullCode(authorId:String, commitId:String)}
+\end{itemize}
+
+\subsection{Code Evaluator}
+\subsubsection{EvaluatorInterface}
+\begin{itemize}
+    \item \texttt{bool evaluateCode(authorId:String, commitId:String)}
+    \item \texttt{void setConf(conf: EvalConfig)}
+\end{itemize}
+
+\subsection{Static Analyzer}
+\subsubsection{AnalyzerInterface}
+\begin{itemize}
+    \item \texttt{bool evaluateCode(authorId:String, commitId:String, params:String)}
+    \item \texttt{void setConf(conf: StatConfig)}
+\end{itemize}
+
+\subsection{Point Manager}
+\subsubsection{EvaluationPointsInterface}
+\begin{itemize}
+    \item \texttt{bool assignPoint(authorId:String, evalResults: EvalResults)}
+\end{itemize}
+
+\subsubsection{StaticPointsInterface}
+\begin{itemize}
+    \item \texttt{bool assignPoint(authorId:String, statResults: StatResults)}
+\end{itemize}
+
+\subsubsection{ScoreInterface}
+\begin{itemize}
+    \item \texttt{void setEvalScoreFunction(conf: EvalScoreFunction)}
+    \item \texttt{void setStatAnalysisScoreFunction(conf: StatScoreFunction)}
+\end{itemize}
+
+
 
 \section{Selected architectural styles and patterns}
 \label{s:selected-architectural-styles-and-patterns}%
