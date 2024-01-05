@@ -1,7 +1,7 @@
-actor Student
+actor User
 
-Student->WebAppUI: showEnrolledBattlesInComp()
-activate Student
+User->WebAppUI: showEnrolledBattlesInComp()
+activate User
 activate WebAppUI
 WebAppUI->Dashboard Manager: getBattles(competitionId, battleInfo)
 activate Dashboard Manager
@@ -18,10 +18,10 @@ deactivate Data Manager
 Battle Manager-->Dashboard Manager: battles
 deactivate Battle Manager
 Dashboard Manager-->WebAppUI: battles
-Student<--WebAppUI: show enrolled battles
-Student->WebAppUI: selectBattle()
+User<--WebAppUI: show enrolled battles
+User->WebAppUI: selectBattle()
 WebAppUI->WebAppUI: showBattlePage()
-Student->WebAppUI: getBattleLeaderboard()
+User->WebAppUI: getBattleLeaderboard()
 WebAppUI->Dashboard Manager: getBattleRankings(battleInfo)
 Dashboard Manager->Battle Manager: getRankings(battleInfo)
 activate Battle Manager
@@ -37,5 +37,6 @@ Battle Manager-->Dashboard Manager: rankings
 deactivate Battle Manager
 Dashboard Manager-->WebAppUI: rankings
 deactivate Dashboard Manager
-WebAppUI-->Student: show battle leaderboard
+WebAppUI-->User: show battle leaderboard
 deactivate WebAppUI
+deactivate User

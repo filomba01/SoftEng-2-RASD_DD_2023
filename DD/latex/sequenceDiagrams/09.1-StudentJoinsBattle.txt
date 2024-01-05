@@ -1,0 +1,93 @@
+actor Student
+participant WebAppUI
+participant Dashboard Manager
+participant Battle Manager
+participant Team Manager
+participant Data Manager
+
+Student->WebAppUI: showBattlesInComp()
+activate Student
+activate WebAppUI
+WebAppUI->Dashboard Manager:  getBattles(competitionid)
+activate Dashboard Manager
+Dashboard Manager->Battle Manager: searchBattle(battleInfo)
+activate Battle Manager
+Battle Manager->Data Manager: searchBattle(battleInfo)
+activate Data Manager
+Data Manager->DBMS: SELECT QUERY
+activate DBMS
+Data Manager<--DBMS: battles
+deactivate DBMS
+Battle Manager<--Data Manager: battles
+deactivate Data Manager
+Dashboard Manager<--Battle Manager: battles
+deactivate Battle Manager
+WebAppUI<--Dashboard Manager: battles
+Student<--WebAppUI: show available battles in competition
+Student->WebAppUI: selectBattle()
+
+alt ST selects to create a new T
+Student->WebAppUI: participateAsTeam()
+WebAppUI->WebAppUI: showNewTeamForm()
+Student->WebAppUI: createTeam()
+WebAppUI->Dashboard Manager: createTeam(battleid, teamInfo)
+Dashboard Manager->Battle Manager: createTeam(battleid, teamInfo)
+activate Battle Manager
+Battle Manager->Team Manager: createTeam(battleid, teamInfo)
+activate Team Manager
+Team Manager->Data Manager: createTeam(battleid, teamInfo)
+activate Data Manager
+Data Manager->DBMS: INSERT QUERY
+activate DBMS
+Data Manager<--DBMS: result
+deactivate DBMS
+alt 'result' shows error
+Team Manager<--Data Manager: null
+Battle Manager<-- Team Manager: null
+Dashboard Manager<--Battle Manager: null
+Dashboard Manager-->WebAppUI: null
+Student<--WebAppUI: show error
+
+else 
+Team Manager<--Data Manager: team
+deactivate Data Manager
+Battle Manager<-- Team Manager: team
+deactivate Team Manager
+Dashboard Manager<--Battle Manager: team
+deactivate Battle Manager
+Dashboard Manager-->WebAppUI: team
+Student<--WebAppUI: confirm team creation
+
+WebAppUI->WebAppUI: showInviteToTeamForm()
+
+loop for each ST to invite
+Student->WebAppUI: inviteStudentToTeam()
+WebAppUI->Dashboard Manager: inviteStudentToTeam(username, teamid)
+Dashboard Manager->Team Manager:inviteStudentToTeam(username, teamid)
+activate Team Manager
+Team Manager->Notification Service: inviteStudentToTeam(username, teamid)
+activate Notification Service
+
+alt invite is successful
+Team Manager<--Notification Service: True
+Dashboard Manager<--Team Manager: True
+WebAppUI<--Dashboard Manager: True
+Student<--WebAppUI: confirm successful invite
+
+else 
+Team Manager<--Notification Service: False
+deactivate Notification Service
+Dashboard Manager<--Team Manager: False
+deactivate Team Manager
+WebAppUI<--Dashboard Manager: False
+deactivate Dashboard Manager
+Student<--WebAppUI: show failed invite 
+deactivate WebAppUI
+deactivate Student
+end 
+
+end
+
+end
+
+end

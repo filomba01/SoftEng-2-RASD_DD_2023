@@ -1,0 +1,59 @@
+actor Student
+participant WebAppUI
+participant Dashboard Manager
+participant Battle Manager
+participant Team Manager
+participant Data Manager
+activate Student
+activate WebAppUI
+activate Dashboard Manager
+alt ST wants to join an existing public T
+Student->WebAppUI: joinExistingTeam()
+#Student->WebAppUI: showTeams()
+WebAppUI->Dashboard Manager: getTeams(battleid)
+Dashboard Manager->Team Manager: getTeams(battleid)
+activate Team Manager
+Team Manager->Data Manager: getTeams(battleid)
+activate Data Manager
+Data Manager->DBMS: SELECT QUERY
+activate DBMS
+Data Manager<--DBMS: teams
+deactivate DBMS
+Team Manager<--Data Manager: teams
+deactivate Data Manager
+Dashboard Manager<--Team Manager: teams
+deactivate Team Manager
+WebAppUI<--Dashboard Manager: teams
+Student<--WebAppUI: show available teams
+
+alt at least 1 team available
+Student->WebAppUI: selectTeamToJoin()
+WebAppUI->Dashboard Manager: joinTeam(username, teamid)
+Dashboard Manager->Team Manager: addStudentToTeam(username, teamid)
+activate Team Manager
+
+Team Manager->Data Manager: addStudentToTeam(username, teamid)
+activate Data Manager
+Data Manager->DBMS: INSERT QUERY
+activate DBMS
+Data Manager<--DBMS: result
+deactivate DBMS
+alt result shows error
+Team Manager<--Data Manager: False
+Dashboard Manager<--Team Manager: False
+WebAppUI<--Dashboard Manager: False
+Student<--WebAppUI: show team join error
+
+else 
+Team Manager<--Data Manager: True
+deactivate Data Manager
+Dashboard Manager<--Team Manager: True
+deactivate Team Manager
+WebAppUI<--Dashboard Manager: True
+deactivate Dashboard Manager
+Student<--WebAppUI: confirm team join
+deactivate WebAppUI
+deactivate Student
+end
+end 
+end

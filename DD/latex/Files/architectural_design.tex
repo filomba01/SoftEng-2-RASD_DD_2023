@@ -3,7 +3,35 @@
 
 \section{Component view}
 \label{s:component-view}%
+\subsection*{Client}
+\begin{itemize}
+  \item \textbf{WebAppUI}: represents the web application, which is reachable by any browser and usable only after a user has been authenticated using the \textbf{\textit{AuthInterface}}. It allows both STs and EDs to perform a certain set of actions based on the type of user by using the \textbf{\textit{DashboardInterface}}
+\end{itemize}
+\subsection*{Server}
+\begin{itemize}
+  \item \textbf{AuthenticationService}: provides the set of procedures required to handle the authentication of a user into the system (i.e., login, registration)
+  \item \textbf{DashboardManager}: used as an intermediary between the \textit{WebAppUI} and the other components of the server to provide the web application only the functionality strictly necessary for it to work properly.
+  \item \textbf{CompetitionManager}: handler of all functionalities regarding competitions (for both STs and EDs) excluding badges, which management has been delegated to the \textit{BadgeMonitor} component
+  \item \textbf{Battle Manager}: same as the \textit{CompetitionManager} but transposed to handle battles. Delegates the team creation/deletion to the \textit{TeamManager}
+  \item \textbf{TeamManager}: used to manage the teams used by the STs to participate to battles, it also includes the invite handling
+  \item \textbf{BadgeManager}: its purpose is to deal with badges, create/remove a badge with its related rule, and perform checks to verify if a ST enrolled in a competition satisfies any badge rule defined in such competition
+  \item \textbf{NotificationService}: its main goal is to implement procedures to send various types of notifications to the application's users; to send such notifications (mails) it uses the \textbf{\textit{MailAPI}} provided by the \textit{MailServer}
+  \item \textbf{DataManager}: mediator between the model components and the \textit{DBMS}; it uses the procedures provided by the \textbf{\textit{DBMS\_API}} to implement a set of functions, which have the sole purpose of manipulating the database or retrieving information from it
+  \item \textbf{EvaluatorController}: it is called through the \textbf{\textit{EvaluationAPI}} by \textit{GitHub Actions} on each commit performed by a team. Its purpose is to control the evaluation process by calling the \textit{StaticAnalyzer} and the \textit{CodeEvaluator} to perform the proper checks on the last committed code. Moreover, it uses the functions provided by the \textbf{\textit{EvaluatorInterface}}, \textbf{\textit{AnalyzerInterface}}, \textbf{\textit{ScoreInterface}} to change the configuration of the code evaluator and the static analyzer, with the last interface it sets the score functions used by the \textit{PointManager}
+  \item \textbf{CodeEvaluator}: used to execute the source code of a team's repository with the set of test cases provided by the EDs of the current battle. It exposes the \textbf{\textit{EvaluatorInterface}} to be used to configure the evaluator for instance in terms of test cases or maximum execution time
+  \item \textbf{StaticAnalyzer}: provides the \textbf{\textit{AnalyzerInterface}} to configure the static analyzer, which will be used to analyze some input code. Such analysis will return some results, which can be sent to the \textit{PointManager} through the proper interface still provided by the PointManager (this holds also for the \textit{CodeEvaluator})
+  \item \textbf{PointManager}: as the name suggests, it manages the points assignment. In particular it provides two interfaces that are used by the \textit{StaticAnalyzer} and the \textit{CodeEvaluator} to send the results of their analysis. Such results are put in a score function designed by the EDs to compute the partial score of a single analysis; once the \textit{PointManager} computes the score of both the evaluations (static analysis and code evaluation) it updates the final score of the team in the database
 
+\end{itemize}
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=\textwidth, keepaspectratio]{ComponentDiagramLow.png}
+    \caption{Component diagram low level}
+    \label{fig:component_diagram_low}
+  \end{center}
+ 
+\end{figure}
 \section{Deployment view}
 \label{s:deployment-view}%
 
@@ -77,6 +105,45 @@ If the battle is successfully created, the system will send a notification, thro
   \caption{Create battle sequence diagram}
   \label{fig:create_battle_diagramn}
 \end{figure}
+
+%9
+\subsection*{ST Joins Battle}
+To be able to join a battle, a \textit{ST} must be enrolled in a competition and in such competition there has to be at least 1 battle available (subscription deadline not expired). Assuming all those things, when a ST wants to join a battle, he/she has two options: create a team (with the possibility, if enabled by the EDs of the battle, to be a singleton) or to join an already existing team. In the first case the ST has to provide the system all the information needed for the team registration, and if the team has been created correctly he/she can invite other STs to join his/her team (if the ST, owner of the team, wants to participate alone he/she must skip the invite part). In the latter case instead, the ST looks at the list of existing and available teams and if he/she wants to join one of those team they can simply click on the join button. \\ \\
+Since the sequence diagram below was pretty long we decided to split it in two so that it was easier to read it; this means that the two following diagrams are to be understood as consecutive (the [\textit{alt 'ST wants to join an existing public T'}] fragment, in the second part of the diagram, is the [\textit{else}] of the [\textit{alt 'ST selects to create a new T'}] fragment in the first part of the diagram)
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth,height=0.83\textheight, keepaspectratio]{SequenceDiagrams/09.1-StudentJoinsBattle.png}
+  \caption{Create battle sequence diagram}
+  \label{fig:st_joins_battle_1}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth, keepaspectratio]{SequenceDiagrams/09.2-StudentJoinsBattle.png}
+  \caption{Create battle sequence diagram}
+  \label{fig:st_joins_battle_2}
+\end{figure}
+
+%10
+\subsection*{User Visualizes battle Rankings}
+Assuming that a User (ST or ED) is enrolled firstly in a competition and secondly subscribed to a battle that is still ongoing, such User can see the partial leaderboard of the battle. The sequence diagram below describe exactly this process, starting from the page of the competition. 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth,height=0.75\textheight, keepaspectratio]{SequenceDiagrams/10-BattleRankingVisualization.png}
+  \caption{Create battle sequence diagram}
+  \label{fig:user_visualize_rankings}
+\end{figure}
+
+%11
+\subsection*{ED Evaluates Code}
+
+%12
+\subsection*{ST Accepts invite}
+
+%13
+\subsection*{ST Visualizes other ST Profile}
 
 \section{Component interfaces}
 \label{s:component-interfaces}%
