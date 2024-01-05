@@ -49,6 +49,7 @@ and the \textit{Badge Manager} and the will be implemented and tested in paralle
 \end{figure}
 \pagebreak
 
+Last but not least, the \textit{Dashboard Manager} will be implemented and tested, a \textit{Driver} will be used to simulate the behavior of the \textit{WebAppUI}.
 \begin{figure}[H]
     \label{fig:step5-CKBServer}
     \centering
@@ -58,21 +59,23 @@ and the \textit{Badge Manager} and the will be implemented and tested in paralle
 \pagebreak
 
 \subsubsection{Evaluation Server}
-
+For the implementation of the \textit{Evaluation Server}, that can be implement and tested in parallel with the \textit{CKB Server}, we will start with the \textit{Point Manager}, we will use a \textit{stub} that simulate the usage of the \textit{Data Manager} and with a \textit{driver} that simulate both \textit{Code Evaluator}, \textit{Static Analyzer}.
 \begin{figure}[H]
     \label{fig:step1-EvaluationServer}
     \centering
     \includegraphics[height=0.5\textheight]{ImplementationStrategy/2_01-EvaluationServer.png}
     \caption{Step 1 - Evaluation Server}
 \end{figure}
-
+\pagebreak
+Once finished with the \textit{Evaluation Server}, the implementation and testing will focus on both the \textit{Code Evaluator} and the \textit{Static Analyzer}, a \textit{driver} will be used to simulate the \texit{Evaluation Controller}
 \begin{figure}[H]
     \label{fig:step2-EvaluationServer}
     \centering
     \includegraphics[height=0.5\textheight]{ImplementationStrategy/2_02-EvaluationServer.png}
     \caption{Step 2 - Evaluation Server}
 \end{figure}
-
+\pagebreak
+For the last step, the \textit{Evaluation Contoller} will be tested and implemented, a \textit{driver} will simulate the \textit{github actions}
 \begin{figure}[H]
     \label{fig:step3-EvaluationServer}
     \centering
