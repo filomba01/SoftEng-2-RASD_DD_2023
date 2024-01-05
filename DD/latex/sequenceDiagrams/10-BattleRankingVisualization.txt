@@ -1,4 +1,3 @@
-title ST visualizes the ranking of their T
 actor Student
 
 Student->WebAppUI: showEnrolledBattlesInComp()
