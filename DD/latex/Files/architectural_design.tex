@@ -114,21 +114,22 @@ If the battle is successfully created, the system will send a notification, thro
 
 %9
 \subsection*{ST Joins Battle}
-To be able to join a battle, a \textit{ST} must be enrolled in a competition and in such competition there has to be at least 1 battle available (subscription deadline not expired). Assuming all those things, when a ST wants to join a battle, he/she has two options: create a team (with the possibility, if enabled by the EDs of the battle, to be a singleton) or to join an already existing team. In the first case the ST has to provide the system all the information needed for the team registration, and if the team has been created correctly he/she can invite other STs to join his/her team (if the ST, owner of the team, wants to participate alone he/she must skip the invite part). In the latter case instead, the ST looks at the list of existing and available teams and if he/she wants to join one of those team they can simply click on the join button. \\ \\
+To be able to join a battle, a \textit{ST} must be enrolled in a competition and in such competition there has to be at least 1 battle available (subscription deadline not expired). Assuming all those things, when a ST wants to join a battle, he/she has two options: create a team (with the possibility, if enabled by the EDs of the battle, to be a singleton) or to join an already existing team. In the first case the ST has to provide the system all the information needed for the team registration, and if the team has been created correctly he/she can invite other STs to join his/her team (if the ST, owner of the team, wants to participate alone he/she must skip the invite part). In the latter case instead, the ST looks at the list of existing and available teams and if he/she wants to join one of those team they can simply click on the join button.
+
 Since the sequence diagram below was pretty long we decided to split it in two so that it was easier to read it; this means that the two following diagrams are to be understood as consecutive (the [\textit{alt 'ST wants to join an existing public T'}] fragment, in the second part of the diagram, is the [\textit{else}] of the [\textit{alt 'ST selects to create a new T'}] fragment in the first part of the diagram)
 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth,height=0.83\textheight, keepaspectratio]{SequenceDiagrams/09.1-StudentJoinsBattle.png}
-  \caption{Create battle sequence diagram}
+  \includegraphics[width=\textwidth,height=\textheight, keepaspectratio]{SequenceDiagrams/09.1-StudentJoinsBattle.png}
+  \caption{ST joins battle sequence diagram - Part 1}
   \label{fig:st_joins_battle_1}
 \end{figure}
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth, keepaspectratio]{SequenceDiagrams/09.2-StudentJoinsBattle.png}
-  \caption{Create battle sequence diagram}
+  \caption{ST joins battle sequence diagram - Part 2}
   \label{fig:st_joins_battle_2}
 \end{figure}
 
@@ -170,7 +171,7 @@ Assuming that a User (ST or ED) is enrolled firstly in a competition and secondl
     \item \texttt{bool validateNewUser(info:UserInfo)}%x
     \item \texttt{User getUser(username:String)}%x
 \end{itemize}
-getCompeti
+
 \subsubsection{CompetitionDAOInterface}
 \begin{itemize}
     \item \texttt{bool createCompetition(info:CompetitionInfo)}
@@ -187,7 +188,7 @@ getCompeti
     \item \texttt{List<Battle> searchBattleInCompetition(competitionId:String)}%x
     \item \texttt{Battle showBattle(battleName:String)}
     \item \texttt{List<Team> getBattleRankings(battleid: String)}
-    \item \texttt{bool insertBattleConfiguration(battleConfiguration:BattleConfiguration, battleName:String,\\educatorId:String)}%x
+    \item \texttt{bool insertBattleConfiguration(battleConfiguration:BattleConfiguration,\\battleName:String,educatorId:String)}%x
 \end{itemize}
 
 \subsubsection{UserDAOInterface}
@@ -244,7 +245,7 @@ getCompeti
     %@toCheck
     \item \texttt{Battle getBattle(competitionid: String, battleId: String)}
     %\item \texttt{bool insertSATConfiguration(satConfiguration:SatConfiguration,\\battleName:String,educatorId:String)}%x
-    \item \texttt{bool insertBattleConfiguration(battleConfiguration:BattleConfiguration, battleName:String,\\educatorId:String)}%x
+    \item \texttt{bool insertBattleConfiguration(battleConfiguration:BattleConfiguration, \\battleName:String,educatorId:String)}%x
     \item \texttt{bool inviteStudentToTeam(username: String, teamid: String)}%x
     \item \texttt{List<Team> getTeams(battleid: String)}%x
     \item \texttt{bool joinTeam(username: String,teamid: String)}%x
@@ -293,7 +294,7 @@ getCompeti
 \subsection{BattleManager}
 \subsubsection{BattleInterface}
 \begin{itemize}
-    \item \texttt{bool createBattle(competitionName:String, battleInfo:BattleInfo, educatorId:String)}
+    \item \texttt{bool createBattle(competitionName:String, battleInfo:BattleInfo,\\ educatorId:String)}
     \item \texttt{Team createTeam(battleId:String, teamInfo:TeamInfo)}%x
     \item \texttt{bool removeTeam(teamId:String)}
     \item \texttt{List<Battle> searchBattle(battleInfo:BattleInfo)}
@@ -301,7 +302,7 @@ getCompeti
     \item \texttt{Battle showBattle(battleName:String)}
     \item \texttt{bool deleteBattle(battleName:String)}
     %\item \texttt{insertSATConfiguration(satConfiguration,battleName,educatorId)}
-    \item \texttt{bool insertBattleConfiguration(battleConfiguration:BattleConfiguration, battleName:String,\\educatorId:String)}%x
+    \item \texttt{bool insertBattleConfiguration(battleConfiguration:BattleConfiguration, \\battleName:String,educatorId:String)}%x
     \item \texttt{List<Team> getRankings(battleid: String)}
 \end{itemize}
 
