@@ -25,7 +25,7 @@
 \end{itemize}
 
 \begin{figure}[H]
-    \label{fig:deployment-view}
+    \label{fig:component-view}
     \centering
     \includegraphics[width=\textwidth, keepaspectratio]{ArchitecturalDesign/componentView.png}
     \caption{Deployment view}
@@ -35,13 +35,24 @@
 \section{Deployment view}
 \label{s:deployment-view}%
 
+The following diagram shows the deployment view of the system. It illustrates the distribution of the components of the system on the different nodes and how they communicate bewteen them. The system is composed by four tiers: the client tier, the application tier, the data tier and the evaluation tier. The client tier is composed by the web browser, which is used by the users to access the application. The application tier is composed by the application servers, which are used to handle the requests from the users and to communicate with the database and with the evaluation servers. The data tier is composed by the database, which is used to store the data of the application. The evaluation tier is composed by the evaluation servers, which include both the static analyzer and the code evaluator.
+
 \begin{figure}[H]
     \label{fig:deployment-view}
     \centering
     \includegraphics[width=\textwidth]{ArchitecturalDesign/deploymentView.png}
     \caption{Deployment view}
 \end{figure}
-\newpage
+
+
+\subsection{Load Balancing}
+Since the CKB will be potentially have a lot of concurrent users, we decided to use a load balancer to distribute the load among multiple servers. This allows us to have a more scalable application, because we can add more servers to the system to handle the increasing load.
+
+A load balacing is also applied for the Evaluation Servers to handle the queue of the new commits to evaluate.
+
+\subsection{Firewall}
+To protect the application from external attacks, we decided to use multiple firewall to filter the traffic. In particular, we have a firewall between the client and the load balancer, a firewall between the application servers and the load balancer before the Evaluation Server and a firewall between the application servers and the database. This allows us to have a more secure application, because the firewall will filter the traffic before it reaches the different components of the system.
+
 
 \section{Runtime view}
 \label{s:runtime-view}%
@@ -145,12 +156,36 @@ Assuming that a User (ST or ED) is enrolled firstly in a competition and secondl
 
 %11
 \subsection*{ED Evaluates Code}
+An ED can select a T from the list of teams participating to a battle and evaluate its last commit. In particular the ED after selecting the team, he/she can visualize some brief information about the latest commit of the T, from the visualization is possible to navigate to the Github page of the commit. After reviewing the code on Github the ED can return to the CKB page and insert the evaluation of the commit. The process is handled by the \textit{Team Manager} component, which interacts with the \textit{Data Manager} component to insert the evaluation into the DBMS.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth,height=0.7\textheight, keepaspectratio]{SequenceDiagrams/11-EdEvaluatesCode.png}
+  \caption{ED evaluates code sequence diagram}
+  \label{fig:ed_evaluates_code}
+\end{figure}
 
 %12
 \subsection*{ST Accepts invite}
+When a ST clicks on the link in the email received from the system, he/she will be added to the T. The \textit{Team Manager} component will handle the request and will insert the ST into the DBMS using the \textit{Data Manager} component. In case the invitation link is expired, the system will show an error message to the user.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth,height=\textheight, keepaspectratio]{SequenceDiagrams/12-StAcceptInvite.png}
+  \caption{ST accepts invite sequence diagram}
+  \label{fig:st_accepts_invite}
+\end{figure}
 
 %13
 \subsection*{ST Visualizes other ST Profile}
+STs can visualize the profile of other STs. The ST can search for a specific ST using its username, the system will show the list of the corresponding STs and the ST can select one of them to visualize its profile. In the profile page the ST can see some information about the ST and the list of the badges that he/she has earned. The \textit{Dashboard Manager} component will handle the request and will retrieve the information from the DBMS using the \textit{Data Manager} component.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth,height=\textheight, keepaspectratio]{SequenceDiagrams/13-StudentVisualizeSTprofile.png}
+  \caption{ST visualizes other ST profile sequence diagram}
+  \label{fig:st_visualizes_other_st_profile}
+\end{figure}
 
 \section{Component interfaces}
 \label{s:component-interfaces}%
@@ -386,10 +421,27 @@ Assuming that a User (ST or ED) is enrolled firstly in a competition and secondl
     \item \texttt{void setStatAnalysisScoreFunction(conf: StatScoreFunction)}
 \end{itemize}
 
-
+\newpage
 
 \section{Selected architectural styles and patterns}
 \label{s:selected-architectural-styles-and-patterns}%
 
+\subsection{Client-Server}
+Since the CKB is a platform offered through the web, the client-server architecture is the most suitable for this kind of application. In particular we are using a 3-tier architecture, where the client is the web browser, the server is the application server and the database is the data server. This architecture is the most suitable for our application because it allows us to separate the presentation layer from the business logic and the data layer. Moreover, this separation allows us to have a more maintainable and scalable application.
+
+\subsection{REST}
+The communication between the client and the server is based on the REST architectural style. The REST architectural style is stateless, this means that the server does not need to store any information about the client session, this allows us to have a more scalable application. Moreover, in combination with the HTTP protocol, it allows us to provide a uniform interface to the client, which is based on the HTTP methods (GET, POST, PUT, DELETE).
+
+\subsection{MVC}
+The MVC pattern is used to separate the presentation layer from the business logic. In particular, the \textit{Model} is represented by the \textit{Data Manager} component, the \textit{View} is represented by the \textit{WebAppUI} component and the \textit{Controller} is represented by all the other \textit{Managers} component. This pattern allows us to have a more maintainable application, because the changes in one layer do not affect the other layers.
+
+
 \section{Other design decisions}
 \label{s:other-design-decisions}%
+
+\subsection{SandBox}
+To protect the application from malicious code, we decided to use a sandbox. In particular, the code evaluator and the static analyzer will be executed in a sandbox. This allows us to have a more secure application, because the code will be executed in a controlled environment.
+
+
+\subsection{Database}
+We decided to use a relational database to store the data of the application given its structure. In particular, we decided to use PostgreSQL, because it is an open source database and it is one of the most used relational database. Moreover, it is ACID compliant, this means that it guarantees the atomicity, consistency, isolation and durability of the transactions.
