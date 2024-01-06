@@ -51,9 +51,9 @@ This section contains the sequence diagrams of the most important operations of 
 \label{ss:registration_diagram}%
 When a user wants to register to the system, he/she has to fill in the registration form and submit it. The difference between a ST and an ED is in the information passed with \textit{UserInfo} object, where the ED has to insert also the information about the institution he/she works for.
 
-The whole process is mainly handled by the \textit{Authentication Manager} component, that interact with the \textit{Data Manager} component to validate the information and insert the new user into the DBMS.
+The whole process is mainly handled by the \textit{Authentication Service} component, that interact with the \textit{Data Manager} component to validate the information and insert the new user into the DBMS.
 
-The system will check if the information inserted are valid and if the user is not already registered. This check is done internally from CKB and if the information are valid and the user is not already registered, the system will insert it into the DBMS and sends an email to the user with a link to confirm the registration, using the \textit{Notification Manager} component. The user will click on the link and the \textit{Authentication Manager} will confirm the registration.
+The system will check if the information inserted are valid and if the user is not already registered. This check is done internally from CKB and if the information are valid and the user is not already registered, the system will insert it into the DBMS and sends an email to the user with a link to confirm the registration, using the \textit{Notification Manager} component. The user will click on the link and the \textit{Authentication Service} will confirm the registration.
 
 If the information inserted are not valid, the user is already registered or the confirmation link is expired, the system will send an error message to the user.
 
@@ -66,7 +66,7 @@ If the information inserted are not valid, the user is already registered or the
 
 \subsubsection*{User Login}
 \label{ss:login_diagram}%
-When a user wants to login to the system, he/she has to fill in the login form and submit it. This process is equal for both the ST and the ED. As the User Registration, the whole process is handled by the \textit{Authentication Manager} component, that interact with the \textit{Data Manager} component to validate the information. Once the user is logged in, the \textit{Authentication Manager} will generate a token for the user, send it to the client and the user can finally access the dashboard.
+When a user wants to login to the system, he/she has to fill in the login form and submit it. This process is equal for both the ST and the ED. As the User Registration, the whole process is handled by the \textit{Authentication Service} component, that interact with the \textit{Data Manager} component to validate the information. Once the user is logged in, the \textit{Authentication Service} will generate a token for the user, send it to the client and the user can finally access the dashboard.
 
 If the login information are not valid, the system will show an error message to the user.
 
@@ -158,43 +158,45 @@ Assuming that a User (ST or ED) is enrolled firstly in a competition and secondl
 \subsection{Authentication Service}
 \subsubsection{AuthInterface}
 \begin{itemize}
-    \item \texttt{User login(username:String,password:String)}
-    \item \texttt{bool register(info:UserInfo)}
+    \item \texttt{User login(username:String,password:String)}%x
+    \item \texttt{bool register(info:UserInfo)} %x
 \end{itemize}
 
 \subsection{Data Manager}
 \subsubsection{AuthDAOInterface}
 \begin{itemize}
-    \item \texttt{bool addUser(info: UserInfo)}
-    \item \texttt{bool checkCredential(username:String,password:String)}
-    \item \texttt{bool validateNewUser(info:UserInfo)}
-    \item \texttt{User getUser(username:String)}
+    \item \texttt{bool addUser(info: UserInfo)}%x
+    \item \texttt{bool checkCredential(username:String,password:String)}%x
+    \item \texttt{bool validateNewUser(info:UserInfo)}%x
+    \item \texttt{User getUser(username:String)}%x
 \end{itemize}
-
+getCompeti
 \subsubsection{CompetitionDAOInterface}
 \begin{itemize}
     \item \texttt{bool createCompetition(info:CompetitionInfo)}
     \item \texttt{bool addStudentToCompetition(competitionName:String, studentUsername:String)}
-    \item \texttt{bool checkEdCanbeInvited(competitionName:String,educatorId:String)}
-    \item \texttt{CompetitionInfo getCompetition(name:String)}
+    \item \texttt{bool checkEdCanbeInvited(competitionName:String,educatorId:String)}%x
+    \item \texttt{Competition getCompetition(name:String)}%x
     \item \texttt{List<Team> getCompRankings(competitionid: String)}
 \end{itemize}
 
 \subsubsection{BattleDAOInterface}
 \begin{itemize}
-    \item \texttt{bool createBattle(competitionName:String, battleInfo:BattleInfo, educatorId:String)}
+    \item \texttt{bool createBattle(competitionName:String, battleInfo:BattleInfo,\\educatorId:String)}%x
     \item \texttt{Set<Battle> searchBattle(battleInfo:BattleInfo)}
+    \item \texttt{List<Battle> searchBattleInCompetition(competitionId:String)}%x
     \item \texttt{Battle showBattle(battleName:String)}
     \item \texttt{List<Team> getBattleRankings(battleid: String)}
+    \item \texttt{bool insertBattleConfiguration(battleConfiguration:BattleConfiguration, battleName:String,\\educatorId:String)}%x
 \end{itemize}
 
 \subsubsection{UserDAOInterface}
 \begin{itemize}
-    \item \texttt{Team createTeam(battleId:String, teamInfo:TeamInfo)}
+    \item \texttt{Team createTeam(battleId:String, teamInfo:TeamInfo)}%x
     \item \texttt{bool removeTeam(teamId:String)}
-    \item \texttt{bool addStudentToTeam(username:String,teamId:String)}
-    \item \texttt{bool setManualEvaluation(educatorId:String,commitId:String,evaluation: Evaluation)}
-    \item \texttt{Team getTeams(battleid: String)}
+    \item \texttt{bool addStudentToTeam(username:String,teamId:String)}%x
+    \item \texttt{bool setManualEvaluation(educatorId:String,commitId:String,evaluation: Evaluation)}%x
+    \item \texttt{Team getTeams(battleid: String)}%x
 \end{itemize}
 
 \subsubsection{BadgeDAOInterface}
@@ -203,19 +205,19 @@ Assuming that a User (ST or ED) is enrolled firstly in a competition and secondl
     \item \texttt{BadgeRule getBadgeRule(badge: Badge)}
     \item \texttt{bool removeBadge(badge:Badge)}
     \item \texttt{bool assignBadge(username:String, badge:Badge)}
-    \item \texttt{Badge createBadge(educatorId:String,competitionId:String, badgeInfo:BadgeInfo)}
+    \item \texttt{bool createBadge(educatorId:String,competitionId:String, badgeInfo:BadgeInfo)}%x
 \end{itemize}
 
 \subsubsection{NotificationDAOInterface}
 \begin{itemize}
     \item \texttt{Set<Student> retrieveStudentsFromTeam(teamId:String)}
     \item \texttt{Set<User> retrieveUsersFromCompetition(competitionId:String)}
-    \item \texttt{Set<Student> retrieveStudentsFromCompetition(competitionId:String)}
+    \item \texttt{Set<Student> retrieveStudentsFromCompetition(competitionId:String)}%x
     \item \texttt{Set<Educator> retrieveEducatorsFromCompetition(competitionId:String)}
     \item \texttt{Set<User> retrieveUsersFromBattle(battleId:String)}
     \item \texttt{Set<Student> retrieveStudentsFromBattle(battleId:String)}
     \item \texttt{Set<Educator> retrieveEducatorsFromBattle(battleId:String)}
-    \item \texttt{Educator retrieveEducatorInfo(educatorId:String)}
+    \item \texttt{Educator retrieveEducatorInfo(educatorId:String)}%x
 \end{itemize}
 
 \subsubsection{PointsAPI}
@@ -225,59 +227,65 @@ Assuming that a User (ST or ED) is enrolled firstly in a competition and secondl
 
 \subsubsection{DashboardDAOInterface}
 \begin{itemize}
-    \item \texttt{List<Student> searchStudent(studentName:String)}
-    \item \texttt{Student showStudentProfile(username:String)}
+    \item \texttt{List<Student> searchStudent(studentName:String)}%x
+    \item \texttt{Student showStudentProfile(username:String)}%x
+    \item \texttt{CommitInfo getLastCommit(teamId: String)}%x
 \end{itemize}
 
 \subsection{Dashboard Manager}
 \subsubsection{DashboardInterface}
 \begin{itemize}
-    \item \texttt{DashboardInfo getDashboardInfo(User)}
-    \item \texttt{createCompetition(competitionInfo:CompetitionInfo)}
-    \item \texttt{bool createBattle(battleInfo:BattleInfo)}
-    \item \texttt{bool joinCompetition(competitionName:String, studentUsername:String)}
-    \item \texttt{CompetitionInfo showCompetition(name:String)}
-    \item \texttt{BattleInfo getBattles(competitionid: String)}
-    \item \texttt{BattleInfo getBattles(competitionid: String, battleInfo: BattleInfo)}
-    \item \texttt{bool insertSATConfiguration(satConfiguration,battleName,educatorId)}
-    \item \texttt{bool inviteStudentToTeam(username: String, teamid: String)}
-    \item \texttt{List<Team> getTeams(battleid: String)}
-    \item \texttt{bool joinTeam(teamid: String)}
+    \item \texttt{DashboardInfo getDashboardInfo(User)}%x
+    \item \texttt{createCompetition(competitionInfo:CompetitionInfo)}%x
+    \item \texttt{bool createBattle(battleInfo:BattleInfo,competitionName:String,\\educatorId:String)}%x
+    \item \texttt{bool joinCompetition(competitionName:String, studentUsername:String)}%x
+    \item \texttt{CompetitionInfo showCompetition(name:String)}%x
+    \item \texttt{List<Battle> getBattles(competitionid: String)}%x
+    %@toCheck
+    \item \texttt{Battle getBattle(competitionid: String, battleId: String)}
+    %\item \texttt{bool insertSATConfiguration(satConfiguration:SatConfiguration,\\battleName:String,educatorId:String)}%x
+    \item \texttt{bool insertBattleConfiguration(battleConfiguration:BattleConfiguration, battleName:String,\\educatorId:String)}%x
+    \item \texttt{bool inviteStudentToTeam(username: String, teamid: String)}%x
+    \item \texttt{List<Team> getTeams(battleid: String)}%x
+    \item \texttt{bool joinTeam(username: String,teamid: String)}%x
     \item \texttt{List<Team> getCompRankings(competitionid: String)}
     \item \texttt{List<Team> getBattleRankings(battleInfo: BattleInfo)}
-    \item \texttt{List<Student> searchStudent(studentName:String)}
-    \item \texttt{Student showStudentProfile(username:String)}
-    \item \texttt{CompetitionSetting showCompetitionSettings(educatorId:String,competitionId:String)}
-    \item \texttt{bool inviteED(educatorId:String,competitionId:String,invitedEducatorId:String)}
-    \item \texttt{Badge createBadge(educatorId:String,competitionName:String, badgeInfo: BadgeInfo)}
-    \item \texttt{CommitInfo getLastCommit(teamId: String)}
-    \item \texttt{bool acceptCompInvitation(username:String,competitionId:String)}
-    \item \texttt{bool acceptTeamInvitation(username:String,teamId:String)}
-    \item \texttt{Team createTeam(battleid: String, username: String)}
+    \item \texttt{List<Student> searchStudent(studentName:String)}%x
+    \item \texttt{Student showStudentProfile(username:String)}%x
+    \item \texttt{CompetitionSetting showCompetitionSettings(educatorId:String,\\competitionId:String)}%x
+    \item \texttt{BadgeCreation showBadgeCreation(educatorId:String,\\competitionId:String)}%x
+    \item \texttt{InviteEdPanel showInviteEd(educatorId:String,competitionId:String)}%x
+    \item \texttt{bool inviteED(educatorId:String,competitionId:String,invitedEducatorId:String)}%x
+    \item \texttt{bool createBadge(educatorId:String,competitionName:String, badgeInfo: BadgeInfo)}%x
+    \item \texttt{CommitInfo getLastCommit(teamId: String)}%x
+    \item \texttt{bool acceptInvitation(educatorId:String,competitionId:String)}%x
+    \item \texttt{bool acceptTeamInvitation(username:String,teamId:String)}%x
+    \item \texttt{Team createTeam(battleid: String, username: String)}%x
+    \item \texttt{bool evaluateCommit(commitId: String)}%x
 \end{itemize}
 
 \subsection{Competition Manager}
 \subsubsection{CompetitionInterface}
 \begin{itemize}
-    \item \texttt{bool createCompetition(info:CompetitionInfo)}
+    \item \texttt{Competition createCompetition(info:CompetitionInfo)}%x
     \item \texttt{Set<Competition> searchCompetition(info:CompetitionInfo)}
     \item \texttt{bool deleteCompetition(name:String)}
-    \item \texttt{CompetitionInfo showCompetition(name:String)}
-    \item \texttt{bool addManager(competitionName:String,username:String)}
+    \item \texttt{Competition getCompetition(name:String)}%x
+    \item \texttt{bool addManager(competitionName:String,username:String)}%x
     \item \texttt{bool removeManager(competitionName:String,username:String)}
     \item \texttt{bool endCompetition(competitionName:String)}
-    \item \texttt{bool joinCompetition(competitionName:String, studentUsername:String)}
-    \item \texttt{Badge createBadge(educatorId:String,competitionName:String, badgeInfo: BadgeInfo)}
+    \item \texttt{bool joinCompetition(competitionName:String, studentUsername:String)}%x
+    \item \texttt{bool createBadge(educatorId:String,competitionName:String, badgeInfo: BadgeInfo)}%x
     \item \texttt{bool removeBadge(badgeId:String)}
     \item \texttt{List<Team> getRankings(competitionid: String)}
-    \item \texttt{bool acceptInvitation(educatorId:String,competitionId:String)}
-    \item \texttt{bool inviteED(educatorId:String,competitionId:String,invitedEducatorId:String)}
+    \item \texttt{bool acceptInvitation(educatorId:String,competitionId:String)}%x
+    \item \texttt{bool inviteED(educatorId:String,competitionId:String,invitedEducatorId:String)}%x
 \end{itemize}
 
-\subsection{Badge Monitor}
+\subsection{Badge Manager}
 \subsubsection{BadgeInterface}
 \begin{itemize}
-    \item \texttt{bool createBadge(competitionName:String, badgeInfo: BadgeInfo)}
+    \item \texttt{bool createBadge(competitionName:String, badgeInfo: BadgeInfo)}%x
     \item \texttt{bool assignBadges(competitionName:String)}
     \item \texttt{bool removeBadge(badgeId:String)}
 \end{itemize}
@@ -286,12 +294,14 @@ Assuming that a User (ST or ED) is enrolled firstly in a competition and secondl
 \subsubsection{BattleInterface}
 \begin{itemize}
     \item \texttt{bool createBattle(competitionName:String, battleInfo:BattleInfo, educatorId:String)}
-    \item \texttt{Team createTeam(battleId:String, teamInfo:TeamInfo)}
+    \item \texttt{Team createTeam(battleId:String, teamInfo:TeamInfo)}%x
     \item \texttt{bool removeTeam(teamId:String)}
-    \item \texttt{Set<Battle> searchBattle(battleInfo:BattleInfo)}
+    \item \texttt{List<Battle> searchBattle(battleInfo:BattleInfo)}
+    \item \texttt{List<Battle> searchBattleInCompetition(competitionId:String)}%x
     \item \texttt{Battle showBattle(battleName:String)}
     \item \texttt{bool deleteBattle(battleName:String)}
-    \item \texttt{insertSATConfiguration(satConfiguration,battleName,educatorId)}
+    %\item \texttt{insertSATConfiguration(satConfiguration,battleName,educatorId)}
+    \item \texttt{bool insertBattleConfiguration(battleConfiguration:BattleConfiguration, battleName:String,\\educatorId:String)}%x
     \item \texttt{List<Team> getRankings(battleid: String)}
 \end{itemize}
 
@@ -300,26 +310,26 @@ Assuming that a User (ST or ED) is enrolled firstly in a competition and secondl
 \begin{itemize}
     \item \texttt{Team createTeam(battleId:String, teamInfo:TeamInfo)}
     \item \texttt{bool removeTeam(teamId:String)}
-    \item \texttt{Team getTeams(battleid: String)}
+    \item \texttt{Team getTeams(battleid: String)}%x
 \end{itemize}
 
 \subsubsection{TeamInterface}
 \begin{itemize}
-    \item \texttt{bool addStudentToTeam(username:String,teamId:String)}
-    \item \texttt{bool inviteStudentToTeam(username:String,teamId:String)}
-    \item \texttt{bool setManualEvaluation(educatorId:String,commitId:String,evaluation: Evaluation)}
+    \item \texttt{bool addStudentToTeam(username:String,teamId:String)}%x
+    \item \texttt{bool inviteStudentToTeam(username:String,teamId:String)}%x
+    \item \texttt{bool setManualEvaluation(educatorId:String,commitId:String,evaluation: Evaluation)}%x
 \end{itemize}
 
 
 \subsection{Notification Service}
 \subsubsection{InviteInterface}
 \begin{itemize}
-    \item \texttt{bool inviteStudentToTeam(username:String,teamId:String)}
+    \item \texttt{bool inviteStudentToTeam(username:String,teamId:String)}%x
 \end{itemize}
 
 \subsubsection{NotifyBattleInterface}
 \begin{itemize}
-    \item \texttt{bool notifyBattleCreation(battleId:String, competitionId:String)}
+    \item \texttt{bool notifyBattleCreation(battleId:String, competitionId:String)}%x
     \item \texttt{bool notifyStartedBattle(battleId:String,username:String)}
     \item \texttt{bool notifyEndBattle(battleId:String,username:String)}
     \item \texttt{bool notifyManageBattle(battleId:String,username:String)}
@@ -329,14 +339,13 @@ Assuming that a User (ST or ED) is enrolled firstly in a competition and secondl
 \begin{itemize}
     \item \texttt{bool notifyNewCompetion(competitionId:String,username:String)}
     \item \texttt{bool notifyNewBattle(competitionId:String, battleId:String,username:String)}
-    \item \texttt{bool notifyEdInvitation(competitionId:String,invitedEd:String)}
+    \item \texttt{bool notifyEdInvitation(competitionId:String,invitedEd:String)}%x
     \item \texttt{bool notifyManageCompetition(competitionId:String,username:String)}
-    \item \texttt{bool notifyNewBadge(competitionId:String,badgeId:String)}
 \end{itemize}
 
 \subsubsection{NotifyAuthInterface}
 \begin{itemize}
-    \item \texttt{bool NotifyUserRegistration(User)}
+    \item \texttt{bool NotifyUserRegistration(User)}%x
 \end{itemize}
 
 \subsection{Evaluator Controller}

@@ -24,7 +24,7 @@ alt success
 
 Data Manager-->Authentication Service:True
 deactivate Data Manager
-Authentication Service->Data Manager:getUserInfo(username)
+Authentication Service->Data Manager:getUser(username)
 activate Data Manager
 Data Manager->DBMS:SELECT QUERY
 activate DBMS

@@ -10,7 +10,7 @@ Student->WebAppUI:showCompetition(competitionName)
 activate WebAppUI
 WebAppUI->Dashboard Manager:showCompetition(competitionName)
 activate Dashboard Manager
-Dashboard Manager->Competion Manager:showCompetition(competitionName)
+Dashboard Manager->Competion Manager:getCompetition(competitionName)
 activate Competion Manager
 Competion Manager->Data Manager:getCompetition(competitionName)
 activate Data Manager
@@ -18,9 +18,9 @@ Data Manager->DBMS:SELECT QUERY
 activate DBMS
 DBMS-->Data Manager:RESULT
 deactivate DBMS
-Data Manager-->Competion Manager:CompetitionInfo
+Data Manager-->Competion Manager:Competition
 deactivate Data Manager
-Competion Manager-->Dashboard Manager:CompetitionInfo
+Competion Manager-->Dashboard Manager:Competition
 deactivate Competion Manager
 Dashboard Manager-->WebAppUI:CompetitionInfo
 deactivate Dashboard Manager

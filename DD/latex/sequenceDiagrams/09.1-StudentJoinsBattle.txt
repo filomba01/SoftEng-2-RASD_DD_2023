@@ -6,13 +6,13 @@ participant Team Manager
 participant Data Manager
 
 Student->WebAppUI: showBattlesInComp()
-activate Student
+#activate Student
 activate WebAppUI
 WebAppUI->Dashboard Manager:  getBattles(competitionid)
 activate Dashboard Manager
-Dashboard Manager->Battle Manager: searchBattle(battleInfo)
+Dashboard Manager->Battle Manager:searchBattleInCompetition(competitionId)
 activate Battle Manager
-Battle Manager->Data Manager: searchBattle(battleInfo)
+Battle Manager->Data Manager:searchBattleInCompetition(competitionId)
 activate Data Manager
 Data Manager->DBMS: SELECT QUERY
 activate DBMS
@@ -28,7 +28,7 @@ Student->WebAppUI: selectBattle()
 
 alt ST selects to create a new T
 Student->WebAppUI: participateAsTeam()
-WebAppUI->WebAppUI: showNewTeamForm()
+WebAppUI-->Student:showNewTeamForm()
 Student->WebAppUI: createTeam()
 WebAppUI->Dashboard Manager: createTeam(battleid, teamInfo)
 Dashboard Manager->Battle Manager: createTeam(battleid, teamInfo)
@@ -58,8 +58,8 @@ deactivate Battle Manager
 Dashboard Manager-->WebAppUI: team
 Student<--WebAppUI: confirm team creation
 
-WebAppUI->WebAppUI: showInviteToTeamForm()
 
+WebAppUI-->Student:showInviteToTeamForm()
 loop for each ST to invite
 Student->WebAppUI: inviteStudentToTeam()
 WebAppUI->Dashboard Manager: inviteStudentToTeam(username, teamid)
