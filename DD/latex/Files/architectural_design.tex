@@ -1,6 +1,12 @@
 \section{Overview: High-level components and their interaction}
 \label{s:overview}%
-
+Inside the CKB application we are describing in this document we can distinguish five high-level components: the \textbf{CKB server}, the \textbf{Evaluator Server}, the \textbf{DBMS}, the \textbf{Mail Server}, and the \textbf{WebAppUI}.
+The \textbf{CKB server} is the main component of our system and contains every piece of business logic required to satisfy the goals we specified in the RASD.
+The \textbf{Evaluator server} has the purpose to run some analysis on the code written by a team participating in battles, and to compute a score using the results of such analysis.
+Since these two servers need to interact with each other they expose some APIs to do just so. 
+The role of the \textbf{DBMS} is the usual one, interacting with a database by executing some operations on it (further information about the database is in the \textit{Other Design Decisions section} [\ref{ss:other-design-decisions-database}]).
+The \textbf{Mail Server} is used to send notifications by e-mail to the platform’s users. At last, the \textbf{WebAppUI} represents the web application from the client's perspective.
+\pagebreak
 \section{Component view}
 \label{s:component-view}%
 \subsection*{Client}
@@ -433,15 +439,17 @@ Since the CKB is a platform offered through the web, the client-server architect
 The communication between the client and the server is based on the REST architectural style. The REST architectural style is stateless, this means that the server does not need to store any information about the client session, this allows us to have a more scalable application. Moreover, in combination with the HTTP protocol, it allows us to provide a uniform interface to the client, which is based on the HTTP methods (GET, POST, PUT, DELETE).
 
 \subsection{MVC}
-The MVC pattern is used to separate the presentation layer from the business logic. In particular, the \textit{Model} is represented by the \textit{Data Manager} component, the \textit{View} is represented by the \textit{WebAppUI} component and the \textit{Controller} is represented by all the other \textit{Managers} component. This pattern allows us to have a more maintainable application, because the changes in one layer do not affect the other layers.
+The MVC pattern is used to separate the presentation layer from the business logic. In particular, the \textit{Model} contains the definition of all the elements of our application, the \textit{View} is represented by the \textit{WebAppUI} component and the \textit{Controller} is represented by all the other \textit{Managers} component. This pattern allows us to have a more maintainable application, because the changes in one layer do not affect the other layers.
 
 
 \section{Other design decisions}
 \label{s:other-design-decisions}%
 
 \subsection{SandBox}
+\label{ss:other-design-decisions-sandbox}%
 To protect the application from malicious code, we decided to use a sandbox. In particular, the code evaluator and the static analyzer will be executed in a sandbox. This allows us to have a more secure application, because the code will be executed in a controlled environment.
 
 
 \subsection{Database}
+\label{ss:other-design-decisions-database}%
 We decided to use a relational database to store the data of the application given its structure. In particular, we decided to use PostgreSQL, because it is an open source database and it is one of the most used relational database. Moreover, it is ACID compliant, this means that it guarantees the atomicity, consistency, isolation and durability of the transactions.
