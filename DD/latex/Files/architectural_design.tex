@@ -70,7 +70,8 @@ When a user wants to register to the system, he/she has to fill in the registrat
 
 The whole process is mainly handled by the \textit{Authentication Service} component, that interact with the \textit{Data Manager} component to validate the information and insert the new user into the DBMS.
 
-The system will check if the information inserted are valid and if the user is not already registered. This check is done internally from CKB and if the information are valid and the user is not already registered, the system will insert it into the DBMS and sends an email to the user with a link to confirm the registration, using the \textit{Notification Manager} component. The user will click on the link and the \textit{Authentication Service} will confirm the registration.
+The system will check if the information inserted are
+ valid and if the user is not already registered. This check is done internally from CKB and if the information are valid and the user is not already registered, the system will insert it into the DBMS and sends an email to the user with a link to confirm the registration, using the \textit{Notification Manager} component. The user will click on the link and the \textit{Authentication Service} will confirm the registration.
 
 If the information inserted are not valid, the user is already registered or the confirmation link is expired, the system will send an error message to the user.
 
@@ -219,7 +220,7 @@ STs can visualize the profile of other STs. The ST can search for a specific ST 
     \item \texttt{bool addStudentToCompetition(competitionName:String, studentUsername:String)}
     \item \texttt{bool checkEdCanbeInvited(competitionName:String, educatorId:String)}%x
     \item \texttt{Competition getCompetition(name:String)}%x
-    \item \texttt{List<Team> getCompRankings(competitionid:String)}
+    \item \texttt{List<Team> getCompRankings(competitionId:String)}
 \end{itemize}
 
 \subsubsection{BattleDAOInterface}
@@ -283,9 +284,9 @@ STs can visualize the profile of other STs. The ST can search for a specific ST 
     \item \texttt{bool createBattle(battleInfo:BattleInfo, competitionName:String,\\educatorId:String)}%x
     \item \texttt{bool joinCompetition(competitionName:String, studentUsername:String)}%x
     \item \texttt{CompetitionInfo showCompetition(name:String)}%x
-    \item \texttt{List<Battle> getBattles(competitionid:String)}%x
+    \item \texttt{List<Battle> getBattles(competitionId:String)}%x
     %@toCheck
-    \item \texttt{Battle getBattle(competitionid:String, battleId: String)}
+    \item \texttt{Battle getBattle(competitionId:String, battleId:String)}
     %\item \texttt{bool insertSATConfiguration(satConfiguration:SatConfiguration,\\battleName:String,educatorId:String)}%x
     \item \texttt{bool insertBattleConfiguration(battleConfiguration:BattleConfiguration, battleName:String, educatorId:String)}%x
     \item \texttt{bool inviteStudentToTeam(username:String, teamId:String)}%x
@@ -300,7 +301,7 @@ STs can visualize the profile of other STs. The ST can search for a specific ST 
     \item \texttt{BadgeCreation showBadgeCreation(educatorId:String, competitionId:String)}%x
     \item \texttt{InviteEdPanel showInviteEd(educatorId:String, competitionId:String)}%x
     \item \texttt{bool inviteED(educatorId:String, competitionId:String, invitedEducatorId:String)}%x
-    \item \texttt{bool createBadge(educatorId:String, competitionName:String, badgeInfo: BadgeInfo)}%x
+    \item \texttt{bool createBadge(educatorId:String, competitionName:String, \\badgeInfo:BadgeInfo)}%x
     \item \texttt{CommitInfo getLastCommit(teamId:String)}%x
     \item \texttt{bool acceptInvitation(educatorId:String, competitionId:String)}%x
     \item \texttt{bool acceptTeamInvitation(username:String, teamId:String)}%x
@@ -321,7 +322,7 @@ STs can visualize the profile of other STs. The ST can search for a specific ST 
     \item \texttt{bool joinCompetition(competitionName:String, studentUsername:String)}%x
     \item \texttt{bool createBadge(educatorId:String, competitionName:String,\\badgeInfo:BadgeInfo)}%x
     \item \texttt{bool removeBadge(badgeId:String)}
-    \item \texttt{List<Team> getRankings(competitionid:String)}
+    \item \texttt{List<Team> getRankings(competitionId:String)}
     \item \texttt{bool acceptInvitation(educatorId:String, competitionId:String)}%x
     \item \texttt{bool inviteED(educatorId:String, competitionId:String,\\invitedEducatorId:String)}%x
 \end{itemize}
@@ -410,7 +411,7 @@ STs can visualize the profile of other STs. The ST can search for a specific ST 
 \subsubsection{AnalyzerInterface}
 \begin{itemize}
     \item \texttt{bool evaluateCode(authorId:String, commitId:String, params:String)}
-    \item \texttt{void setConf(conf StatConfig)}
+    \item \texttt{void setConf(conf:StatConfig)}
 \end{itemize}
 
 \subsection{Point Manager}
