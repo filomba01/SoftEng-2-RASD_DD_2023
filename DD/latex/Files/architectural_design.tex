@@ -215,7 +215,7 @@ STs can visualize the profile of other STs. The ST can search for a specific ST 
 
 \subsubsection{CompetitionDAOInterface}
 \begin{itemize}
-    \item \texttt{bool createCompetition(info:CompetitionInfo)}
+    \item \texttt{Competition createCompetition(info:CompetitionInfo)}%x
     \item \texttt{bool addStudentToCompetition(competitionName:String, studentUsername:String)}
     \item \texttt{bool checkEdCanbeInvited(competitionName:String, educatorId:String)}%x
     \item \texttt{Competition getCompetition(name:String)}%x
@@ -228,7 +228,7 @@ STs can visualize the profile of other STs. The ST can search for a specific ST 
     \item \texttt{Set<Battle> searchBattle(battleInfo:BattleInfo)}
     \item \texttt{List<Battle> searchBattleInCompetition(competitionId:String)}%x
     \item \texttt{Battle showBattle(battleName:String)}
-    \item \texttt{List<Team> getBattleRankings(battleid:String)}
+    \item \texttt{List<Team> getBattleRankings(battleId:String)}
     \item \texttt{bool insertBattleConfiguration(battleConfiguration:BattleConfiguration,\\battleName:String, educatorId:String)}%x
 \end{itemize}
 
@@ -238,7 +238,8 @@ STs can visualize the profile of other STs. The ST can search for a specific ST 
     \item \texttt{bool removeTeam(teamId:String)}
     \item \texttt{bool addStudentToTeam(username:String, teamId:String)}%x
     \item \texttt{bool setManualEvaluation(educatorId:String, commitId:String,\\evaluation:Evaluation)}%x
-    \item \texttt{Team getTeams(battleid:String)}%x
+    \item \texttt{List<Team> getTeams(battleId:String)}%x
+    \item \texttt{Team getTeam(teamId:String)}%x
 \end{itemize}
 
 \subsubsection{BadgeDAOInterface}
@@ -278,7 +279,7 @@ STs can visualize the profile of other STs. The ST can search for a specific ST 
 \subsubsection{DashboardInterface}
 \begin{itemize}
     \item \texttt{DashboardInfo getDashboardInfo(user:String)}%x
-    \item \texttt{createCompetition(competitionInfo:CompetitionInfo)}%x
+    \item \texttt{Competition createCompetition(competitionInfo:CompetitionInfo)}%x
     \item \texttt{bool createBattle(battleInfo:BattleInfo, competitionName:String,\\educatorId:String)}%x
     \item \texttt{bool joinCompetition(competitionName:String, studentUsername:String)}%x
     \item \texttt{CompetitionInfo showCompetition(name:String)}%x
@@ -287,10 +288,11 @@ STs can visualize the profile of other STs. The ST can search for a specific ST 
     \item \texttt{Battle getBattle(competitionid:String, battleId: String)}
     %\item \texttt{bool insertSATConfiguration(satConfiguration:SatConfiguration,\\battleName:String,educatorId:String)}%x
     \item \texttt{bool insertBattleConfiguration(battleConfiguration:BattleConfiguration, battleName:String, educatorId:String)}%x
-    \item \texttt{bool inviteStudentToTeam(username:String, teamid:String)}%x
-    \item \texttt{List<Team> getTeams(battleid:String)}%x
-    \item \texttt{bool joinTeam(username:String, teamid:String)}%x
-    \item \texttt{List<Team> getCompRankings(competitionid:String)}
+    \item \texttt{bool inviteStudentToTeam(username:String, teamId:String)}%x
+    \item \texttt{List<Team> getTeams(battleId:String)}%x
+    \item \texttt{Team getTeam(teamId:String)}%x
+    \item \texttt{bool joinTeam(username:String, teamId:String)}%x
+    \item \texttt{List<Team> getCompRankings(competitionId:String)}
     \item \texttt{List<Team> getBattleRankings(battleInfo:BattleInfo)}
     \item \texttt{List<Student> searchStudent(studentName:String)}%x
     \item \texttt{Student showStudentProfile(username:String)}%x
@@ -302,7 +304,7 @@ STs can visualize the profile of other STs. The ST can search for a specific ST 
     \item \texttt{CommitInfo getLastCommit(teamId:String)}%x
     \item \texttt{bool acceptInvitation(educatorId:String, competitionId:String)}%x
     \item \texttt{bool acceptTeamInvitation(username:String, teamId:String)}%x
-    \item \texttt{Team createTeam(battleid:String, username:String)}%x
+    \item \texttt{Team createTeam(battleId:String, username:String)}%x
     \item \texttt{bool evaluateCommit(commitId:String)}%x
 \end{itemize}
 
@@ -344,7 +346,7 @@ STs can visualize the profile of other STs. The ST can search for a specific ST 
     \item \texttt{bool deleteBattle(battleName:String)}
     %\item \texttt{insertSATConfiguration(satConfiguration,battleName,educatorId)}
     \item \texttt{bool insertBattleConfiguration(battleConfiguration:BattleConfiguration, battleName:String, educatorId:String)}%x
-    \item \texttt{List<Team> getRankings(battleid:String)}
+    \item \texttt{List<Team> getRankings(battleId:String)}
 \end{itemize}
 
 \subsection{Team Manager}
@@ -352,7 +354,8 @@ STs can visualize the profile of other STs. The ST can search for a specific ST 
 \begin{itemize}
     \item \texttt{Team createTeam(battleId:String, teamInfo:TeamInfo)}
     \item \texttt{bool removeTeam(teamId:String)}
-    \item \texttt{Team getTeams(battleid:String)}%x
+    \item \texttt{Team getTeams(battleId:String)}%x
+    \item \texttt{Team getTeam(teamId:String)}%x
 \end{itemize}
 
 \subsubsection{TeamInterface}
